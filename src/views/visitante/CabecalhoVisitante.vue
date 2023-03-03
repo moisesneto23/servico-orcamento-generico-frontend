@@ -14,10 +14,10 @@ import Rotas from '@/router/Rotas';
 
   }
 })
-export default class NavegacaoVisitante extends Vue{
- private Login = Rotas.Visitante.Login;
- private CadastroEmpresa = Rotas.Visitante.CadastroEmpresa;
- private Sobre = Rotas.Visitante.Sobre;
+export default class CabecalhoVisitante extends Vue{
+ public Login = Rotas.Visitante.Login;
+ public CadastroEmpresa = Rotas.Visitante.CadastroEmpresa;
+ public Sobre = Rotas.Visitante.Sobre;
 }
 </script>
 

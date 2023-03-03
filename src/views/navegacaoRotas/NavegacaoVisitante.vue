@@ -1,18 +1,18 @@
 <template>
     <div >
-      <navegacao></navegacao>
+      <cabecalho-visitante></cabecalho-visitante>
        <router-view></router-view>
     </div>
 </template>
 <script lang='ts'>
 import { Vue, Component } from "vue-property-decorator";
-import Navegacao from '@/views/navegacao/NavegacaoVisitante.vue'
+import CabecalhoVisitante from '@/views/visitante/CabecalhoVisitante.vue'
 @Component({
   components:{
-    Navegacao,
+    CabecalhoVisitante,
   }
 })
-export default class Visitante extends Vue {
+export default class NavegacaoVisitante extends Vue {
 
 }
 </script>

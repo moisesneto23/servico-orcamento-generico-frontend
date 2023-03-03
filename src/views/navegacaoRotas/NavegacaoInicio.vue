@@ -17,7 +17,7 @@ import { Component, Vue, Prop } from 'vue-property-decorator';
     Cabecalho
   }
 })
-export default class Home extends Vue{
+export default class NavegacaoInicio extends Vue{
  
 };
 </script>

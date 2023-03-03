@@ -2,8 +2,8 @@ import Vue from "vue";
 import beforeEnter from "./beforeEnter";
 import beforeEach from './beaforeEach';
 import VueRouter, { RouteConfig } from "vue-router";
-import CadastroUsuario from "../views/visitante/CadastroUsuario.vue";
-import Sobre from "../views/visitante/Sobre.vue";
+import CadastroEmpresa from "@/views/visitante/CadastroEmpresa.vue";
+import Sobre from "@/views/visitante/Sobre.vue";
 import Login from "@/views/visitante/Login.vue";
 
 Vue.use(VueRouter);
@@ -13,7 +13,7 @@ const routes: Array<RouteConfig> = [
   {
     path: "/Home",
     name: "Visitante",
-    component: () => import("@/views/Visitante.vue"),
+    component: () => import("@/views/navegacaoRotas/NavegacaoVisitante.vue"),
     children: [
       {
         path: "/login",
@@ -23,7 +23,7 @@ const routes: Array<RouteConfig> = [
       {
         path: "/cadastro-empresa",
         name: "CadastroEmpresa",
-        component: CadastroUsuario,
+        component: CadastroEmpresa,
       },
       {
         path: "/sobre",
@@ -36,13 +36,23 @@ const routes: Array<RouteConfig> = [
   {
     path: "/",
     name: "Inicio",
-    component: () => import("../views/navegacao/NavegacaoInicio.vue"),
+    component: () => import("@/views/navegacaoRotas/NavegacaoInicio.vue"),
     children: 
     [
       {
         path: "/cadastro/itens",
         name: "CadastroItens",
-        component: () => import("@/views/navegacao/Inicio/CadastroItens.vue"),
+        component: () => import("@/views/Inicio/CadastroItens.vue"),
+      },
+      {
+        path: "/cadastro/produtos",
+        name: "CadastroProdutos",
+        component: () => import('@/views/Inicio/CadastroProdutos.vue'),
+      },
+      {
+        path: "/cadastro/orcamento",
+        name: "CadastroProdutos",
+        component: () => import('@/views/Inicio/CadastroOrcamento.vue'),
       },
     ],
     beforeEnter,

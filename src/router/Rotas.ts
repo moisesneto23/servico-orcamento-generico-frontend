@@ -7,8 +7,10 @@ export default class Rotas {
    };
    public static Inicio = '/';
    public static Cadastros = {
+      CadastroOrcamento: "/cadastro/orcamento",
       CadastroItens: '/cadastro/itens',
-      RealizaOrcamento: '/cadastro/orcamento'
+      CadastroProdutos: "/cadastro/produtos",
+      RealizaOrcamento: '/cadastro/orcamento',
    };
    public static Ajuda = '/ajuda';
 }

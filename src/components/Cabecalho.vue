@@ -38,6 +38,15 @@
             </v-list-item-content>
           </v-list-item>
 
+          <v-list-item :to="cadastroProdutos">
+            <v-list-item-icon>
+              <v-icon >mdi-shape-plus</v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title>Cadastro Produtos</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+
           <v-list-item :to="Ajuda">
             <v-list-item-icon>
               <v-icon >mdi-help</v-icon>
@@ -72,6 +81,7 @@ export default class Cabecalho extends Vue {
   public drawer = false;
   public group = null;
   public cadastroItens = Rotas.Cadastros.CadastroItens;
+  public cadastroProdutos = Rotas.Cadastros.CadastroProdutos;
   public Empresas: EmpresaModel[] = [];
   @Inject
   public empresaService!: EmpresaService;
