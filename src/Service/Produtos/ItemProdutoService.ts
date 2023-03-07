@@ -12,11 +12,11 @@ export default class ItemProdutoService {
         return await this._itemRepository.obterTodosItensProduto();
     }
 
-    public async salvarProduto(Produto:ItemProdutoModel): Promise<any> {
+    public async salvarItemProduto(Produto:ItemProdutoModel): Promise<any> {
          await this._itemRepository.salvarItemProduto(Produto);
     }
 
-    public async editarProduto(Produto:ItemProdutoModel): Promise<ItemProdutoModel> {
+    public async editarItemProduto(Produto:ItemProdutoModel): Promise<ItemProdutoModel> {
        return await this._itemRepository.editarItemProduto(Produto);
     }
     public async delete(id: number): Promise<any>{

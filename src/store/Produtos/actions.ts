@@ -106,14 +106,14 @@ const actions: ActionTree<ProdutoState, RootState> = {
 
   async [ProdutosActionTypes.SALVAR_ITEM_PRODUTO]({ commit }, produto: ItemProdutoModel) {
     const service = (Container.get(ItemProdutoService) as ItemProdutoService);
-    await service.salvarProduto(produto);
+    await service.salvarItemProduto(produto);
     const itensProduto = await service.obterTodosItensProduto();
     commit(ProdutosMutationTypes.SET_ITENS_PRODUTO, itensProduto);
   },
 
   async [ProdutosActionTypes.EDITAR_ITEM_PRODUTO]({ commit }, produto: ItemProdutoModel) {
     const service = (Container.get(ItemProdutoService) as ItemProdutoService);
-    await service.editarProduto(produto);
+    await service.editarItemProduto(produto);
     const itensProduto = await service.obterTodosItensProduto();
     commit(ProdutosMutationTypes.SET_ITENS_PRODUTO, itensProduto);
   },
