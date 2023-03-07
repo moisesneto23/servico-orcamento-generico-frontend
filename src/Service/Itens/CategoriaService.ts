@@ -1,4 +1,3 @@
-import  CategoriaRequest  from '@/Model/Request/CategoriaRequest';
 import  CategoriaModel  from '@/Model/Itens/CategoriaModel';
 import {CategoriaRepository} from '@/Repository/Itens/CategoriaRepository';
 import { Inject } from 'typescript-ioc';

@@ -5,6 +5,7 @@ import actions from './actions';
 import {state} from './state';
 import getters from './getters';
 import mutations from './mutations';
+import produto from './Produtos/index';
 
 export { StoreNamespaces } from '@/store/namespaces';
 
@@ -15,6 +16,7 @@ export class RootState {
 
 const modules = {
 item,
+produto,
 };
 
 const store = new Vuex.Store({
