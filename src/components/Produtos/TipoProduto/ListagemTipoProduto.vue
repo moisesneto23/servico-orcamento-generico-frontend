@@ -1,11 +1,11 @@
 <template>
   <v-expansion-panels focusable>
-    <v-expansion-panel v-for="tipo in tipos" :key="tipo.id">
-      <v-expansion-panel-header> <h2>  {{ tipo.descricao }}</h2> <h4>Categoria: {{ tipo.categoriaItem.descricao}} </h4> </v-expansion-panel-header>
+    <v-expansion-panel v-for="tipo in tiposProduto" :key="tipo.id">
+      <v-expansion-panel-header> <h2>  {{ tipo.descricao }}</h2> <h4>Categoria: {{ tipo.categoriaProduto.descricao}} </h4> </v-expansion-panel-header>
       <v-expansion-panel-content>
         <v-row>
            <v-col cols="6">
-            <edicao-tipo :tipo="tipo" @tipoAlterada="tipo=$event" ></edicao-tipo>
+            <edicao-tipo-produto :tipoProduto="tipo" ></edicao-tipo-produto>
            
             <h3 class="text-center">Editar</h3></v-col>
             
@@ -21,34 +21,34 @@
 <script lang="ts">
 
 import { Vue, Component } from "vue-property-decorator";
-import TipoModel from "@/Model/Itens/TipoModel";
-import EdicaoTipo from '@/components/Itens/Tipo/EdicaoTipo.vue'
+import EdicaoTipoProduto from '@/components/Produtos/TipoProduto/EdicaoTipoProduto.vue'
 import { StoreNamespaces } from "@/store";
-import { ItensActionTypes } from "@/store/Item/actions";
 import { namespace } from "vuex-class";
+import { ProdutosActionTypes } from "@/store/Produtos/actions";
+import TipoProdutoModel from "@/Model/Produtos/TipoProdutoModel";
 
-const item = namespace(StoreNamespaces.ITEM);
+const produto = namespace(StoreNamespaces.PRODUTO);
 @Component({
   components:{
-    EdicaoTipo,
+    EdicaoTipoProduto,
   }
 })
 export default class ListagemTipoProduto extends Vue {
   
-  @item.Action(ItensActionTypes.OBTER_TIPOS_ITEM)
-  public obterTodostipoItem!:() => Promise<any>;
+  @produto.Action(ProdutosActionTypes.OBTER_TIPOS_PRODUTO)
+  public obterTodostiposProduto!:() => Promise<any>;
 
-  @item.Action(ItensActionTypes.REMOVER_TIPO_ITEM)
-  public removerTipoItem!:(id: number) => Promise<any>;
+  @produto.Action(ProdutosActionTypes.REMOVER_TIPO_PRODUTO)
+  public removerTipoProduto!:(id: number) => Promise<any>;
 
-  @item.State
-  public tipos!: TipoModel;
+  @produto.State
+  public tiposProduto!: TipoProdutoModel[];
 
   public async mounted(){
-    await this.obterTodostipoItem();
+    await this.obterTodostiposProduto();
   }
  public async excluirTipo(id: number){
-    await this.removerTipoItem(id);
+    await this.removerTipoProduto(id);
  }
   
 }

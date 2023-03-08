@@ -16,16 +16,16 @@ export class TipoProdutoRepository {
     }
    
     public async obterTodosTiposProduto(): Promise<TipoProdutoModel[]> {
-        const result = await this.$http.get(`TipoProdutoModel/${this.idEmpresa}`);
+        const result = await this.$http.get(`TipoProduto/${this.idEmpresa}`);
         return result.data;
     }
 
     public async salvarTipoProduto(TipoProduto: TipoProdutoModel): Promise<any> {
-        const result = await this.$http.post('TipoProdutoModel', TipoProduto);
+        const result = await this.$http.post('TipoProduto', TipoProduto);
     }
 
     public async editarTipoProduto(TipoProduto: TipoProdutoModel): Promise<TipoProdutoModel> {
-        const result = await this.$http.patch('TipoProdutoModel', TipoProduto);
+        const result = await this.$http.patch('TipoProduto', TipoProduto);
         return result.data;
     }
     public async delete(id: any) : Promise<any>{

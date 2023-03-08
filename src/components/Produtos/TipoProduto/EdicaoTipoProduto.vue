@@ -44,31 +44,33 @@
 
 <script lang="ts">
 import { Vue, Component,Prop } from "vue-property-decorator";
-import TipoModel from "@/Model/Itens/TipoModel";
+
 import { StoreNamespaces } from "@/store";
 import { namespace } from "vuex-class";
 import { ItensActionTypes } from "@/store/Item/actions";
+import TipoProdutoModel from "@/Model/Produtos/TipoProdutoModel";
+import { ProdutosActionTypes } from "@/store/Produtos/actions";
 
-const item = namespace(StoreNamespaces.ITEM);
+const produto = namespace(StoreNamespaces.PRODUTO);
 
 @Component({})
 export default class EdicaoTipoProduto extends Vue {
   public dialog = false;
- @item.Action(ItensActionTypes.EDITAR_TIPO_ITEM)
-  public editaTipoItem!:(tipo: TipoModel) => Promise<any>;
+ @produto.Action(ProdutosActionTypes.EDITAR_TIPO_PRODUTO)
+  public editaTipoProduto!:(tipo: TipoProdutoModel) => Promise<any>;
   @Prop()
-  public tipoProduto!: TipoModel;
+  public tipoProduto!: TipoProdutoModel;
   public get exibeTipoProduto(){
     return this.tipoProduto;
   }
   
-  public processarEdicao(tipo: TipoModel){
-    this.editarTipoItem(tipo);
-    this.dialog = false;
+  public processarEdicao(tipo: TipoProdutoModel){
+    this.editarTipoProduto(tipo);
   }
 
-  private async editarTipoItem(tipo: TipoModel): Promise<any>{
-       await this.editaTipoItem(tipo).then(()=>{
+  private async editarTipoProduto(tipo: TipoProdutoModel): Promise<any>{
+       await this.editaTipoProduto(tipo).then(()=>{
+        this.dialog = false;
         });
   }
 }

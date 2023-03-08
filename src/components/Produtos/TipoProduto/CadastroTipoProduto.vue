@@ -59,38 +59,40 @@
 
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
-import CategoriaModel from '@/Model/Itens/CategoriaModel';
-import TipoModel from "@/Model/Itens/TipoModel";
+
 import TipoService from "@/Service/Itens/TipoService";
 import { Inject } from "typescript-ioc";
 import { StoreNamespaces } from "@/store";
 import { namespace } from "vuex-class";
 import { ItensActionTypes } from "@/store/Item/actions";
+import TipoProdutoModel from "@/Model/Produtos/TipoProdutoModel";
+import CategoriaProdutoModel from "@/Model/Produtos/CategoriaProdutoModel";
+import { ProdutosActionTypes } from "@/store/Produtos/actions";
 
-const item = namespace(StoreNamespaces.ITEM);
+const produto = namespace(StoreNamespaces.PRODUTO);
 @Component({})
 export default class CadastroTipoProduto extends Vue {
     @Inject
   public _tipoService!: TipoService;
-  public tipo= new TipoModel();
+  public tipo= new TipoProdutoModel();
   public dialogTipo = false;
 public select = '';
 private idSelect?: number;
 public selecuinaIdSelect(){
-  this.idSelect = this.categorias.find(x=>x.descricao == this.select)?.id;
+  this.idSelect = this.categoriasProduto.find(x=>x.descricao == this.select)?.id;
 }
 
-@item.State
- private categorias!: CategoriaModel[];
+@produto.State
+ private categoriasProduto!: CategoriaProdutoModel[];
   
-    @item.Action(ItensActionTypes.OBTER_CATEGORIAS_ITEM)
+    @produto.Action(ProdutosActionTypes.OBTER_CATEGORIAS_PRODUTO)
   public obterTodasCategorias!:() => Promise<any>;
 
-   @item.Action(ItensActionTypes.SALVAR_TIPO_ITEM)
-  public salvarTipoItem!:(tipo: TipoModel) => Promise<any>;
+   @produto.Action(ProdutosActionTypes.SALVAR_TIPO_PRODUTO)
+  public salvarTipoItem!:(tipo: TipoProdutoModel) => Promise<any>;
   
   public get descricaoCategorias(){
-    return this.categorias.map((c)=>c.descricao);
+    return this.categoriasProduto.map((c)=>c.descricao);
   }
   public async  mounted(){
    await this.obterTodasCategorias();
@@ -100,7 +102,7 @@ public selecuinaIdSelect(){
 
   public adicionarTipo(){
    
-    this.tipo.categoriaItemId = this.idSelect || 0;
+    this.tipo.categoriaProdutoId = this.idSelect || 0;
     this.salvarTipoItem(this.tipo).then(()=>{
        this.dialogTipo = false;
     });
