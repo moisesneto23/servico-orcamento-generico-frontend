@@ -14,7 +14,7 @@
                     label="Nome da categoria*"
                     required
                   
-                    v-model="categoria.descricao"
+                    v-model="CategoriaProduto.descricao"
                   ></v-text-field>
                 </v-col>
                 
@@ -24,7 +24,7 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn dark  @click="adicionarCategoria" class="mt-8">
+            <v-btn dark  @click="adicionarCategoriaProduto" class="mt-8">
               Salvar
             </v-btn>
             <v-btn color="blue" text @click="dialog = false">
@@ -44,26 +44,28 @@
 
 
 <script lang="ts">
-import CategoriaModel from "@/Model/Itens/CategoriaModel";
+
 import { Vue, Component } from "vue-property-decorator";
-import { ItensActionTypes } from '@/store/Item/actions';
+
 import { StoreNamespaces } from '@/store';
 import { namespace } from 'vuex-class';
+import { ProdutosActionTypes } from "@/store/Produtos/actions";
+import { CategoriaProdutoModel } from "@/Model/Produtos/CategoriaProdutoModel";
 
-const item = namespace(StoreNamespaces.ITEM);
+const produto = namespace(StoreNamespaces.PRODUTO);
 @Component({})
 export default class CadastroCategoria extends Vue {
 
-    @item.Action(ItensActionTypes.SALVAR_CATEGORIA_ITEM)
-  public salvarCategoriaItem!:(categoria : CategoriaModel) => Promise<any>;
+    @produto.Action(ProdutosActionTypes.SALVAR_CATEGORIA_PRODUTO)
+  public salvarCategoriaProduto!:(categoria : CategoriaProdutoModel) => Promise<any>;
 
   public dialog = false;
  
-  public categoria = new CategoriaModel();
+  public CategoriaProduto = new CategoriaProdutoModel();
 
-  public async adicionarCategoria(){
+  public async adicionarCategoriaProduto(){
 
-    await this.salvarCategoriaItem(this.categoria).then(()=>{
+    await this.salvarCategoriaProduto(this.CategoriaProduto).then(()=>{
     });
     this.dialog = false;
   }

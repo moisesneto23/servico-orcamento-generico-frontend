@@ -1,5 +1,5 @@
 export class CategoriaProdutoModel {
-    id!: number;
-    descricao!: string;
-    empresaId!: number;
+    public id!: number;
+    public descricao!: string;
+    public empresaId!: number;
 }

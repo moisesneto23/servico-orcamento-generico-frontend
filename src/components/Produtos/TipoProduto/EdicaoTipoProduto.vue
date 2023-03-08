@@ -13,8 +13,7 @@
                   <v-text-field
                     label="Nome da categoria*"
                     required
-                  
-                    v-model="categoria.descricao"
+                    v-model="tipo.descricao"
                   ></v-text-field>
                 </v-col>
                 
@@ -24,19 +23,19 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn dark  @click="adicionarCategoria" class="mt-8">
-              Salvar
+            <v-btn dark  @click="processarEdicao(tipo)" class="mt-8">
+              Salvar Edição
             </v-btn>
+            
             <v-btn color="blue" text @click="dialog = false">
               Cancelar
             </v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
-      <v-btn @click="dialog=true">
-        <v-icon>mdi-format-list-group-plus</v-icon>
-        Criar Nova Categoria
-      </v-btn>
+       <v-btn text @click="dialog=true">
+              <v-icon>mdi-circle-edit-outline</v-icon> 
+              </v-btn>
     </div>
    
   
@@ -44,29 +43,34 @@
 
 
 <script lang="ts">
-import CategoriaModel from "@/Model/Itens/CategoriaModel";
-import { Vue, Component } from "vue-property-decorator";
-import { ItensActionTypes } from '@/store/Item/actions';
-import { StoreNamespaces } from '@/store';
-import { namespace } from 'vuex-class';
+import { Vue, Component,Prop } from "vue-property-decorator";
+import TipoModel from "@/Model/Itens/TipoModel";
+import { StoreNamespaces } from "@/store";
+import { namespace } from "vuex-class";
+import { ItensActionTypes } from "@/store/Item/actions";
 
 const item = namespace(StoreNamespaces.ITEM);
+
 @Component({})
-export default class CadastroCategoria extends Vue {
-
-    @item.Action(ItensActionTypes.SALVAR_CATEGORIA_ITEM)
-  public salvarCategoriaItem!:(categoria : CategoriaModel) => Promise<any>;
-
+export default class EdicaoTipoProduto extends Vue {
   public dialog = false;
- 
-  public categoria = new CategoriaModel();
+ @item.Action(ItensActionTypes.EDITAR_TIPO_ITEM)
+  public editaTipoItem!:(tipo: TipoModel) => Promise<any>;
+  @Prop()
+  public tipo!: TipoModel;
+  public get exibeCategoria(){
+    return this.tipo;
+  }
+  public processarEdicao(tipo: TipoModel){
 
-  public async adicionarCategoria(){
-
-    await this.salvarCategoriaItem(this.categoria).then(()=>{
-    });
+    this.editarTipoItem(tipo);
     this.dialog = false;
+    this.$emit('tipoAlterada',this.tipo);
   }
 
+  private async editarTipoItem(tipo: TipoModel): Promise<any>{
+       await this.editaTipoItem(tipo).then(()=>{
+        });
+  }
 }
 </script>

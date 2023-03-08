@@ -35,7 +35,7 @@ const item = namespace(StoreNamespaces.ITEM);
 export default class ListagemCategoria extends Vue {
 
  @item.State
- private categorias!: CategoriaModel[];
+ public categorias!: CategoriaModel[];
   
   @item.Action(ItensActionTypes.OBTER_CATEGORIAS_ITEM)
   public obterTodasCategoriasItem!:() => Promise<any>;

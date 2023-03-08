@@ -29,21 +29,21 @@
             </v-list-item-content>
           </v-list-item>
 
-           <v-list-item :to="cadastroItens">
-            <v-list-item-icon>
-              <v-icon >mdi-shape-plus</v-icon>
-            </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title>Cadastro Itens</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-
           <v-list-item :to="cadastroProdutos">
             <v-list-item-icon>
               <v-icon >mdi-shape-plus</v-icon>
             </v-list-item-icon>
             <v-list-item-content>
               <v-list-item-title>Cadastro Produtos</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+
+          <v-list-item :to="cadastroItens">
+            <v-list-item-icon>
+              <v-icon >mdi-shape-plus</v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title>Cadastro Itens</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
 

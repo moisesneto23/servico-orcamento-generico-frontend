@@ -53,7 +53,7 @@ const actions: ActionTree<ProdutoState, RootState> = {
     commit(ProdutosMutationTypes.SET_CATEGORIAS_PRODUTO, categoriasProduto);
   },
 
-  async [ProdutosActionTypes.EDITAR_CATEGORIA_PRODUTO]({ commit }, categoria: CategoriaModel ) {
+  async [ProdutosActionTypes.EDITAR_CATEGORIA_PRODUTO]({ commit }, categoria: CategoriaProdutoModel ) {
     const service = (Container.get(CategoriaProdutoService) as CategoriaProdutoService);
     await service.editarCategoriaProduto(categoria);
     const categoriasProduto = await service.obterTodasCategoriasProduto();
