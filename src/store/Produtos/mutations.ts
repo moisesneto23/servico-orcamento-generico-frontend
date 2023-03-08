@@ -1,8 +1,8 @@
 
-import { CategoriaProdutoModel } from '@/Model/Produtos/CategoriaProdutoModel';
-import { ItemProdutoModel } from '@/Model/Produtos/ItemProdutoModel';
-import { ProdutoModel } from '@/Model/Produtos/ProdutoModel';
-import { TipoProdutoModel } from '@/Model/Produtos/TipoProdutoModel';
+import CategoriaProdutoModel from '@/Model/Produtos/CategoriaProdutoModel';
+import ItemProdutoModel from '@/Model/Produtos/ItemProdutoModel';
+import ProdutoModel from '@/Model/Produtos/ProdutoModel';
+import TipoProdutoModel  from '@/Model/Produtos/TipoProdutoModel';
 import { MutationTree } from 'vuex';
 import { ProdutoState } from './state';
 

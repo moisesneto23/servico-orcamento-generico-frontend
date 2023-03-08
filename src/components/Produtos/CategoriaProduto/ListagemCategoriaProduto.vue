@@ -24,7 +24,7 @@ import EdicaoCategoriaProduto from '@/components/Produtos/CategoriaProduto/Edita
 
 import { StoreNamespaces } from '@/store';
 import { namespace } from 'vuex-class';
-import { CategoriaProdutoModel } from "@/Model/Produtos/CategoriaProdutoModel";
+import CategoriaProdutoModel from "@/Model/Produtos/CategoriaProdutoModel";
 import { ProdutosActionTypes } from "@/store/Produtos/actions";
 
 const produto = namespace(StoreNamespaces.PRODUTO);

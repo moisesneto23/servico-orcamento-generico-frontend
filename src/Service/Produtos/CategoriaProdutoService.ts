@@ -1,5 +1,5 @@
 
-import { CategoriaProdutoModel } from '@/Model/Produtos/CategoriaProdutoModel';
+import CategoriaProdutoModel from '@/Model/Produtos/CategoriaProdutoModel';
 import { CategoriaProdutoRepository } from '@/Repository/Produtos/CategoriaProdutoRepository';
 import { Inject } from 'typescript-ioc';
 

@@ -1,4 +1,4 @@
-export class ProdutoModel {
+export default class ProdutoModel {
   public id!: number;
   public nome!: string;
   public valorVenda!: number;

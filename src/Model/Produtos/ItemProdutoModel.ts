@@ -1,4 +1,4 @@
-export class ItemProdutoModel {
+export default class ItemProdutoModel {
     id!: number;
     quantidade: number = 1;
     valorAdicional!: number | null;
