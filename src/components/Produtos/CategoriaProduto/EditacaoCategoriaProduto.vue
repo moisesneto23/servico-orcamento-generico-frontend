@@ -13,7 +13,7 @@
                   <v-text-field
                     label="Nome da categoria*"
                     required
-                    v-model="exibeCategoriaProduto"
+                    v-model="exibeCategoriaProduto.descricao"
                   ></v-text-field>
                 </v-col>
                 
@@ -58,9 +58,12 @@ export default class EdicaoCategoriaProduto extends Vue {
   public dialog = false;
 
   @Prop()
-  public categoriaProduto!: CategoriaProdutoModel;
+  private categoriaProduto!: CategoriaProdutoModel;
   public get exibeCategoriaProduto(){
     return this.categoriaProduto;
+  }
+  mounted(){
+    console.log(this.categoriaProduto)
   }
   public processarEdicao(categoriaProduto: CategoriaProdutoModel){
     this.editarCategoriaProduto(categoriaProduto).then(()=>{

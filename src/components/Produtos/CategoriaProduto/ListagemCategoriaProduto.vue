@@ -1,16 +1,16 @@
 <template>
   <v-expansion-panels focusable>
-    <v-expansion-panel v-for="categoria in categoriasProduto" :key="categoria.id">
-      <v-expansion-panel-header>  <h1>{{ categoria.descricao }}</h1></v-expansion-panel-header>
+    <v-expansion-panel v-for="categoriaProduto in categoriasProduto" :key="categoriaProduto.id">
+      <v-expansion-panel-header>  <h1>{{ categoriaProduto.descricao }}</h1></v-expansion-panel-header>
       <v-expansion-panel-content>
         <v-row>
           <v-col cols="6">
-            <edicao-categoria-produto :categoria="categoria" ></edicao-categoria-produto>
+            <edicao-categoria-produto :categoriaProduto="categoriaProduto" ></edicao-categoria-produto>
            
             <h3 class="text-center">Editar</h3></v-col>
             
           <v-col cols="6">
-            <v-btn text @click="excluirCategoriaProduto(categoria.id)"><v-icon>mdi-trash-can-outline</v-icon> </v-btn>
+            <v-btn text @click="excluirCategoriaProduto(categoriaProduto.id)"><v-icon>mdi-trash-can-outline</v-icon> </v-btn>
             <h3 class="text-center">Escluir</h3>
           </v-col>
         </v-row>
