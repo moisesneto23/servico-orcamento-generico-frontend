@@ -57,19 +57,17 @@ export default class EdicaoTipo extends Vue {
  @item.Action(ItensActionTypes.EDITAR_TIPO_ITEM)
   public editaTipoItem!:(tipo: TipoModel) => Promise<any>;
   @Prop()
-  private tipo!: TipoModel;
+  public tipo!: TipoModel;
   public get exibeCategoria(){
     return this.tipo;
   }
   public processarEdicao(tipo: TipoModel){
-
     this.editarTipoItem(tipo);
-    this.dialog = false;
-    this.$emit('tipoAlterada',this.tipo);
   }
 
   private async editarTipoItem(tipo: TipoModel): Promise<any>{
        await this.editaTipoItem(tipo).then(()=>{
+        this.dialog = false;
         });
   }
 }

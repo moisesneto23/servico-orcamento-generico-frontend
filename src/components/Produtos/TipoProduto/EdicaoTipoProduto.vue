@@ -13,7 +13,7 @@
                   <v-text-field
                     label="Nome da categoria*"
                     required
-                    v-model="tipo.descricao"
+                    v-model="exibeTipoProduto.descricao"
                   ></v-text-field>
                 </v-col>
                 
@@ -23,7 +23,7 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn dark  @click="processarEdicao(tipo)" class="mt-8">
+            <v-btn dark  @click="processarEdicao(exibeTipoProduto)" class="mt-8">
               Salvar Edição
             </v-btn>
             
@@ -57,15 +57,14 @@ export default class EdicaoTipoProduto extends Vue {
  @item.Action(ItensActionTypes.EDITAR_TIPO_ITEM)
   public editaTipoItem!:(tipo: TipoModel) => Promise<any>;
   @Prop()
-  public tipo!: TipoModel;
-  public get exibeCategoria(){
-    return this.tipo;
+  public tipoProduto!: TipoModel;
+  public get exibeTipoProduto(){
+    return this.tipoProduto;
   }
+  
   public processarEdicao(tipo: TipoModel){
-
     this.editarTipoItem(tipo);
     this.dialog = false;
-    this.$emit('tipoAlterada',this.tipo);
   }
 
   private async editarTipoItem(tipo: TipoModel): Promise<any>{

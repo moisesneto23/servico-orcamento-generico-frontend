@@ -3,5 +3,5 @@ export default class TipoModel{
 public id!: number;
 public descricao!: string;
 public categoriaItemId!: number;
-public CategoriaItem!: CategoriaModel;
+public categoriaItem!: CategoriaModel;
 } 

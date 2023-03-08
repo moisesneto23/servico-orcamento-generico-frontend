@@ -5,7 +5,7 @@
       <v-expansion-panel-content>
         <v-row>
            <v-col cols="6">
-            <edicao-tipo :tipo="tipo" @tipoAlterada="tipo=$event" ></edicao-tipo>
+            <edicao-tipo :tipo="tipo" ></edicao-tipo>
            
             <h3 class="text-center">Editar</h3></v-col>
             
@@ -42,7 +42,7 @@ export default class ListagemTipo extends Vue {
   public removerTipoItem!:(id: number) => Promise<any>;
 
   @item.State
-  public tipos!: TipoModel;
+  public tipos!: TipoModel[];
 
   public async mounted(){
     await this.obterTodostipoItem();
