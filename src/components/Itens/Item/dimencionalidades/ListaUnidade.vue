@@ -1,6 +1,6 @@
 <template>
   <v-expansion-panels focusable>
-    <v-expansion-panel v-for="(item, i) in obterItensUnitarios" :key="i">
+    <v-expansion-panel v-for="(item, i) in obterItensUnitarios" :key="i" class="mb-2">
       <v-expansion-panel-header><h2>  {{ item.nome }}</h2> <h4>Categoria: {{ item.tipoItem.descricao}} </h4> </v-expansion-panel-header>
       <v-expansion-panel-content>
         <v-row>

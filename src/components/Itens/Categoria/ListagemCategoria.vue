@@ -1,6 +1,6 @@
 <template>
   <v-expansion-panels focusable>
-    <v-expansion-panel v-for="categoria in categorias" :key="categoria.id">
+    <v-expansion-panel v-for="categoria in categorias" :key="categoria.id" class="mb-2">
       <v-expansion-panel-header>  <h1>{{ categoria.descricao }}</h1></v-expansion-panel-header>
       <v-expansion-panel-content>
         <v-row>

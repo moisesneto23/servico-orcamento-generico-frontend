@@ -1,6 +1,6 @@
 <template>
   <v-expansion-panels focusable>
-    <v-expansion-panel v-for="tipo in tiposProduto" :key="tipo.id">
+    <v-expansion-panel v-for="tipo in tiposProduto" :key="tipo.id" class="mb-2">
       <v-expansion-panel-header> <h2>  {{ tipo.descricao }}</h2> <h4>Categoria: <h5>{{ tipo.categoriaProduto.descricao}}</h5> </h4> </v-expansion-panel-header>
       <v-expansion-panel-content>
         <v-row>

@@ -24,7 +24,7 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn dark  @click="adicionarCategoria" class="mt-8">
+            <v-btn dark  @click="adicionarCategoria">
               Salvar
             </v-btn>
             <v-btn color="blue" text @click="dialog = false">
@@ -33,9 +33,9 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
-      <v-btn @click="dialog=true">
+      <v-btn @click="dialog=true" color="primary" :rounded="true">
         <v-icon>mdi-format-list-group-plus</v-icon>
-        Criar Nova Categoria
+        cadastrar Categoria
       </v-btn>
     </div>
    

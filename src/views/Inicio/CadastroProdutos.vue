@@ -21,34 +21,34 @@
     
     </v-tabs>
 
-    <v-tabs-items v-model="tab" data-app>
+    <v-tabs-items v-model="tab" data-app style="background-color: #f2f2f2;">
 
       <v-tab-item value="tab-3">
-        <v-card>
+        <div>
           <v-card-text>
             <listagem-produto></listagem-produto>
           </v-card-text>
           <cadastro-produto></cadastro-produto>
-        </v-card>
+        </div>
       </v-tab-item>
      
 
       <v-tab-item value="tab-2">
-        <v-card>
+        <div>
           <v-card-text>
             <listagem-tipo-produto></listagem-tipo-produto>
           </v-card-text>
           <cadastro-tipo-produto></cadastro-tipo-produto>
-        </v-card>
+        </div>
       </v-tab-item>
 
       <v-tab-item value="tab-1">
-        <v-card>
+        <div>
           <v-card-text>
             <listagem-categoria-produto></listagem-categoria-produto>
           </v-card-text>
           <cadastro-categoria-produto></cadastro-categoria-produto>
-        </v-card>
+        </div>
       </v-tab-item>
 
     </v-tabs-items>

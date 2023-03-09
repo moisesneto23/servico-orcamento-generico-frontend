@@ -65,7 +65,7 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn dark  @click="selecuinaIdSelect(), salvarItem()" class="mt-8">
+            <v-btn dark  @click="selecuinaIdSelect(), salvarItem()" >
               Salvar
             </v-btn>
             <v-btn color="blue" text @click="dialogItem = false">
@@ -74,9 +74,9 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
-      <v-btn @click="dialogItem=true">
+      <v-btn @click="dialogItem=true" color="primary" :rounded="true">
         <v-icon>mdi-shape-square-plus</v-icon>
-        Criar Novo Item Unitario
+        Criar Item de Comprimento
       </v-btn>
     </div>
    

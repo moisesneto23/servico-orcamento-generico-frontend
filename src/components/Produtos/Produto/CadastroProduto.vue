@@ -43,9 +43,9 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
-      <v-btn @click="dialogproduto=true">
+      <v-btn @click="dialogproduto=true"  color="primary" :rounded="true">
         <v-icon>mdi-shape-square-plus</v-icon>
-        Criar Novo produto
+        Criar Produto
       </v-btn>
     </div>
    

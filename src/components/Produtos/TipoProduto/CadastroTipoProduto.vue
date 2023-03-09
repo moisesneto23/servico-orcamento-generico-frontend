@@ -47,9 +47,9 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
-      <v-btn @click="dialogTipo=true">
+      <v-btn @click="dialogTipo=true" color="primary"  :rounded="true">
         <v-icon>mdi-view-grid-plus-outline</v-icon>
-        Criar Novo Tipo
+        cadastrar Tipo produto
       </v-btn>
     </div>
    

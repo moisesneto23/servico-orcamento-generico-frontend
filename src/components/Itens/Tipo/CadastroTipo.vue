@@ -38,7 +38,7 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn dark  @click="selecuinaIdSelect(), adicionarTipo()" class="mt-8">
+            <v-btn dark  @click="selecuinaIdSelect(), adicionarTipo()">
               Salvar
             </v-btn>
             <v-btn color="blue" text @click="dialogTipo = false">
@@ -47,9 +47,9 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
-      <v-btn @click="dialogTipo=true">
+      <v-btn @click="dialogTipo=true" color="primary" :rounded="true">
         <v-icon>mdi-view-grid-plus-outline</v-icon>
-        Criar Novo Tipo
+        cadastrar Tipo
       </v-btn>
     </div>
    

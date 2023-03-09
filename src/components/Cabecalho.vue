@@ -1,10 +1,12 @@
 <template>
   <div>
 
-    <v-app-bar color="deep-purple accent-4" dark >
+    <v-app-bar color="black" dark >
       <v-app-bar-nav-icon x-large
         @click.stop="(drawer = !drawer)"
       ></v-app-bar-nav-icon>
+      <v-spacer></v-spacer>
+      <v-btn @click="sair()">sair</v-btn>
     </v-app-bar>
 
     <v-navigation-drawer v-model="drawer" absolute bottom temporary>
@@ -59,8 +61,6 @@
         </v-list-item-group>
       </v-list>
     </v-navigation-drawer>
-
-<v-btn @click="sair()">sair</v-btn>
 
   </div>
 </template>

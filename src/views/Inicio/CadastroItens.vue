@@ -1,6 +1,6 @@
 <template>
   <div id="cadastroOrcamento">
-    <v-tabs v-model="tab" grow icons-and-text background-color="#64B5">
+    <v-tabs v-model="tab" grow icons-and-text background-color="#4B5" color="black">
       <v-tabs-slider></v-tabs-slider>
 
       <v-tab href="#tab-1">
@@ -19,32 +19,32 @@
       </v-tab>
     </v-tabs>
 
-    <v-tabs-items v-model="tab" data-app>
+    <v-tabs-items v-model="tab" data-app  style="background-color: #f2f2f2;">
 
       <v-tab-item value="tab-1">
-        <v-card>
+        <div>
           <v-card-text>
             <listagem-categoria></listagem-categoria>
           </v-card-text>
           <cadastro-categoria></cadastro-categoria>
-        </v-card>
+        </div>
       </v-tab-item>
 
       <v-tab-item value="tab-2">
-        <v-card>
+        <div>
           <v-card-text>
             <listagem-tipo></listagem-tipo>
           </v-card-text>
           <cadastro-tipo></cadastro-tipo>
-        </v-card>
+        </div>
       </v-tab-item>
 
       <v-tab-item value="tab-3">
-        <v-card>
+        <div>
           <v-card-text>
             <listagem-item></listagem-item>
           </v-card-text>
-        </v-card>
+        </div>
       </v-tab-item>
 
     </v-tabs-items>

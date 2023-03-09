@@ -33,9 +33,9 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
-      <v-btn @click="dialog=true">
+      <v-btn @click="dialog=true" color="primary" :rounded="true">
         <v-icon>mdi-format-list-group-plus</v-icon>
-        Criar Nova Categoria
+        Cadastrar Categoria
       </v-btn>
     </div>
    

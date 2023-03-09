@@ -1,6 +1,6 @@
 <template>
   <div id="cadastroOrcamento">
-    <v-tabs v-model="tab" grow icons-and-text background-color="#9FA8">
+    <v-tabs v-model="tab" grow icons-and-text background-color="#9FA8" color="#4A148C">
       <v-tabs-slider></v-tabs-slider>
 
       <v-tab href="#tab-1">
@@ -29,51 +29,51 @@
       </v-tab>
     </v-tabs>
 
-    <v-tabs-items v-model="tab" data-app>
+    <v-tabs-items v-model="tab" data-app style="background-color: #f2f2f2;">
 
       <v-tab-item value="tab-1">
-        <v-card>
+        <div>
           <v-card-text>
             <lista-unidade></lista-unidade>
           </v-card-text>
           <cadastro-item-unitario></cadastro-item-unitario>
-        </v-card>
+        </div>
       </v-tab-item>
 
       <v-tab-item value="tab-2">
-        <v-card>
+        <div>
           <v-card-text>
             <lista-linear></lista-linear>
           </v-card-text>
           <cadastro-item-linear></cadastro-item-linear>
-        </v-card>
+        </div>
       </v-tab-item>
 
        <v-tab-item value="tab-3">
-        <v-card>
+        <div>
           <v-card-text>
             <lista-perimetro></lista-perimetro>
           </v-card-text>
           <cadastro-item-perimetro></cadastro-item-perimetro>
-        </v-card>
+        </div>
       </v-tab-item>
 
       <v-tab-item value="tab-4">
-        <v-card>
+        <div>
           <v-card-text>
             <lista-area></lista-area>
           </v-card-text>
           <cadastro-item-area></cadastro-item-area>
-        </v-card>
+        </div>
       </v-tab-item>
 
       <v-tab-item value="tab-5">
-        <v-card>
+        <div>
           <v-card-text>
             <lista-volume></lista-volume>
           </v-card-text>
           <cadastro-item-volume></cadastro-item-volume>
-        </v-card>
+        </div>
       </v-tab-item>
     </v-tabs-items>
 
