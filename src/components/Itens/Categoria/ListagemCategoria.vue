@@ -1,7 +1,7 @@
 <template>
   <v-expansion-panels focusable>
     <v-expansion-panel v-for="categoria in categorias" :key="categoria.id" class="mb-2">
-      <v-expansion-panel-header>  <h1>{{ categoria.descricao }}</h1></v-expansion-panel-header>
+      <v-expansion-panel-header>  <h2>{{ categoria.descricao }}</h2></v-expansion-panel-header>
       <v-expansion-panel-content>
         <v-row>
           <v-col cols="6">
@@ -36,16 +36,9 @@ export default class ListagemCategoria extends Vue {
 
  @item.State
  public categorias!: CategoriaModel[];
-  
-  @item.Action(ItensActionTypes.OBTER_CATEGORIAS_ITEM)
-  public obterTodasCategoriasItem!:() => Promise<any>;
    
   @item.Action(ItensActionTypes.REMOVER_CATEGORIA_ITEM)
   public removerCategoriaItem!:(id: number) => Promise<any>;
-
-  public mounted(){
-    this.obterTodasCategoriasItem();
-  }
 
   public alteracaoCategoria(categoria: CategoriaModel){
     this.categorias.filter(x=>x.id===categoria.id).map(c=>c =categoria);

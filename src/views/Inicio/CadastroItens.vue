@@ -54,14 +54,16 @@
 </template>
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
-import EmpresaModel from "@/Model/Empresa/EmpresaModel";
-import EmpresaService from "@/Service/EmpresaService";
-import { Inject } from "typescript-ioc";
 import CadastroCategoria from "@/components/Itens/Categoria/CadastroCategoria.vue";
 import CadastroTipo from '@/components/Itens/Tipo/CadastroTipo.vue';
 import ListagemCategoria from '@/components/Itens/Categoria/ListagemCategoria.vue'
 import ListagemTipo from '@/components/Itens/Tipo/ListagemTipo.vue'
 import ListagemItem from '@/components/Itens/Item/ListagemItem.vue';
+import { StoreNamespaces } from "@/store/namespaces";
+import { namespace } from "vuex-class";
+import { ItensActionTypes } from "@/store/Item/actions";
+
+const item = namespace(StoreNamespaces.ITEM);
 @Component({
   components: {
     CadastroCategoria,
@@ -73,6 +75,21 @@ import ListagemItem from '@/components/Itens/Item/ListagemItem.vue';
 })
 export default class CadastroOrcamento extends Vue {
   public tab = null;
+
+  @item.Action(ItensActionTypes.OBTER_CATEGORIAS_ITEM)
+  public obterTodasCategoriasItem!:() => Promise<any>;
+
+    @item.Action(ItensActionTypes.OBTER_TIPOS_ITEM)
+  public obterTodosTiposItem!:() => Promise<any>;
+
+    @item.Action(ItensActionTypes.OBTER_ITENS)
+  public obterTodosItens!:() => Promise<any>;
+
+    public async mounted(){
+     this.obterTodasCategoriasItem();
+     this.obterTodosTiposItem();
+     this.obterTodosItens();
+  }
 }
 </script>
 <style scoped>

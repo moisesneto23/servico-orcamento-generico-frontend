@@ -1,7 +1,9 @@
 <template>
   <v-expansion-panels focusable>
     <v-expansion-panel v-for="(item, i) in obterItensUnitarios" :key="i" class="mb-2">
-      <v-expansion-panel-header><h2>  {{ item.nome }}</h2> <h4>Categoria: {{ item.tipoItem.descricao}} </h4> </v-expansion-panel-header>
+      <v-expansion-panel-header><h3>  {{ item.nome }}</h3>
+        <v-divider vertical class="mx-2"></v-divider> 
+         <h4>Categoria: <h5> {{ item.tipoItem.descricao}} </h5></h4> </v-expansion-panel-header>
       <v-expansion-panel-content>
         <v-row>
           <v-col cols="6">
@@ -46,8 +48,5 @@ export default class ListaUnidade extends Vue {
   @item.State
   public itens!: ItemModel[];
 
-  public async mounted(){
-
-  }
 }
 </script>
