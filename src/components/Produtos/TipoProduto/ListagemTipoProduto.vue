@@ -38,6 +38,9 @@ export default class ListagemTipoProduto extends Vue {
   @produto.Action(ProdutosActionTypes.OBTER_TIPOS_PRODUTO)
   public obterTodostiposProduto!:() => Promise<any>;
 
+    @produto.Action(ProdutosActionTypes.OBTER_PRODUTOS)
+  public obterProdutos!:() => Promise<any>;
+
   @produto.Action(ProdutosActionTypes.REMOVER_TIPO_PRODUTO)
   public removerTipoProduto!:(id: number) => Promise<any>;
 
@@ -48,7 +51,9 @@ export default class ListagemTipoProduto extends Vue {
     await this.obterTodostiposProduto();
   }
  public async excluirTipo(id: number){
-    await this.removerTipoProduto(id);
+    await this.removerTipoProduto(id).then(()=>{
+      this.obterProdutos();
+    });
  }
   
 }

@@ -40,6 +40,9 @@ export default class ListagemCategoriaProdutoProduto extends Vue {
   
   @produto.Action(ProdutosActionTypes.OBTER_CATEGORIAS_PRODUTO)
   public obterTodasCategoriasProduto!:() => Promise<any>;
+
+    @produto.Action(ProdutosActionTypes.OBTER_TIPOS_PRODUTO)
+  public obterTiposProduto!:() => Promise<any>;
    
   @produto.Action(ProdutosActionTypes.REMOVER_CATEGORIA_PRODUTO)
   public removerCategoriaProduto!:(id: number) => Promise<any>;
@@ -48,8 +51,10 @@ export default class ListagemCategoriaProdutoProduto extends Vue {
     this.obterTodasCategoriasProduto();
   }
 
-  public excluirCategoriaProduto(id:number){
-    this.removerCategoriaProduto(id);
+  public async excluirCategoriaProduto(id:number){
+    await this.removerCategoriaProduto(id).then(()=>{
+      this.obterTiposProduto;
+    });
   }
 }
 </script>

@@ -40,11 +40,16 @@ export default class ListagemTipo extends Vue {
   @item.Action(ItensActionTypes.REMOVER_TIPO_ITEM)
   public removerTipoItem!:(id: number) => Promise<any>;
 
+  @item.Action(ItensActionTypes.OBTER_ITENS)
+  public obterItens!:() => Promise<any>;
+
   @item.State
   public tipos!: TipoModel[];
 
  public async excluirTipo(id: number){
-    await this.removerTipoItem(id);
+    await this.removerTipoItem(id).then(()=>{
+      this.obterItens();
+    });
  }
   
 }

@@ -56,6 +56,10 @@ export default class EdicaoTipo extends Vue {
   public dialog = false;
  @item.Action(ItensActionTypes.EDITAR_TIPO_ITEM)
   public editaTipoItem!:(tipo: TipoModel) => Promise<any>;
+
+    @item.Action(ItensActionTypes.OBTER_ITENS)
+  public obterItens!:() => Promise<any>;
+
   @Prop()
   public tipo!: TipoModel;
   public get exibeCategoria(){
@@ -68,6 +72,7 @@ export default class EdicaoTipo extends Vue {
   private async editarTipoItem(tipo: TipoModel): Promise<any>{
        await this.editaTipoItem(tipo).then(()=>{
         this.dialog = false;
+        this.obterItens();
         });
   }
 }

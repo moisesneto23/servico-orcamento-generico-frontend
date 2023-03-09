@@ -40,12 +40,17 @@ export default class ListagemCategoria extends Vue {
   @item.Action(ItensActionTypes.REMOVER_CATEGORIA_ITEM)
   public removerCategoriaItem!:(id: number) => Promise<any>;
 
+  @item.Action(ItensActionTypes.OBTER_TIPOS_ITEM)
+  public obterTiposItem!:() => Promise<any>;
+
   public alteracaoCategoria(categoria: CategoriaModel){
     this.categorias.filter(x=>x.id===categoria.id).map(c=>c =categoria);
   }
 
-      public excluirCategoria(id:number){
-       this.removerCategoriaItem(id);
+      public async excluirCategoria(id:number){
+       await this.removerCategoriaItem(id).then(()=>{
+        this.obterTiposItem();
+       });
       }
 }
 </script>
