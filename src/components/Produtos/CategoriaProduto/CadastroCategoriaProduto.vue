@@ -4,7 +4,7 @@
       <v-dialog v-model="dialog" persistent max-width="600px">
         <v-card>
           <v-card-title>
-            <span class="text-h5">Criar Categoria</span>
+            <span class="text-h5">Criar Categoria de Produto</span>
           </v-card-title>
           <v-card-text>
             <v-container>
@@ -24,7 +24,7 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn dark  @click="adicionarCategoriaProduto" class="mt-8">
+            <v-btn dark  @click="adicionarCategoriaProduto" >
               Salvar
             </v-btn>
             <v-btn color="blue" text @click="dialog = false">

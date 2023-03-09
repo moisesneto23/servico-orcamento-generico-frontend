@@ -4,7 +4,7 @@
       <v-dialog v-model="dialogTipo" persistent max-width="600px">
         <v-card>
           <v-card-title>
-            <span class="text-h5">Criar Tipo</span>
+            <span class="text-h5">Criar Tipo Produto</span>
           </v-card-title>
           <v-card-text>
             <v-container>
@@ -64,7 +64,6 @@ import TipoService from "@/Service/Itens/TipoService";
 import { Inject } from "typescript-ioc";
 import { StoreNamespaces } from "@/store";
 import { namespace } from "vuex-class";
-import { ItensActionTypes } from "@/store/Item/actions";
 import TipoProdutoModel from "@/Model/Produtos/TipoProdutoModel";
 import CategoriaProdutoModel from "@/Model/Produtos/CategoriaProdutoModel";
 import { ProdutosActionTypes } from "@/store/Produtos/actions";

@@ -1,7 +1,7 @@
 <template>
-  <div id="app">
+  <v-app id="app">
     <router-view ></router-view>
-  </div>
+  </v-app>
 </template>
 
 <script lang="ts">
@@ -21,7 +21,4 @@ background: #F2F2F2;
   height:100vh ;
 }
 
-  .v-btn {
-    text-transform: none !important;
-  }
 </style>

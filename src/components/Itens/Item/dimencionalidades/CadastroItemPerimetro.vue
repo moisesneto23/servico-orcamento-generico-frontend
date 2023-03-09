@@ -115,7 +115,6 @@ export default class CadastroItemPerimetro extends Vue {
   public selectDirecaoCauculo= '';
 
   public async salvarItem(){
-    debugger
     switch (this.selectDirecaoCauculo) {
       case 'Largura e altura': this.item.dimencaoId = Dimencao.PerimetroLarguraAltura;
         break;

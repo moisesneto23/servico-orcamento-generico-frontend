@@ -4,16 +4,16 @@
       <v-dialog v-model="dialog" persistent max-width="600px">
         <v-card>
           <v-card-title>
-            <span class="text-h5">Editar Tipo Produto</span>
+            <span class="text-h5">Editar Produto</span>
           </v-card-title>
           <v-card-text>
             <v-container>
               <v-row>
                 <v-col cols="12" sm="6" md="4">
                   <v-text-field
-                    label="Nome do tipo produto*"
+                    label="Nome do produto*"
                     required
-                    v-model="exibeTipoProduto.descricao"
+                    v-model="exibeProduto.nome"
                   ></v-text-field>
                 </v-col>
                 
@@ -23,7 +23,7 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn dark  @click="processarEdicao(exibeTipoProduto)" class="mt-8">
+            <v-btn dark  @click="processarEdicao(exibeProduto)">
               Salvar Edição
             </v-btn>
             
@@ -44,32 +44,30 @@
 
 <script lang="ts">
 import { Vue, Component,Prop } from "vue-property-decorator";
-
 import { StoreNamespaces } from "@/store";
 import { namespace } from "vuex-class";
-import { ItensActionTypes } from "@/store/Item/actions";
-import TipoProdutoModel from "@/Model/Produtos/TipoProdutoModel";
 import { ProdutosActionTypes } from "@/store/Produtos/actions";
+import ProdutoModel from "@/Model/Produtos/ProdutoModel";
 
 const produto = namespace(StoreNamespaces.PRODUTO);
 
 @Component({})
 export default class EdicaoTipoProduto extends Vue {
   public dialog = false;
- @produto.Action(ProdutosActionTypes.EDITAR_TIPO_PRODUTO)
-  public editaTipoProduto!:(tipo: TipoProdutoModel) => Promise<any>;
+ @produto.Action(ProdutosActionTypes.EDITAR_PRODUTO)
+  public editaProduto!:(produto: ProdutoModel) => Promise<any>;
   @Prop()
-  public tipoProduto!: TipoProdutoModel;
-  public get exibeTipoProduto(){
-    return this.tipoProduto;
+  public produto!: ProdutoModel;
+  public get exibeProduto(){
+    return this.produto;
   }
   
-  public processarEdicao(tipo: TipoProdutoModel){
-    this.editarTipoProduto(tipo);
+  public processarEdicao(produto: ProdutoModel){
+    this.editarProduto(produto);
   }
 
-  private async editarTipoProduto(tipo: TipoProdutoModel): Promise<any>{
-       await this.editaTipoProduto(tipo).then(()=>{
+  private async editarProduto(produto: ProdutoModel): Promise<any>{
+       await this.editaProduto(produto).then(()=>{
         this.dialog = false;
         });
   }

@@ -97,7 +97,6 @@ export default class CadastroItemPerimetro extends Vue {
   public select = '';
 
   public async salvarItem(){
-    debugger
 
     this.item.tipoItemId = this.idSelect || 0;
     this.item.dimencaoId = Dimencao.Volume;
