@@ -23,7 +23,7 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn dark  @click="processarEdicao(exibeTipoProduto)" class="mt-8">
+            <v-btn dark  @click="processarEdicao(exibeTipoProduto)">
               Salvar Edição
             </v-btn>
             

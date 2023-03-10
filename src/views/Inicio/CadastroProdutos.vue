@@ -64,6 +64,10 @@ import ListagemCategoriaProduto from '@/components/Produtos/CategoriaProduto/Lis
 import ListagemTipoProduto from '@/components/Produtos/TipoProduto/ListagemTipoProduto.vue'
 import ListagemProduto from '@/components/Produtos/Produto/ListagemProduto.vue';
 import CadastroProduto from '@/components/Produtos/Produto/CadastroProduto.vue';
+import { ProdutosActionTypes } from "@/store/Produtos/actions";
+import { namespace } from "vuex-class";
+import { StoreNamespaces } from "@/store/namespaces";
+const produto = namespace(StoreNamespaces.PRODUTO);
 @Component({
   components: {
     CadastroCategoriaProduto,
@@ -76,7 +80,25 @@ import CadastroProduto from '@/components/Produtos/Produto/CadastroProduto.vue';
 })
 export default class CadastroProdutos extends Vue {
   public tab = null;
+  @produto.Action(ProdutosActionTypes.OBTER_CATEGORIAS_PRODUTO)
+    public obterCategoriassProduto!:() => Promise<any>;
+
+      @produto.Action(ProdutosActionTypes.OBTER_ITEMS_PRODUTO)
+    public obterItenssProduto!:() => Promise<any>;
+
+      @produto.Action(ProdutosActionTypes.OBTER_PRODUTOS)
+    public obterProdutos!:() => Promise<any>;
+
+      @produto.Action(ProdutosActionTypes.OBTER_TIPOS_PRODUTO)
+    public obterTiposProduto!:() => Promise<any>;
+  public async mounted(){
+    await this.obterCategoriassProduto();
+    await this.obterItenssProduto();
+    await this.obterProdutos();
+    await this.obterTiposProduto();
 }
+}
+
 </script>
 <style scoped>
 #cadastroOrcamento{

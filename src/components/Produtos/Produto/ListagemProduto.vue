@@ -1,9 +1,11 @@
 <template>
-    <v-expansion-panels focusable>
+    <v-expansion-panels focusable v-if="dialog">
       <v-expansion-panel v-for="tipo in produtos" :key="tipo.id" class="mb-2">
-        <v-expansion-panel-header> <h2>  {{ tipo.nome }}</h2> <h4>Tipo Produto: <h5>{{ tipo.tipoItem.descricao}}</h5>  </h4> </v-expansion-panel-header>
+        <v-expansion-panel-header> <h3>  {{ tipo.nome }}</h3> 
+          <v-divider vertical class="mx-2"></v-divider> 
+          <h4>Tipo Produto: <h5>{{ tipo.tipoItem.descricao}}</h5>  </h4> </v-expansion-panel-header>
         <v-expansion-panel-content class="mt-10">
-            <h2 class="mt-8"> Adicionar item ao produto </h2> 
+            <dialogo-item-produto />
             <hr>
           <v-row>
              <v-col cols="6">
@@ -19,6 +21,12 @@
         </v-expansion-panel-content>
       </v-expansion-panel>
     </v-expansion-panels>
+
+    <v-dialog v-model="dialog" persistent max-width="600px" v-else>
+    <div>
+      ok
+    </div>
+    </v-dialog>
   </template>
   <script lang="ts">
   
@@ -27,12 +35,14 @@
   import { StoreNamespaces } from "@/store";
   import { namespace } from "vuex-class";
   import { ProdutosActionTypes } from "@/store/Produtos/actions";
-import ProdutoModel from "@/Model/Produtos/ProdutoModel";
+  import ProdutoModel from "@/Model/Produtos/ProdutoModel";
+  import DialogoItemProduto from "../ItemProduto/DialogoItemProduto.vue"
   
   const produto = namespace(StoreNamespaces.PRODUTO);
   @Component({
     components:{
       EdicaoProduto,
+      DialogoItemProduto
     }
   })
   export default class ListagemTipoProduto extends Vue {
@@ -52,6 +62,8 @@ import ProdutoModel from "@/Model/Produtos/ProdutoModel";
    public async excluirProduto(id: number){
       await this.removerProduto(id);
    }
+
+   public dialog = true;
     
   }
   </script>
