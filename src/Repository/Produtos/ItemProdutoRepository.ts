@@ -19,6 +19,11 @@ export class ItemProdutoRepository {
         return result.data;
     }
 
+    public async obterItensCadastradoPorProduto(idProduto: number): Promise<ItemProdutoModel[]> {
+        const result = await this.$http.get(`ItemProduto/produto/${idProduto}`);
+        return result.data;
+    }
+
     public async salvarItemProduto(Item: ItemProdutoModel): Promise<any> {
         const result = await this.$http.post('ItemProduto', Item);
     }

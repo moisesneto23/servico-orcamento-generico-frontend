@@ -1,7 +1,7 @@
 export default class ItemProdutoModel {
-    id!: number;
-    quantidade: number = 1;
-    valorAdicional!: number | null;
-    produtoId!: number;
-    itemId!: number;
+    public id!: number;
+    public quantidade!: number;
+    public valorAdicional!: number;
+    public produtoId!: number;
+    public itemId!: number;
 }

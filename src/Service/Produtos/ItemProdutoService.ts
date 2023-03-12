@@ -22,4 +22,8 @@ export default class ItemProdutoService {
     public async delete(id: number): Promise<any>{
         await this._itemRepository.delete(id);
     }
+
+    public async obterItensCadastradoPorProduto(idProduto: number): Promise<ItemProdutoModel[]> {
+        return await this._itemRepository.obterItensCadastradoPorProduto(idProduto);
+    }
 };
