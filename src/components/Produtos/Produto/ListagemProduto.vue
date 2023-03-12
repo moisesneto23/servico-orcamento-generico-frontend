@@ -5,8 +5,7 @@
           <v-divider vertical class="mx-2"></v-divider> 
           <h4>Tipo Produto: <h5>{{ produto.tipoItem.descricao}}</h5>  </h4> </v-expansion-panel-header>
         <v-expansion-panel-content class="mt-10">
-            <dialogo-item-produto :produtoId="produto.id" 
-            @produto-adicao-concluido="buscaItensProduto"/>
+            <dialogo-item-produto :produtoId="produto.id"></dialogo-item-produto>
             <hr>
           <v-row>
              <v-col cols="6">

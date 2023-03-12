@@ -67,7 +67,9 @@ import CadastroProduto from '@/components/Produtos/Produto/CadastroProduto.vue';
 import { ProdutosActionTypes } from "@/store/Produtos/actions";
 import { namespace } from "vuex-class";
 import { StoreNamespaces } from "@/store/namespaces";
+import { ItensActionTypes } from "@/store/Item/actions";
 const produto = namespace(StoreNamespaces.PRODUTO);
+const item = namespace(StoreNamespaces.ITEM);
 @Component({
   components: {
     CadastroCategoriaProduto,
@@ -89,6 +91,9 @@ export default class CadastroProdutos extends Vue {
       @produto.Action(ProdutosActionTypes.OBTER_PRODUTOS)
     public obterProdutos!:() => Promise<any>;
 
+      @item.Action(ItensActionTypes.OBTER_ITENS)
+    public obterItens!:() => Promise<any>;
+
       @produto.Action(ProdutosActionTypes.OBTER_TIPOS_PRODUTO)
     public obterTiposProduto!:() => Promise<any>;
   public async mounted(){
@@ -96,6 +101,7 @@ export default class CadastroProdutos extends Vue {
     await this.obterItenssProduto();
     await this.obterProdutos();
     await this.obterTiposProduto();
+    await this.obterItens();
 }
 }
 

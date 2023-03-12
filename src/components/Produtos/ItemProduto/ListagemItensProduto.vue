@@ -171,9 +171,7 @@ export default class ListagemItensProduto extends Vue {
       itensRetorno.push(item);
     }
   }
-    if (itensRetorno.length > 0)
       return itensRetorno;
-    return this.itens;
   }
 
   verificaItemPertenceAoProduto(item: ItemModel, itemProduto: ItemProdutoModel): boolean {

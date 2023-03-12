@@ -8,11 +8,8 @@
         <listagem-itens-produto :produtoId="produtoId"></listagem-itens-produto>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="primary" @click="adicionarItens">
-            Adicicionar itens
-          </v-btn>
           <v-btn color="red" text @click="dialog = false">
-            Cancelar
+            Fechar
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -33,7 +30,6 @@ import { namespace } from 'vuex-class';
 import ListagemItensProduto from './ListagemItensProduto.vue'
 import ItemModel from "@/Model/Itens/ItemModel";
 import { ProdutosActionTypes } from "@/store/Produtos/actions";
-import ItemProdutoModel from "@/Model/Produtos/ItemProdutoModel";
 
 const produto = namespace(StoreNamespaces.PRODUTO);
 @Component({
@@ -51,12 +47,5 @@ export default class DialogoItemProduto extends Vue {
 
   public dialog = false;
 
-  public itensSelecionados!: ItemModel[];
-  public adicionarItens() {
-    return this.itensSelecionados;
-  }
-  public async salvarItensProduto() {
-    this.$emit('produto-adicao-concluido')
-  }
 }
 </script>

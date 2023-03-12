@@ -1,9 +1,8 @@
-import CategoriaModel  from '@/Model/Itens/CategoriaModel';
 import { ActionTree } from 'vuex';
 import { ProdutoState } from './state';
 import { RootState } from '@/store';
 import  {ProdutosMutationTypes}  from './mutations';
-import { Container, Inject } from 'typescript-ioc';
+import { Container } from 'typescript-ioc';
 import ItemProdutoService from '@/Service/Produtos/ItemProdutoService';
 import  ItemProdutoModel  from '@/Model/Produtos/ItemProdutoModel';
 import ProdutoService from '@/Service/Produtos/ProdutoService';
