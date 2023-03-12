@@ -34,7 +34,8 @@
       <v-tab-item value="tab-1">
         <div>
           <v-card-text>
-            <itens-unidade-selecao  :itensNaoAdicionados="itensNaoAdicionados" :produtoId="produtoId"></itens-unidade-selecao>
+            <itens-unidade-selecao :itensNaoAdicionados="itensNaoAdicionados"
+              :produtoId="produtoId"></itens-unidade-selecao>
           </v-card-text>
         </div>
       </v-tab-item>
@@ -42,7 +43,8 @@
       <v-tab-item value="tab-2">
         <div>
           <v-card-text>
-            <itens-linear-selecao  :itensNaoAdicionados="itensNaoAdicionados" :produtoId="produtoId"></itens-linear-selecao>
+            <itens-linear-selecao :itensNaoAdicionados="itensNaoAdicionados"
+              :produtoId="produtoId"></itens-linear-selecao>
           </v-card-text>
 
         </div>
@@ -51,7 +53,8 @@
       <v-tab-item value="tab-3">
         <div>
           <v-card-text>
-            <itens-perimetro-selecao :itensNaoAdicionados="itensNaoAdicionados" :produtoId="produtoId"></itens-perimetro-selecao>
+            <itens-perimetro-selecao :itensNaoAdicionados="itensNaoAdicionados"
+              :produtoId="produtoId"></itens-perimetro-selecao>
           </v-card-text>
 
         </div>
@@ -69,7 +72,8 @@
       <v-tab-item value="tab-5">
         <div>
           <v-card-text>
-            <itens-volume-selecao :itensNaoAdicionados="itensNaoAdicionados" :produtoId="produtoId"></itens-volume-selecao>
+            <itens-volume-selecao :itensNaoAdicionados="itensNaoAdicionados"
+              :produtoId="produtoId"></itens-volume-selecao>
           </v-card-text>
 
         </div>
@@ -81,7 +85,8 @@
         <v-card>
           <v-expansion-panel v-for="(item, i) in itensAdicionados" :key="i" class="mb-1" expand-icon="mdi-plus">
 
-            <v-expansion-panel-header @click="removerItem(item)" expand-icon="mdi-minus" style="background-color: #f2f2f2;">
+            <v-expansion-panel-header @click="removerItem(item)" expand-icon="mdi-minus"
+              style="background-color: #f2f2f2;">
               <h3> {{ item.nome }}</h3>
               <v-divider vertical class="mx-2"></v-divider>
               <h4>Tipo:<h5> {{ item.tipoItem.descricao }} </h5>
@@ -105,7 +110,6 @@ import ItensAreaSelecao from './itensSelecao/ItensAreaSelecao.vue';
 import ItensVolumeSelecao from './itensSelecao/ItensVolumeSelecao.vue';
 import ItensPerimetroSelecao from './itensSelecao/ItensPerimetroSelecao.vue';
 import ItemModel from "@/Model/Itens/ItemModel";
-import { Dimencao } from "@/Model/Enum/DimencaoEnum";
 import { ProdutosActionTypes } from "@/store/Produtos/actions";
 import { StoreNamespaces } from "@/store/namespaces";
 import { namespace } from "vuex-class";
@@ -128,11 +132,11 @@ export default class ListagemItensProduto extends Vue {
   public produtoId!: number;
 
   @produto.Action(ProdutosActionTypes.REMOVER_ITEM_PRODUTO)
-  private removeItemProduto!:(id: number)=> Promise<void>;
-    
-    @produto.State
+  private removeItemProduto!: (id: number) => Promise<void>;
+
+  @produto.State
   private itensProduto!: ItemProdutoModel[];
-  
+
   @item.State
   public itens!: ItemModel[];
 
@@ -141,82 +145,51 @@ export default class ListagemItensProduto extends Vue {
   public itensSelecionados: ItemModel[] = [];
 
 
-  public adicionaItemProdutoSelecao(){
+  public adicionaItemProdutoSelecao() {
     this.dialogoItemProduto = false;
   }
   public obterItensSelecionados(item: ItemModel) {
     this.itensSelecionados.push(item);
   }
 
-  public get itensAdicionados(): ItemModel[]{
+  public get itensAdicionados(): ItemModel[] {
     let itensRetorno: ItemModel[] = [];
-    this.itensProduto.forEach(itensProduto =>{
-     this.itens.forEach(item=>{
-      if(item.id === itensProduto.itemId && 
-      itensProduto.produtoId === this.produtoId)
-        itensRetorno.push(item);
-     })
+    this.itensProduto.forEach(itensProduto => {
+      this.itens.forEach(item => {
+        if (item.id === itensProduto.itemId &&
+          itensProduto.produtoId === this.produtoId)
+          itensRetorno.push(item);
+      })
     });
     return itensRetorno;
   }
 
-  public get itensNaoAdicionados(): ItemModel[]{
+  public get itensNaoAdicionados(): ItemModel[] {
     let itensRetorno: ItemModel[] = [];
-    this.itensProduto.forEach(itensProduto =>{
-     this.itens.forEach(item=>{
-      if(item.id != itensProduto.itemId)
-        itensRetorno.push(item);
-     })
-    });
-    if(itensRetorno.length > 0)
+    for (const item of this.itens) {
+    if (!this.itensProduto.some(itemProduto => itemProduto.itemId === item.id && this.produtoId === itemProduto.produtoId)) {
+      itensRetorno.push(item);
+    }
+  }
+    if (itensRetorno.length > 0)
       return itensRetorno;
     return this.itens;
   }
 
+  verificaItemPertenceAoProduto(item: ItemModel, itemProduto: ItemProdutoModel): boolean {
+    if (this.produtoId ===itemProduto.produtoId && item.id === itemProduto.itemId)
+      return true;
+    return false;
+  }
+
   public async removerItem(item: ItemModel) {
     const itemProduto = this.itensProduto.find(x => x.itemId === item.id && x.produtoId === this.produtoId);
-if (itemProduto !== undefined) {
-  await this.removeItemProduto(itemProduto.id).then();
-}
-    /*if (index > -1) {
-      this.itensSelecionados.splice(index, 1);
-      switch (item.dimencaoId) {
-        case Dimencao.Unidade:
-        (this.$refs.itensUnidadeSelecao as ItensUnidadeSelecao).adicionarItemUnitario(item);
-          break;
-        case Dimencao.Comprimento:
-        (this.$refs.itensLinearSelecao as ItensLinearSelecao).adicionarItemLinear(item);
-          break;
-
-        case Dimencao.PerimetroComprimentoAltura:
-        (this.$refs.itensPerimetroSelecao as ItensPerimetroSelecao).adicionarItemPerimetro(item);
-          break;
-          case Dimencao.PerimetroLarguraAltura:
-        (this.$refs.itensPerimetroSelecao as ItensPerimetroSelecao).adicionarItemPerimetro(item);
-          break;
-          case Dimencao.PerimetroLarguraComprimento:
-        (this.$refs.itensPerimetroSelecao as ItensPerimetroSelecao).adicionarItemPerimetro(item);
-          break;
-
-          case Dimencao.AreaAlturaComprimento:
-        (this.$refs.itensAreaSelecao as ItensAreaSelecao).adicionarItemArea(item);
-          break;
-          case Dimencao.AreaLarguraAltura:
-        (this.$refs.itensAreaSelecao as ItensAreaSelecao).adicionarItemArea(item);
-          break;
-          case Dimencao.AreaLarguraComprimento:
-        (this.$refs.itensAreaSelecao as ItensAreaSelecao).adicionarItemArea(item);
-          break;
-          case Dimencao.Volume:
-        (this.$refs.itensVolumeSelecao as ItensVolumeSelecao).adicionarIVolume(item);
-          break;
-      }
-    }*/
+    if (itemProduto !== undefined) {
+      await this.removeItemProduto(itemProduto.id).then();
+    }
   }
 }
 </script>
-<style scoped>
-#cadastroOrcamento {
+<style scoped>#cadastroOrcamento {
   background-color: rgb(186, 186, 186);
-}
-</style>
+}</style>

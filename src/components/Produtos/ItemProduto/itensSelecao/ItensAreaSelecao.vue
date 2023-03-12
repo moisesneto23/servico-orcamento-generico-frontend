@@ -49,7 +49,7 @@ const produto = namespace(StoreNamespaces.PRODUTO);
   components: {
   }
 })
-export default class ItensAreaSelecao extends Vue {
+export default class ItensPerimetroSelecao extends Vue {
 
   @Prop()
   produtoId!: number;
@@ -68,9 +68,10 @@ public quantidade = 1;
 public valorAdicional = 0;
 
   public get obterItensArea() {
-    const intens = this.itensNaoAdicionados.filter(i => i.dimencaoId === Dimencao.AreaLarguraAltura ||
-      i.dimencaoId === Dimencao.AreaAlturaComprimento ||
-      i.dimencaoId === Dimencao.AreaLarguraComprimento);
+    debugger
+    const intens = this.itensNaoAdicionados.filter(i=>i.dimencaoId === Dimencao.AreaAlturaComprimento ||
+      i.dimencaoId === Dimencao.AreaLarguraAltura ||
+      i.dimencaoId === Dimencao.AreaLarguraComprimento );
     return intens;
   }
   private itemProduto = new ItemProdutoModel();
