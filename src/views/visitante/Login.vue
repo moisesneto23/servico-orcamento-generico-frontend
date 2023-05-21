@@ -48,13 +48,13 @@ import router from "@/router";
 })
 export default class Loginin extends Vue {
 
-  private email = '';
+  public email = '';
 
-  private senha = '';
+  public senha = '';
 
   private group = null;
   private carregando =false;
-  private show1= false;
+  public show1= false;
   
 @Action(GlobalActionTypes.FAZER_LOGIN)
 private fazLogin!: (login:Login)=> Promise<void>;

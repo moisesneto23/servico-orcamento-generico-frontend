@@ -68,9 +68,9 @@
 <script lang='ts'>
 import Rotas from '@/router/Rotas';
 import { Vue, Component } from "vue-property-decorator";
-import EmpresaModel from "@/Model/Empresa/EmpresaModel";
 import EmpresaService from "@/Service/EmpresaService";
 import { Inject } from "typescript-ioc";
+import EmpresaDto from '@/Model/Empresa/EmpresaDto';
 
 @Component({
   components:{
@@ -82,12 +82,12 @@ export default class Cabecalho extends Vue {
   public group = null;
   public cadastroItens = Rotas.Cadastros.CadastroItens;
   public cadastroProdutos = Rotas.Cadastros.CadastroProdutos;
-  public Empresas: EmpresaModel[] = [];
+  public Empresas: EmpresaDto[] = [];
   @Inject
   public empresaService!: EmpresaService;
-  public async buscaEmpresas() {
-    this.Empresas = await this.empresaService.obterTodasEmpresas();
-  }
+  // public async buscaEmpresas() {
+  //   this.Empresas = await this.empresaService.obterTodasEmpresas();
+  // }
   
   public Inicio = Rotas.Inicio;
   public CadastroItens = Rotas.Cadastros.CadastroItens;

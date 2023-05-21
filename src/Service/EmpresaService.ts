@@ -1,16 +1,16 @@
 import  Login  from '@/Model/Login';
 import  InformacoesEmpresa  from '@/Model/InformacoesEmpresa';
 import {EmpresaRepository} from '@/Repository/EmpresaRepository';
-import EmpresaModel from '@/Model/Empresa/EmpresaModel';
 import { Container,Inject } from 'typescript-ioc';
 import { AxiosResponse } from 'axios';
+import EmpresaDto from '@/Model/Empresa/EmpresaDto';
 
 export default class EmpresaService {
 
     @Inject
     private empresa!: EmpresaRepository;
 
-    public async obterTodasEmpresas(): Promise<EmpresaModel[]> {
+    public async obterTodasEmpresas(): Promise<EmpresaDto[]> {
         return await this.empresa.obterEmpresas();
     }
 
