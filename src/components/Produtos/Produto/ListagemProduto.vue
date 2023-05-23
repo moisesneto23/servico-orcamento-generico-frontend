@@ -3,7 +3,7 @@
       <v-expansion-panel v-for="produto in produtos" :key="produto.id" class="mb-2">
         <v-expansion-panel-header> <h3>  {{ produto.nome }}</h3> 
           <v-divider vertical class="mx-2"></v-divider> 
-          <h4>Tipo Produto: <h5>{{ produto.tipoItem.descricao}}</h5>  </h4> </v-expansion-panel-header>
+          <h4>Tipo Produto: <h5>{{ produto.nome}}</h5>  </h4> </v-expansion-panel-header>
         <v-expansion-panel-content class="mt-10">
             <dialogo-item-produto :produtoId="produto.id" 
             @produto-adicao-concluido="buscaItensProduto"/>
@@ -36,9 +36,9 @@
   import { StoreNamespaces } from "@/store";
   import { namespace } from "vuex-class";
   import { ProdutosActionTypes } from "@/store/Produtos/actions";
-  import ProdutoModel from "@/Model/Produtos/ProdutoModel";
+  import ProdutoDto from "@/Model/Produtos/ProdutoDto";
   import DialogoItemProduto from "../ItemProduto/DialogoItemProduto.vue"
-import ItemProdutoModel from "@/Model/Produtos/ItemProdutoModel";
+import ProdutoItemDimencaoDto from "@/Model/Produtos/ProdutoItemDimencaoDto";
   
   const produto = namespace(StoreNamespaces.PRODUTO);
   @Component({
@@ -59,7 +59,7 @@ import ItemProdutoModel from "@/Model/Produtos/ItemProdutoModel";
     public obterItensProduto!:() => Promise<any>;
 
     @produto.State
-    public produtos!: ProdutoModel[];
+    public produtos!: ProdutoDto[];
   
     public async mounted(){
       await this.obterTodosProdutos();

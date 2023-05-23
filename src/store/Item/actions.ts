@@ -1,5 +1,5 @@
-import CategoriaModel  from '@/Model/Itens/CategoriaModel';
-import  ItemModel  from '@/Model/Itens/ItemModel';
+import CategoriaModel  from '@/Model/Itens/CategoriaDto';
+import  ItemModel  from '@/Model/Itens/ItemDto';
 import { ActionTree } from 'vuex';
 import { ItemState } from './state';
 import { RootState } from '@/store';

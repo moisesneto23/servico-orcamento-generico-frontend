@@ -1,6 +1,6 @@
-import CategoriaModel from '@/Model/Itens/CategoriaModel';
+import CategoriaModel from '@/Model/Itens/CategoriaDto';
 import  TipoModel  from '@/Model/Itens/TipoModel';
-import ItemModel from '@/Model/Itens/ItemModel';
+import ItemModel from '@/Model/Itens/ItemDto';
 
 
 export class ItemState {

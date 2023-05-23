@@ -1,14 +1,14 @@
-import CategoriaModel  from '@/Model/Itens/CategoriaModel';
+import CategoriaModel  from '@/Model/Itens/CategoriaDto';
 import { ActionTree } from 'vuex';
 import { ProdutoState } from './state';
 import { RootState } from '@/store';
 import  {ProdutosMutationTypes}  from './mutations';
 import { Container, Inject } from 'typescript-ioc';
 import ItemProdutoService from '@/Service/Produtos/ItemProdutoService';
-import  ItemProdutoModel  from '@/Model/Produtos/ItemProdutoModel';
+import  ItemProdutoModel  from '@/Model/Produtos/ProdutoItemDimencaoDto';
 import ProdutoService from '@/Service/Produtos/ProdutoService';
-import  ProdutoModel  from '@/Model/Produtos/ProdutoModel';
-import  CategoriaProdutoModel  from '@/Model/Produtos/CategoriaProdutoModel';
+import  ProdutoModel  from '@/Model/Produtos/ProdutoDto';
+import  CategoriaProdutoModel  from '@/Model/Produtos/CategoriaProdutoDto';
 import CategoriaProdutoService from '@/Service/Produtos/CategoriaProdutoService';
 import TipoProdutoService from '@/Service/Produtos/TipoProdutoService';
 import TipoProdutoModel  from '@/Model/Produtos/TipoProdutoModel';

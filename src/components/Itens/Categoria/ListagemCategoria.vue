@@ -20,11 +20,11 @@
 </template>
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
-import CategoriaModel from '@/Model/Itens/CategoriaModel';
 import EdicaoCategoria from '@/components/Itens/Categoria/EditacaoCategoria.vue';
 import { ItensActionTypes } from '@/store/Item/actions';
 import { StoreNamespaces } from '@/store';
 import { namespace } from 'vuex-class';
+import CategoriaDto from "@/Model/Itens/CategoriaDto";
 
 const item = namespace(StoreNamespaces.ITEM);
 @Component({
@@ -35,7 +35,7 @@ const item = namespace(StoreNamespaces.ITEM);
 export default class ListagemCategoria extends Vue {
 
  @item.State
- public categorias!: CategoriaModel[];
+ public categorias!: CategoriaDto[];
    
   @item.Action(ItensActionTypes.REMOVER_CATEGORIA_ITEM)
   public removerCategoriaItem!:(id: number) => Promise<any>;
@@ -43,7 +43,7 @@ export default class ListagemCategoria extends Vue {
   @item.Action(ItensActionTypes.OBTER_TIPOS_ITEM)
   public obterTiposItem!:() => Promise<any>;
 
-  public alteracaoCategoria(categoria: CategoriaModel){
+  public alteracaoCategoria(categoria: CategoriaDto){
     this.categorias.filter(x=>x.id===categoria.id).map(c=>c =categoria);
   }
 

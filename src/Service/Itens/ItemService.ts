@@ -1,4 +1,4 @@
-import ItemModel from "@/Model/Itens/ItemModel";
+import ItemModel from "@/Model/Itens/ItemDto";
 import { ItemRepository } from "@/Repository/Itens/ItemRepository";
 import { Inject } from "typescript-ioc";
 

@@ -1,21 +1,23 @@
-import  Login  from '@/Model/Login';
-import  InformacoesEmpresa  from '@/Model/InformacoesEmpresa';
-import {EmpresaRepository} from '@/Repository/EmpresaRepository';
-import { Container,Inject } from 'typescript-ioc';
-import { AxiosResponse } from 'axios';
+import { AppHttpAxios } from '@/axios/AppHttpAxios';
+import Login from '@/Model/Login';
+import { Inject } from 'typescript-ioc';
+import InformacoesEmpresa  from '../Model/InformacoesEmpresa';
 import EmpresaDto from '@/Model/Empresa/EmpresaDto';
 
-export default class EmpresaService {
-
+export default class EmpresaService  {
+    
     @Inject
-    private empresa!: EmpresaRepository;
+    private $http!: AppHttpAxios;
 
-    public async obterTodasEmpresas(): Promise<EmpresaDto[]> {
-        return await this.empresa.obterEmpresas();
+    public async obterInformacoesEmpresa(login: Login): Promise<InformacoesEmpresa> {
+        const res = await this.$http.post('Usuario/Login',login);
+        console.log(res.data);
+        return res.data;
     }
 
-    public async obterInformacoesEmpresa( login: Login): Promise<InformacoesEmpresa> {
-        return await this.empresa.obterInformacoesEmpresa(login);
+    public async cadastrarEmpresa(empresa: EmpresaDto) : Promise<any>{
+        const res = await this.$http.post('Empresa',empresa);
+        console.log(res.data);
+        return res.data;
     }
-
-};
+}

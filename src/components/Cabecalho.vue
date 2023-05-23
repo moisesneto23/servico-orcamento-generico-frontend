@@ -1,13 +1,18 @@
 <template>
   <div>
+    <v-app-bar color="black" dark widht="100%">
+  <v-app-bar-nav-icon x-large @click.stop="(drawer = !drawer)"></v-app-bar-nav-icon>
 
-    <v-app-bar color="black" dark >
-      <v-app-bar-nav-icon x-large
-        @click.stop="(drawer = !drawer)"
-      ></v-app-bar-nav-icon>
-      <v-spacer></v-spacer>
-      <v-btn @click="sair()">sair</v-btn>
-    </v-app-bar>
+  <div class="d-flex align-center">
+    <v-row align="center" justify="center" class="fill-height">
+      <v-col>
+        {{ nomePagina }}
+      </v-col>
+    </v-row>
+  </div>
+<v-spacer></v-spacer>
+  <v-btn @click="sair()">sair</v-btn>
+</v-app-bar>
 
     <v-navigation-drawer v-model="drawer" absolute bottom temporary>
       <v-list>
@@ -99,6 +104,9 @@ export default class Cabecalho extends Vue {
     this.$router.push(Rotas.Visitante.Login);
   }
 
+  public get nomePagina() {
+    return this.$route.name;
+  } 
 
 
 }

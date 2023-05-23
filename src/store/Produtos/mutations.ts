@@ -1,7 +1,7 @@
 
-import CategoriaProdutoModel from '@/Model/Produtos/CategoriaProdutoModel';
-import ItemProdutoModel from '@/Model/Produtos/ItemProdutoModel';
-import ProdutoModel from '@/Model/Produtos/ProdutoModel';
+import CategoriaProdutoModel from '@/Model/Produtos/CategoriaProdutoDto';
+import ItemProdutoModel from '@/Model/Produtos/ProdutoItemDimencaoDto';
+import ProdutoModel from '@/Model/Produtos/ProdutoDto';
 import TipoProdutoModel  from '@/Model/Produtos/TipoProdutoModel';
 import { MutationTree } from 'vuex';
 import { ProdutoState } from './state';

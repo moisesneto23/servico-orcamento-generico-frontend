@@ -44,7 +44,7 @@
 
 
 <script lang="ts">
-import CategoriaModel from "@/Model/Itens/CategoriaModel";
+import CategoriaDto from "@/Model/Itens/CategoriaDto";
 import { Vue, Component } from "vue-property-decorator";
 import { ItensActionTypes } from '@/store/Item/actions';
 import { StoreNamespaces } from '@/store';
@@ -55,11 +55,11 @@ const item = namespace(StoreNamespaces.ITEM);
 export default class CadastroCategoria extends Vue {
 
     @item.Action(ItensActionTypes.SALVAR_CATEGORIA_ITEM)
-  public salvarCategoriaItem!:(categoria : CategoriaModel) => Promise<any>;
+  public salvarCategoriaItem!:(categoria : CategoriaDto) => Promise<any>;
 
   public dialog = false;
  
-  public categoria = new CategoriaModel();
+  public categoria = new CategoriaDto();
 
   public async adicionarCategoria(){
 

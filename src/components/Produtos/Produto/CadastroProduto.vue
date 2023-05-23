@@ -54,30 +54,30 @@
 
 
 <script lang="ts">
-import ProdutoModel from "@/Model/Produtos/ProdutoModel";
+import ProdutoDto from "@/Model/Produtos/ProdutoDto";
 import { StoreNamespaces } from "@/store";
 import { Vue, Component } from "vue-property-decorator";
 import { namespace } from "vuex-class";
 import { ProdutosActionTypes } from "@/store/Produtos/actions";
-import TipoProdutoModel from "@/Model/Produtos/TipoProdutoModel";
+import CategoriaProdutoDto from "@/Model/Produtos/CategoriaProdutoDto";
 const produto = namespace(StoreNamespaces.PRODUTO);
 
 @Component({})
 export default class CadastroProduto extends Vue {
   @produto.Action(ProdutosActionTypes.SALVAR_PRODUTO)
-  public salvaproduto!:(produto: ProdutoModel) => Promise<any>;
+  public salvaproduto!:(produto: ProdutoDto) => Promise<any>;
 
-  @produto.State
-  private tiposProduto!: TipoProdutoModel[];
+ @produto.State
+  private categoriaProduto!: CategoriaProdutoDto[];
 
-  public produto = new ProdutoModel();
+  public produto = new ProdutoDto();
   public selecuinaIdSelect(){
-  this.idSelect = this.tiposProduto.find(x=>x.descricao == this.select)?.id;
+  this.idSelect = this.categoriaProduto.find(x=>x.descricao == this.select)?.id;
   }
   public idSelect?: number;
   public select = '';
   public async salvarproduto(){
-    this.produto.tipoProdutoId = this.idSelect || 0;
+    this.produto.categoriaProdutoId = this.idSelect || 0;
     await this.salvaproduto(this.produto).then(()=>{
         this.descricaoTipos;
       this.dialogproduto = false;
@@ -85,7 +85,7 @@ export default class CadastroProduto extends Vue {
   }
 
   public get descricaoTipos(){
-    return this.tiposProduto.map(c=>c.descricao);
+    return this.categoriaProduto.map(c=>c.descricao);
   }
   public dialogproduto = false;
 }

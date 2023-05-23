@@ -47,7 +47,7 @@ import { Vue, Component,Prop } from "vue-property-decorator";
 import { StoreNamespaces } from "@/store";
 import { namespace } from "vuex-class";
 import { ProdutosActionTypes } from "@/store/Produtos/actions";
-import ProdutoModel from "@/Model/Produtos/ProdutoModel";
+import ProdutoDto from "@/Model/Produtos/ProdutoDto";
 
 const produto = namespace(StoreNamespaces.PRODUTO);
 
@@ -55,18 +55,18 @@ const produto = namespace(StoreNamespaces.PRODUTO);
 export default class EdicaoTipoProduto extends Vue {
   public dialog = false;
  @produto.Action(ProdutosActionTypes.EDITAR_PRODUTO)
-  public editaProduto!:(produto: ProdutoModel) => Promise<any>;
+  public editaProduto!:(produto: ProdutoDto) => Promise<any>;
   @Prop()
-  public produto!: ProdutoModel;
+  public produto!: ProdutoDto;
   public get exibeProduto(){
     return this.produto;
   }
   
-  public processarEdicao(produto: ProdutoModel){
+  public processarEdicao(produto: ProdutoDto){
     this.editarProduto(produto);
   }
 
-  private async editarProduto(produto: ProdutoModel): Promise<any>{
+  private async editarProduto(produto: ProdutoDto): Promise<any>{
        await this.editaProduto(produto).then(()=>{
         this.dialog = false;
         });

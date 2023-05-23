@@ -1,7 +1,7 @@
-import ItemProdutoModel from '@/Model/Produtos/ItemProdutoModel';
+import ItemProdutoModel from '@/Model/Produtos/ProdutoItemDimencaoDto';
 import TipoProdutoModel from '@/Model/Produtos/TipoProdutoModel';
-import CategoriaProdutoModel from '@/Model/Produtos/CategoriaProdutoModel';
-import ProdutoModel from '@/Model/Produtos/ProdutoModel';
+import CategoriaProdutoModel from '@/Model/Produtos/CategoriaProdutoDto';
+import ProdutoModel from '@/Model/Produtos/ProdutoDto';
 
 
 export class ProdutoState {
