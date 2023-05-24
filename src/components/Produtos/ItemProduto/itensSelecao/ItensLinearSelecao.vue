@@ -5,7 +5,7 @@
         <v-expansion-panel-header>
           <h3> {{ item.nome }}</h3>
           <v-divider vertical class="mx-2"></v-divider>
-          <h4>Tipo:<h5> {{ item.tipoItem.descricao }} </h5>
+          <h4>Tipo:<h5> {{ item.nome }} </h5>
           </h4>
         </v-expansion-panel-header>
         <v-expansion-panel-content>
@@ -35,8 +35,8 @@
 </template>
 <script lang="ts">
 import { Dimencao } from "@/Model/Enum/DimencaoEnum";
-import ItemModel from "@/Model/Itens/ItemModel";
-import ItemProdutoModel from "@/Model/Produtos/ItemProdutoModel";
+import ItemDto from "@/Model/Itens/ItemDto";
+import ProdutoItemDimencaoDto from "@/Model/Produtos/ProdutoItemDimencaoDto";
 import { StoreNamespaces } from "@/store";
 
 import { ProdutosActionTypes } from "@/store/Produtos/actions";
@@ -55,13 +55,13 @@ export default class ItensLinearSelecao extends Vue {
   produtoId!: number;
 
   @Prop()
-  public itensNaoAdicionados!: ItemModel[];
+  public itensNaoAdicionados!: ItemDto[];
   
   @produto.Action(ProdutosActionTypes.SALVAR_ITEM_PRODUTO)
-  private salvarItemProduto!:(itemProduto: ItemProdutoModel)=> Promise<void>;
+  private salvarItemProduto!:(itemProduto: ProdutoItemDimencaoDto)=> Promise<void>;
 
   @item.State
-  public itens!: ItemModel[];
+  public itens!: ItemDto[];
 
 
 public quantidade = 1;
@@ -69,12 +69,12 @@ public valorAdicional = 0;
 
   public get obterItensArea() {
     debugger
-    const intens = this.itensNaoAdicionados.filter(i => i.dimencaoId === Dimencao.Comprimento);
+    const intens = this.itensNaoAdicionados//.filter(i => i.dimencaoId === Dimencao.Comprimento);
     return intens;
   }
-  private itemProduto = new ItemProdutoModel();
+  private itemProduto = new ProdutoItemDimencaoDto();
 
-  public async selecionaItem(item: ItemModel) {
+  public async selecionaItem(item: ItemDto) {
     this.itemProduto.itemId = item.id;
     this.itemProduto.produtoId =this.produtoId;
     this.itemProduto.valorAdicional = this.valorAdicional;

@@ -21,11 +21,6 @@ export enum ProdutosActionTypes {
   EDITAR_CATEGORIA_PRODUTO = 'EDITAR_CATEGORIA_PRODUTO',
   REMOVER_CATEGORIA_PRODUTO = 'REMOVER_CATEGORIA_PRODUTO',
 
-  OBTER_TIPOS_PRODUTO = 'OBTER_TIPOS_PRODUTO',
-  SALVAR_TIPO_PRODUTO = 'SALVAR_TIPO_PRODUTO',
-  EDITAR_TIPO_PRODUTO = 'EDITAR_TIPO_PRODUTO',
-  REMOVER_TIPO_PRODUTO = 'REMOVER_TIPO_PRODUTO',
-
   OBTER_ITEMS_PRODUTO = 'OBTER_ITEMS_PRODUTO',
   SALVAR_ITEM_PRODUTO = 'SALVAR_ITEM_PRODUTO',
   EDITAR_ITEM_PRODUTO = 'EDITAR_ITEM_PRODUTO',
@@ -65,33 +60,6 @@ const actions: ActionTree<ProdutoState, RootState> = {
     await service.delete(id);
     const categoriasProduto = await service.obterTodasCategoriasProduto();
     commit(ProdutosMutationTypes.SET_CATEGORIAS_PRODUTO, categoriasProduto);
-  },
-
-  async [ProdutosActionTypes.OBTER_TIPOS_PRODUTO]({ commit }) {
-    const service = (Container.get(TipoProdutoService) as TipoProdutoService);
-    const tiposProduto = await service.obterTodosTiposProduto();
-    commit(ProdutosMutationTypes.SET_TIPO_PRODUTO, tiposProduto);
-  },
-
-  async [ProdutosActionTypes.SALVAR_TIPO_PRODUTO]({ commit }, tipo: TipoProdutoModel) {
-    const service = (Container.get(TipoProdutoService) as TipoProdutoService);
-     await service.salvarTipoProduto(tipo);
-     const tiposProduto = await service.obterTodosTiposProduto();
-    commit(ProdutosMutationTypes.SET_TIPO_PRODUTO, tiposProduto);
-  },
-
-  async [ProdutosActionTypes.EDITAR_TIPO_PRODUTO]({ commit }, tipo: TipoProdutoModel ) {
-    const service = (Container.get(TipoProdutoService) as TipoProdutoService);
-    await service.editarProduto(tipo);
-    const tiposProduto = await service.obterTodosTiposProduto();
-    commit(ProdutosMutationTypes.SET_TIPO_PRODUTO, tiposProduto);
-  },
-
-  async [ProdutosActionTypes.REMOVER_TIPO_PRODUTO]({ commit }, id: number) {
-    const service = (Container.get(TipoProdutoService) as TipoProdutoService);
-     await service.delete(id);
-     const tiposProduto = await service.obterTodosTiposProduto();
-    commit(ProdutosMutationTypes.SET_TIPO_PRODUTO, tiposProduto);
   },
 
 

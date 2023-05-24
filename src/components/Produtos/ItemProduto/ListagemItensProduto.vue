@@ -89,7 +89,7 @@
               style="background-color: #f2f2f2;">
               <h3> {{ item.nome }}</h3>
               <v-divider vertical class="mx-2"></v-divider>
-              <h4>Tipo:<h5> {{ item.tipoItem.descricao }} </h5>
+              <h4>Tipo:<h5> {{ }} </h5>
               </h4>
             </v-expansion-panel-header>
 
@@ -109,11 +109,11 @@ import ItensLinearSelecao from './itensSelecao/ItensLinearSelecao.vue';
 import ItensAreaSelecao from './itensSelecao/ItensAreaSelecao.vue';
 import ItensVolumeSelecao from './itensSelecao/ItensVolumeSelecao.vue';
 import ItensPerimetroSelecao from './itensSelecao/ItensPerimetroSelecao.vue';
-import ItemModel from "@/Model/Itens/ItemModel";
+import ItemDto from "@/Model/Itens/ItemDto";
 import { ProdutosActionTypes } from "@/store/Produtos/actions";
 import { StoreNamespaces } from "@/store/namespaces";
 import { namespace } from "vuex-class";
-import ItemProdutoModel from "@/Model/Produtos/ItemProdutoModel";
+import ProdutoItemDimencaoDto from "@/Model/Produtos/ProdutoItemDimencaoDto";
 
 const produto = namespace(StoreNamespaces.PRODUTO);
 const item = namespace(StoreNamespaces.ITEM);
@@ -135,25 +135,25 @@ export default class ListagemItensProduto extends Vue {
   private removeItemProduto!: (id: number) => Promise<void>;
 
   @produto.State
-  private itensProduto!: ItemProdutoModel[];
+  private itensProduto!: ProdutoItemDimencaoDto[];
 
   @item.State
-  public itens!: ItemModel[];
+  public itens!: ItemDto[];
 
   public tab = null;
   public dialogoItemProduto = false;
-  public itensSelecionados: ItemModel[] = [];
+  public itensSelecionados: ItemDto[] = [];
 
 
   public adicionaItemProdutoSelecao() {
     this.dialogoItemProduto = false;
   }
-  public obterItensSelecionados(item: ItemModel) {
+  public obterItensSelecionados(item: ItemDto) {
     this.itensSelecionados.push(item);
   }
 
-  public get itensAdicionados(): ItemModel[] {
-    let itensRetorno: ItemModel[] = [];
+  public get itensAdicionados(): ItemDto[] {
+    let itensRetorno: ItemDto[] = [];
     this.itensProduto.forEach(itensProduto => {
       this.itens.forEach(item => {
         if (item.id === itensProduto.itemId &&
@@ -164,8 +164,8 @@ export default class ListagemItensProduto extends Vue {
     return itensRetorno;
   }
 
-  public get itensNaoAdicionados(): ItemModel[] {
-    let itensRetorno: ItemModel[] = [];
+  public get itensNaoAdicionados(): ItemDto[] {
+    let itensRetorno: ItemDto[] = [];
     for (const item of this.itens) {
     if (!this.itensProduto.some(itemProduto => itemProduto.itemId === item.id && this.produtoId === itemProduto.produtoId)) {
       itensRetorno.push(item);
@@ -176,13 +176,13 @@ export default class ListagemItensProduto extends Vue {
     return this.itens;
   }
 
-  verificaItemPertenceAoProduto(item: ItemModel, itemProduto: ItemProdutoModel): boolean {
+  verificaItemPertenceAoProduto(item: ItemDto, itemProduto: ProdutoItemDimencaoDto): boolean {
     if (this.produtoId ===itemProduto.produtoId && item.id === itemProduto.itemId)
       return true;
     return false;
   }
 
-  public async removerItem(item: ItemModel) {
+  public async removerItem(item: ItemDto) {
     const itemProduto = this.itensProduto.find(x => x.itemId === item.id && x.produtoId === this.produtoId);
     if (itemProduto !== undefined) {
       await this.removeItemProduto(itemProduto.id).then();

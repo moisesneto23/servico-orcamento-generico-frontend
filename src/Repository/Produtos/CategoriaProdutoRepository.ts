@@ -2,7 +2,7 @@
 import  { AppHttpAxios }  from '@/axios/AppHttpAxios';
 import { Inject } from 'typescript-ioc';
 import store from '@/store';
-import CategoriaProdutoModel from '@/Model/Produtos/CategoriaProdutoModel';
+import CategoriaProdutoModel from '@/Model/Produtos/CategoriaProdutoDto';
 export class CategoriaProdutoRepository {
     
    

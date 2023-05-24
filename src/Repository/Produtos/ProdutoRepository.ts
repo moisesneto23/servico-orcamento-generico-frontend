@@ -2,7 +2,7 @@
 import  { AppHttpAxios }  from '@/axios/AppHttpAxios';
 import { Inject } from 'typescript-ioc';
 import store from '@/store';
-import ProdutoModel from '@/Model/Produtos/ProdutoModel';
+import ProdutoDto from '@/Model/Produtos/ProdutoDto';
 export class ProdutoRepository {
     
    
@@ -14,16 +14,16 @@ export class ProdutoRepository {
         return parseInt(id);
     }
    
-    public async obterTodosProdutos(): Promise<ProdutoModel[]> {
+    public async obterTodosProdutos(): Promise<ProdutoDto[]> {
         const result = await this.$http.get(`Produto/${this.idEmpresa}`);
         return result.data;
     }
 
-    public async salvarProduto(produto: ProdutoModel): Promise<any> {
+    public async salvarProduto(produto: ProdutoDto): Promise<any> {
         const result = await this.$http.post(`Produto/${this.idEmpresa}`, produto);
     }
 
-    public async editarProduto(produto: ProdutoModel): Promise<ProdutoModel> {
+    public async editarProduto(produto: ProdutoDto): Promise<ProdutoDto> {
         const result = await this.$http.patch(`Produto/${this.idEmpresa}`, produto);
         return result.data;
     }

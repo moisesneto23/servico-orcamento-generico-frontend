@@ -26,14 +26,14 @@
 
 
 <script lang="ts">
-import CategoriaModel from "@/Model/Itens/CategoriaModel";
+import CategoriaDto from "@/Model/Itens/CategoriaDto";
 import { Vue, Component, Prop } from "vue-property-decorator";
 import { StoreNamespaces } from '@/store';
 import { namespace } from 'vuex-class';
 import ListagemItensProduto from './ListagemItensProduto.vue'
-import ItemModel from "@/Model/Itens/ItemModel";
+import ItemDto from "@/Model/Itens/ItemDto";
 import { ProdutosActionTypes } from "@/store/Produtos/actions";
-import ItemProdutoModel from "@/Model/Produtos/ItemProdutoModel";
+import ProdutoItemDimencaoDto from "@/Model/Produtos/ProdutoItemDimencaoDto";
 
 const produto = namespace(StoreNamespaces.PRODUTO);
 @Component({
@@ -47,11 +47,11 @@ export default class DialogoItemProduto extends Vue {
   public produtoId!: number;
 
   @produto.Action(ProdutosActionTypes.SALVAR_ITEM_PRODUTO)
-  public salvaItensProduto!: (categoria: CategoriaModel) => Promise<any>;
+  public salvaItensProduto!: (categoria: CategoriaDto) => Promise<any>;
 
   public dialog = false;
 
-  public itensSelecionados!: ItemModel[];
+  public itensSelecionados!: ItemDto[];
   public adicionarItens() {
     return this.itensSelecionados;
   }

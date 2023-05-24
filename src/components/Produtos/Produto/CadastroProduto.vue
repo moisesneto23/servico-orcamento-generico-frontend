@@ -20,7 +20,7 @@
                
                 <v-col cols="12" sm="6">
                   <v-select
-                    :items="descricaoTipos"
+                    :items="descricaoCategorias"
                     label="Selecione o tipo do produto*"
                     required
                     v-model="select"
@@ -34,7 +34,7 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn dark  @click="selecuinaIdSelect(), salvarproduto()">
+            <v-btn dark  @click="selecionaIdSelect(), salvarproduto()">
               Salvar
             </v-btn>
             <v-btn color="blue" text @click="dialogproduto = false">
@@ -68,25 +68,50 @@ export default class CadastroProduto extends Vue {
   public salvaproduto!:(produto: ProdutoDto) => Promise<any>;
 
  @produto.State
-  private categoriaProduto!: CategoriaProdutoDto[];
+  private categoriasProduto!: CategoriaProdutoDto[];
 
   public produto = new ProdutoDto();
-  public selecuinaIdSelect(){
-  this.idSelect = this.categoriaProduto.find(x=>x.descricao == this.select)?.id;
-  }
+  // public selecuinaIdSelect(){
+  // this.idSelect = this.categoriaProduto.find(x=>x.descricao == this.select)?.id;
+  //}
   public idSelect?: number;
   public select = '';
   public async salvarproduto(){
     this.produto.categoriaProdutoId = this.idSelect || 0;
     await this.salvaproduto(this.produto).then(()=>{
-        this.descricaoTipos;
+        //this.descricaoTipos;
       this.dialogproduto = false;
     })
   }
+  public selecionaIdSelect(){
+  this.idSelect = this.categoriasProduto.find(x=>x.descricao == this.select)?.id;
+}
 
-  public get descricaoTipos(){
-    return this.categoriaProduto.map(c=>c.descricao);
-  }
+  // public get descricaoTipos(){
+  //   return this.categoriaProduto.map(c=>c.descricao);
+  // }
   public dialogproduto = false;
+
+  @produto.Action(ProdutosActionTypes.OBTER_CATEGORIAS_PRODUTO)
+  public obterTodasCategorias!:() => Promise<any>;
+
+  //  @produto.Action(ProdutosActionTypes.SALVAR_TIPO_PRODUTO)
+  // public salvarTipoItem!:(tipo: TipoProdutoModel) => Promise<any>;
+  
+  public get descricaoCategorias(){
+    return this.categoriasProduto.map((c)=>c.descricao);
+  }
+  public async  mounted(){
+   await this.obterTodasCategorias();
+  }
+
+
+
+  // public adicionarTipo(){
+   
+  //   this.tipo.categoriaProdutoId = this.idSelect || 0;
+  //   this.salvarTipoItem(this.tipo).then(()=>{
+  //      this.dialogTipo = false;
+  //   });
 }
 </script>

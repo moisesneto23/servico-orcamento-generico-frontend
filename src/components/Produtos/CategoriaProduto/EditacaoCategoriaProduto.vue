@@ -46,7 +46,7 @@
 import { Vue, Component,Prop } from "vue-property-decorator";
 import { namespace } from "vuex-class";
 import { StoreNamespaces } from "@/store";
-import CategoriaProdutoModel from "@/Model/Produtos/CategoriaProdutoModel";
+import CategoriaProdutoDto from "@/Model/Produtos/CategoriaProdutoDto";
 import { ProdutosActionTypes } from "@/store/Produtos/actions";
 
 const produto = namespace(StoreNamespaces.PRODUTO);
@@ -54,18 +54,18 @@ const produto = namespace(StoreNamespaces.PRODUTO);
 export default class EdicaoCategoriaProduto extends Vue {
 
   @produto.Action(ProdutosActionTypes.EDITAR_CATEGORIA_PRODUTO)
-  public editarCategoriaProduto!:(categoriaProduto: CategoriaProdutoModel) => Promise<any>;
+  public editarCategoriaProduto!:(categoriaProduto: CategoriaProdutoDto) => Promise<any>;
   public dialog = false;
 
   @Prop()
-  private categoriaProduto!: CategoriaProdutoModel;
+  private categoriaProduto!: CategoriaProdutoDto;
   public get exibeCategoriaProduto(){
     return this.categoriaProduto;
   }
   mounted(){
     console.log(this.categoriaProduto)
   }
-  public processarEdicao(categoriaProduto: CategoriaProdutoModel){
+  public processarEdicao(categoriaProduto: CategoriaProdutoDto){
     this.editarCategoriaProduto(categoriaProduto).then(()=>{
       this.dialog = false; 
       this.$emit('categoriaAlterada',this.categoriaProduto);

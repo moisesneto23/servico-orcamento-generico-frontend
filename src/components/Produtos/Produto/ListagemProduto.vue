@@ -3,7 +3,7 @@
       <v-expansion-panel v-for="produto in produtos" :key="produto.id" class="mb-2">
         <v-expansion-panel-header> <h3>  {{ produto.nome }}</h3> 
           <v-divider vertical class="mx-2"></v-divider> 
-          <h4>Tipo Produto: <h5>{{ produto.nome}}</h5>  </h4> </v-expansion-panel-header>
+          <h4>Categoria Produto: <h5>{{ produto.categoriaProduto.descricao}}</h5>  </h4> </v-expansion-panel-header>
         <v-expansion-panel-content class="mt-10">
             <dialogo-item-produto :produtoId="produto.id" 
             @produto-adicao-concluido="buscaItensProduto"/>

@@ -82,29 +82,29 @@
 </template>
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
-import CadastroItemUnitario from '@/components/Itens/Item/dimencionalidades/CadastroItemUnitario.vue' ;
-import ListaUnidade from '@/components/Itens/Item/dimencionalidades/ListaUnidade.vue' ;
-import CadastroItemLinear from '@/components/Itens/Item/dimencionalidades/CadastroItemLinear.vue' ;
-import ListaLinear from '@/components/Itens/Item/dimencionalidades/ListaLinear.vue' ;
-import CadastroItemArea from '@/components/Itens/Item/dimencionalidades/CadastroItemArea.vue' ;
-import ListaArea from '@/components/Itens/Item/dimencionalidades/ListaArea.vue' ;
-import CadastroItemVolume from '@/components/Itens/Item/dimencionalidades/CadastroItemVolume.vue' ;
-import ListaVolume from '@/components/Itens/Item/dimencionalidades/ListaVolume.vue' ;
-import CadastroItemPerimetro from '@/components/Itens/Item/dimencionalidades/CadastroItemPerimetro.vue' ;
-import ListaPerimetro from '@/components/Itens/Item/dimencionalidades/ListaPerimetro.vue' ;
+// import CadastroItemUnitario from '@/components/Itens/Item/dimencionalidades/CadastroItemUnitario.vue' ;
+// import ListaUnidade from '@/components/Itens/Item/dimencionalidades/ListaUnidade.vue' ;
+// import CadastroItemLinear from '@/components/Itens/Item/dimencionalidades/CadastroItemLinear.vue' ;
+// import ListaLinear from '@/components/Itens/Item/dimencionalidades/ListaLinear.vue' ;
+// import CadastroItemArea from '@/components/Itens/Item/dimencionalidades/CadastroItemArea.vue' ;
+// import ListaArea from '@/components/Itens/Item/dimencionalidades/ListaArea.vue' ;
+// import CadastroItemVolume from '@/components/Itens/Item/dimencionalidades/CadastroItemVolume.vue' ;
+// import ListaVolume from '@/components/Itens/Item/dimencionalidades/ListaVolume.vue' ;
+// import CadastroItemPerimetro from '@/components/Itens/Item/dimencionalidades/CadastroItemPerimetro.vue' ;
+// import ListaPerimetro from '@/components/Itens/Item/dimencionalidades/ListaPerimetro.vue' ;
 
 @Component({
   components: {
-    CadastroItemUnitario,
-    ListaUnidade,
-    CadastroItemLinear,
-    ListaLinear,
-    CadastroItemArea,
-    ListaArea,
-    CadastroItemVolume,
-    ListaVolume,
-    CadastroItemPerimetro,
-    ListaPerimetro,
+    // CadastroItemUnitario,
+    // ListaUnidade,
+    // CadastroItemLinear,
+    // ListaLinear,
+    // CadastroItemArea,
+    // ListaArea,
+    // CadastroItemVolume,
+    // ListaVolume,
+    // CadastroItemPerimetro,
+    // ListaPerimetro,
   },
 })
 export default class ListagemItem extends Vue {

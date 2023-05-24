@@ -1,5 +1,5 @@
 import  {AppHttpAxios}  from '@/axios/AppHttpAxios';
-import ItemModel from '@/Model/Itens/ItemModel';
+import ItemModel from '@/Model/Itens/ItemDto';
 import { Inject } from 'typescript-ioc';
 import ItemRequest from '@/Model/Request/ItemRequest'
 import store from '@/store';

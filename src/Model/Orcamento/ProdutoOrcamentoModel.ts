@@ -1,5 +1,5 @@
 
-import ItemModel from '@/Model/Itens/ItemModel'
+import ItemModel from '@/Model/Itens/ItemDto'
 export default class ProdutoOrcamentoModel{
     public  Id!: number;
         public  Quantidade!: number;

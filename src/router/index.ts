@@ -51,7 +51,7 @@ const routes: Array<RouteConfig> = [
       },
       {
         path: "/cadastro/orcamento",
-        name: "CadastroProdutos",
+        name: "CadastroOrcamento",
         component: () => import('@/views/Inicio/CadastroOrcamento.vue'),
       },
     ],

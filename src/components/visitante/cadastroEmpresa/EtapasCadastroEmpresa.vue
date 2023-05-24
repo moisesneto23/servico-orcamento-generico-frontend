@@ -205,6 +205,7 @@ import { Inject } from "typescript-ioc";
 import EmpresaDto from '@/Model/Empresa/EmpresaDto';
 import { ColaboradorDto } from '@/Model/ColaboradorDto';
 import { EnderecoDto } from '@/Model/EnderecoDto';
+import Login from '@/Model/Login';
 
 @Component({
   components:{
@@ -232,6 +233,12 @@ export default class EtapasCadastroEmpresa extends Vue {
 
   public async cadastrarEmpresa(){
   if(this.validacaoFormularaio() && this.verificaConfimacoSenha() === null ){
+    this.Empresa.colaboradores.push(this.Colaborador);
+    this.Empresa.enderecos.push(this.Endereco);
+    await this.empresaService.cadastrarEmpresa(this.Empresa)
+    .then(async ()=> 
+       await this.empresaService.obterInformacoesEmpresa(new Login(this.Colaborador.email, this.Colaborador.senha))
+       .then(()=> this.$router.push('/')))
     alert('tudo certo')
   }
 

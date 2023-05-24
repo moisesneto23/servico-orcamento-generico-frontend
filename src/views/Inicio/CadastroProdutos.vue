@@ -80,13 +80,13 @@ export default class CadastroProdutos extends Vue {
       @produto.Action(ProdutosActionTypes.OBTER_PRODUTOS)
     public obterProdutos!:() => Promise<any>;
 
-      @produto.Action(ProdutosActionTypes.OBTER_TIPOS_PRODUTO)
-    public obterTiposProduto!:() => Promise<any>;
+    //   @produto.Action(ProdutosActionTypes.OBTER_TIPOS_PRODUTO)
+    // public obterTiposProduto!:() => Promise<any>;
   public async mounted(){
     await this.obterCategoriassProduto();
-    await this.obterItenssProduto();
+    //await this.obterItenssProduto();
     await this.obterProdutos();
-    await this.obterTiposProduto();
+   // await this.obterTiposProduto();
 }
 }
 

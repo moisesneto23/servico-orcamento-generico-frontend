@@ -1,5 +1,5 @@
 
-import ItemProdutoModel from '@/Model/Produtos/ItemProdutoModel';
+import ItemProdutoModel from '@/Model/Produtos/ProdutoItemDimencaoDto';
 import { ItemProdutoRepository } from '@/Repository/Produtos/ItemProdutoRepository';
 import { Inject } from 'typescript-ioc';
 

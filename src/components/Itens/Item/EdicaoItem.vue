@@ -63,7 +63,7 @@ import TipoModel from "@/Model/Itens/TipoModel";
 import { StoreNamespaces } from "@/store";
 import { namespace } from "vuex-class";
 import { ItensActionTypes } from "@/store/Item/actions";
-import ItemModel from "@/Model/Itens/ItemModel";
+import ItemDto from "@/Model/Itens/ItemDto";
 
 const item = namespace(StoreNamespaces.ITEM);
 
@@ -72,13 +72,13 @@ export default class EdicaoItem extends Vue {
   public dialog = false;
 
  @item.Action(ItensActionTypes.EDITAR_ITEM)
-  public editaItem!:(item: ItemModel) => Promise<any>;
+  public editaItem!:(item: ItemDto) => Promise<any>;
 
   @Prop()
-  public itemEdicao!: ItemModel;
+  public itemEdicao!: ItemDto;
   
 
-  private async editarItem(item: ItemModel): Promise<any>{
+  public async editarItem(item: ItemDto): Promise<any>{
        await this.editaItem(item).then(()=>{
            this.dialog = false;
         });
