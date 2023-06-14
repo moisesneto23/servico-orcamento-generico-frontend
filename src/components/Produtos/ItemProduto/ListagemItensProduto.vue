@@ -34,8 +34,10 @@
       <v-tab-item value="tab-1">
         <div>
           <v-card-text>
-            <itens-unidade-selecao :itensNaoAdicionados="itensNaoAdicionados"
-              :produtoId="produtoId"></itens-unidade-selecao>
+            <itens-unidade-selecao 
+              :itensNaoAdicionados="itensNaoAdicionados"
+              :produtoId="produtoId"
+              @fechar-dialogo="fechaDialogo" ></itens-unidade-selecao>
           </v-card-text>
         </div>
       </v-tab-item>
@@ -82,9 +84,9 @@
       <v-card>
 
         itens selecionados
-        <v-card>
-          <v-expansion-panel v-for="(item, i) in itensAdicionados" :key="i" class="mb-1" expand-icon="mdi-plus">
-
+        
+  <listagem-item-produto-edicao :itemProdutoDimencao="itensAdicionados"></listagem-item-produto-edicao>
+          <!-- <v-expansion-panel v-for="(item, i) in itensAdicionados" :key="i" class="mb-1" expand-icon="mdi-plus">
             <v-expansion-panel-header @click="removerItem(item)" expand-icon="mdi-minus"
               style="background-color: #f2f2f2;">
               <h3> {{ item.nome }}</h3>
@@ -92,13 +94,32 @@
               <h4>Tipo:<h5> {{ }} </h5>
               </h4>
             </v-expansion-panel-header>
+          </v-expansion-panel> -->
 
-          </v-expansion-panel>
 
-        </v-card>
       </v-card>
     </v-tabs-items>
 
+
+
+    <!-- <v-item-group
+        class="mt-8 mx-4"
+        :value="itensAdicionados"
+      >
+        <v-item v-for="item in itensAdicionados" :key="item.id" :value="item.id">
+          <v-sheet
+            :min-height="40"
+            elevation="4"
+            @click="removerItem(item)"
+            class="pa-4 d-flex align-center justify-center"
+            style="border-radius: 8px; cursor: pointer"
+          >
+            <span class="primary--text text-body-1 font-weight-bold text-center">
+              {{ item.nome }}
+            </span>
+          </v-sheet>
+        </v-item>
+      </v-item-group> -->
 
   </div>
 </template>
@@ -113,7 +134,8 @@ import ItemDto from "@/Model/Itens/ItemDto";
 import { ProdutosActionTypes } from "@/store/Produtos/actions";
 import { StoreNamespaces } from "@/store/namespaces";
 import { namespace } from "vuex-class";
-import ProdutoItemDimencaoDto from "@/Model/Produtos/ProdutoItemDimencaoDto";
+import ItemProdutoDimencaoDto from "@/Model/Produtos/ItemProdutoDimencaoDto";
+import ListagemItemProdutoEdicao from '@/components/Produtos/ItemProduto/ListagemItemProdutoEdicao.vue';
 
 const produto = namespace(StoreNamespaces.PRODUTO);
 const item = namespace(StoreNamespaces.ITEM);
@@ -125,17 +147,20 @@ const item = namespace(StoreNamespaces.ITEM);
     ItensAreaSelecao,
     ItensVolumeSelecao,
     ItensPerimetroSelecao,
+    ListagemItemProdutoEdicao,
   },
 })
 export default class ListagemItensProduto extends Vue {
   @Prop()
   public produtoId!: number;
 
-  @produto.Action(ProdutosActionTypes.REMOVER_ITEM_PRODUTO)
-  private removeItemProduto!: (id: number) => Promise<void>;
+  
+
+    @produto.Action(ProdutosActionTypes.OBTER_ITENS_PRODUTO_POR_PRODUTO)
+  private ObterItensPorProduto!: (id: number) => Promise<void>;
 
   @produto.State
-  private itensProduto!: ProdutoItemDimencaoDto[];
+  private itensProdutoDimencao!: ItemProdutoDimencaoDto[];
 
   @item.State
   public itens!: ItemDto[];
@@ -144,6 +169,9 @@ export default class ListagemItensProduto extends Vue {
   public dialogoItemProduto = false;
   public itensSelecionados: ItemDto[] = [];
 
+  mounted(){
+    this.ObterItensPorProduto(this.produtoId);
+  }
 
   public adicionaItemProdutoSelecao() {
     this.dialogoItemProduto = false;
@@ -152,22 +180,21 @@ export default class ListagemItensProduto extends Vue {
     this.itensSelecionados.push(item);
   }
 
-  public get itensAdicionados(): ItemDto[] {
-    let itensRetorno: ItemDto[] = [];
-    this.itensProduto.forEach(itensProduto => {
-      this.itens.forEach(item => {
-        if (item.id === itensProduto.itemId &&
-          itensProduto.produtoId === this.produtoId)
-          itensRetorno.push(item);
+  public get itensAdicionados(): ItemProdutoDimencaoDto[] {
+    let itensRetorno: ItemProdutoDimencaoDto[] = [];
+    this.itensProdutoDimencao.forEach(itensProduto => {
+        if (itensProduto.produtoId === this.produtoId)
+          itensRetorno.push(itensProduto);
       })
-    });
     return itensRetorno;
   }
-
+  public fechaDialogo() {
+    this.$emit('fecha-dialogo');
+  }
   public get itensNaoAdicionados(): ItemDto[] {
     let itensRetorno: ItemDto[] = [];
     for (const item of this.itens) {
-    if (!this.itensProduto.some(itemProduto => itemProduto.itemId === item.id && this.produtoId === itemProduto.produtoId)) {
+    if (!this.itensProdutoDimencao.some(itemProduto => itemProduto.itemId === item.id && this.produtoId === itemProduto.produtoId)) {
       itensRetorno.push(item);
     }
   }
@@ -176,18 +203,13 @@ export default class ListagemItensProduto extends Vue {
     return this.itens;
   }
 
-  verificaItemPertenceAoProduto(item: ItemDto, itemProduto: ProdutoItemDimencaoDto): boolean {
+  verificaItemPertenceAoProduto(item: ItemDto, itemProduto: ItemProdutoDimencaoDto): boolean {
     if (this.produtoId ===itemProduto.produtoId && item.id === itemProduto.itemId)
       return true;
     return false;
   }
 
-  public async removerItem(item: ItemDto) {
-    const itemProduto = this.itensProduto.find(x => x.itemId === item.id && x.produtoId === this.produtoId);
-    if (itemProduto !== undefined) {
-      await this.removeItemProduto(itemProduto.id).then();
-    }
-  }
+ 
 }
 </script>
 <style scoped>#cadastroOrcamento {

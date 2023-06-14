@@ -42,14 +42,6 @@
                   ></v-text-field>
                 </v-col>
                
-                <v-col cols="12" sm="6">
-                  <v-select
-                    :items="descricaoTipos"
-                    label="Selecione o tipo do item*"
-                    required
-                    v-model="select"
-                  ></v-select>
-                </v-col>
               <v-col cols="12" sm="6">
                   <v-select
                     :items="direcaoCauculo"
@@ -87,7 +79,7 @@
 <script lang="ts">
 import { Dimencao } from "@/Model/Enum/DimencaoEnum";
 import { DirecaoCalculo } from "@/Model/Enum/DirecaoCalculoEnum";
-import ItemModel from "@/Model/Itens/ItemModel";
+import ItemDto from "@/Model/Itens/ItemDto";
 import TipoModel from "@/Model/Itens/TipoModel";
 import { StoreNamespaces } from "@/store";
 import { ItensActionTypes } from "@/store/Item/actions";
@@ -98,12 +90,12 @@ const item = namespace(StoreNamespaces.ITEM);
 @Component({})
 export default class CadastroItemLinear extends Vue {
   @item.Action(ItensActionTypes.SALVAR_ITEM)
-  public salvaItem!:(item: ItemModel) => Promise<any>;
+  public salvaItem!:(item: ItemDto) => Promise<any>;
 
   @item.State
  private tipos!: TipoModel[];
   public direcaoCauculo = ['Largura',  'Altura', 'Comprimento'];
-  public item = new ItemModel();
+  public item = new ItemDto();
   public selecuinaIdSelect(){
   this.idSelect = this.tipos.find(x=>x.descricao == this.select)?.id;
 }
@@ -115,19 +107,19 @@ export default class CadastroItemLinear extends Vue {
   public selectDirecaoCauculo= '';
 
   public async salvarItem(){
-    switch (this.selectDirecaoCauculo) {
-      case 'Largura': this.item.direcaoCalculoId = DirecaoCalculo.Largura;
-        break;
-      case 'Altura': this.item.direcaoCalculoId = DirecaoCalculo.Altura;
-        break;
-      case 'Comprimento': this.item.direcaoCalculoId = DirecaoCalculo.Comprimento;
-        break;
-    }
-    let comprimentoBarra = parseFloat(this.comprimentoBarraStr);
-    this.item.tipoItemId = this.idSelect || 0;
-    this.item.dimencaoId = Dimencao.Comprimento;
-    this.item.valorCompra = parseFloat(this.valorCompraStr) / comprimentoBarra;
-    this.item.valorVenda = parseFloat(this.valorVendaStr) / comprimentoBarra;
+    // switch (this.selectDirecaoCauculo) {
+    //   case 'Largura': this.item.direcaoCalculoId = DirecaoCalculo.Largura;
+    //     break;
+    //   case 'Altura': this.item.direcaoCalculoId = DirecaoCalculo.Altura;
+    //     break;
+    //   case 'Comprimento': this.item.direcaoCalculoId = DirecaoCalculo.Comprimento;
+    //     break;
+    // }
+    // let comprimentoBarra = parseFloat(this.comprimentoBarraStr);
+    // this.item.tipoItemId = this.idSelect || 0;
+    // this.item.dimencaoId = Dimencao.Comprimento;
+    // this.item.valorCompra = parseFloat(this.valorCompraStr) / comprimentoBarra;
+    // this.item.valorVenda = parseFloat(this.valorVendaStr) / comprimentoBarra;
     await this.salvaItem(this.item).then(()=>{
       this.dialogItem = false;
     })

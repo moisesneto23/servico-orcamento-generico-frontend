@@ -1,6 +1,7 @@
-export class DimencaoDto{
+export class DimencaoDto {
+
+    public id!: number;
     public nome!: string;
     public descricao!: string;
-    //public direcaoCalculo!: DirecaoCalculo;
     public direcaoCalculoId!: number;
 }

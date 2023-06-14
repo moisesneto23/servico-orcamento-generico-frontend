@@ -53,12 +53,12 @@ const item = namespace(StoreNamespaces.ITEM);
 @Component({})
 export default class EdicaoCategoria extends Vue {
 
-  @item.Action(ItensActionTypes.EDITAR_CATEGORIA_ITEM)
-  public editarCategoriasItem!:(categoria: CategoriaModel) => Promise<any>;
+  // @item.Action(ItensActionTypes.EDITAR_CATEGORIA_ITEM)
+  // public editarCategoriasItem!:(categoria: CategoriaModel) => Promise<any>;
 
-  @item.Action(ItensActionTypes.OBTER_TIPOS_ITEM)
-  public obterTiposItem!:() => Promise<any>;
-  public dialog = false;
+  // @item.Action(ItensActionTypes.OBTER_TIPOS_ITEM)
+  // public obterTiposItem!:() => Promise<any>;
+   public dialog = false;
 
   @Prop()
   private categoria!: CategoriaModel;
@@ -66,11 +66,11 @@ export default class EdicaoCategoria extends Vue {
     return this.categoria;
   }
   public processarEdicao(categoria: CategoriaModel){
-    this.editarCategoriasItem(categoria).then(()=>{
-      this.dialog = false; 
-      this.obterTiposItem();
-      this.$emit('categoriaAlterada',this.categoria);
-    });
+    // this.editarCategoriasItem(categoria).then(()=>{
+    //   this.dialog = false; 
+    //   this.obterTiposItem();
+    //   this.$emit('categoriaAlterada',this.categoria);
+    // });
   }
 
 }

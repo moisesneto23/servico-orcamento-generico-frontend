@@ -1,6 +1,6 @@
 <template>
   <div id="cadastroOrcamento">
-    <v-tabs v-model="tab" grow icons-and-text background-color="#4B5" color="black">
+    <!-- <v-tabs v-model="tab" grow icons-and-text background-color="#4B5" color="black">
       <v-tabs-slider></v-tabs-slider>
 
       <v-tab href="#tab-1">
@@ -33,9 +33,9 @@
       <v-tab-item value="tab-2">
         <div>
           <v-card-text>
-            <!-- <listagem-tipo></listagem-tipo> -->
+            <listagem-tipo></listagem-tipo>
           </v-card-text>
-          <!-- <cadastro-tipo></cadastro-tipo> -->
+          <cadastro-tipo></cadastro-tipo>
         </div>
       </v-tab-item>
 
@@ -47,47 +47,48 @@
         </div>
       </v-tab-item>
 
-    </v-tabs-items>
-
-
+    </v-tabs-items> versão antiga desativada   <listagem-item></listagem-item> -->
+   
+    <cadastro-item></cadastro-item>
+   
   </div>
 </template>
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
-import CadastroCategoria from "@/components/Itens/Categoria/CadastroCategoria.vue";
+
 
 import ListagemCategoria from '@/components/Itens/Categoria/ListagemCategoria.vue'
-//import ListagemTipo from '@/components/Itens/Tipo/ListagemTipo.vue'
 import ListagemItem from '@/components/Itens/Item/ListagemItem.vue';
 import { StoreNamespaces } from "@/store/namespaces";
 import { namespace } from "vuex-class";
 import { ItensActionTypes } from "@/store/Item/actions";
-
+import CadastroItemDimensionalidade from "@/components/Itens/Item/CadastroItemDimensionalidade.vue"
+import CadastroItem from '@/components/Itens/Item/dimencionalidades/CadastroItem.vue'
 const item = namespace(StoreNamespaces.ITEM);
 @Component({
   components: {
-    CadastroCategoria,
-
+   
     ListagemCategoria,
-   // ListagemTipo,
     ListagemItem,
+    CadastroItemDimensionalidade,
+    CadastroItem,
   },
 })
 export default class CadastroOrcamento extends Vue {
   public tab = null;
 
-  @item.Action(ItensActionTypes.OBTER_CATEGORIAS_ITEM)
-  public obterTodasCategoriasItem!:() => Promise<any>;
+  // @item.Action(ItensActionTypes.OBTER_CATEGORIAS_ITEM)
+  // public obterTodasCategoriasItem!:() => Promise<any>;
 
-    @item.Action(ItensActionTypes.OBTER_TIPOS_ITEM)
-  public obterTodosTiposItem!:() => Promise<any>;
+  //   @item.Action(ItensActionTypes.OBTER_TIPOS_ITEM)
+  // public obterTodosTiposItem!:() => Promise<any>;
 
     @item.Action(ItensActionTypes.OBTER_ITENS)
   public obterTodosItens!:() => Promise<any>;
 
     public async mounted(){
-     this.obterTodasCategoriasItem();
-     this.obterTodosTiposItem();
+    //  this.obterTodasCategoriasItem();
+    //  this.obterTodosTiposItem();
      this.obterTodosItens();
   }
 }

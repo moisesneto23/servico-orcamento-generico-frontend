@@ -33,16 +33,7 @@
                      v-model="item.valorVenda"
                   ></v-text-field>
                 </v-col>
-               
-                <v-col cols="12" sm="6">
-                  <v-select
-                    :items="descricaoTipos"
-                    label="Selecione o tipo do item*"
-                    required
-                    v-model="select"
-                  ></v-select>
-                </v-col>
-              
+
                 
               </v-row>
             </v-container>
@@ -71,7 +62,7 @@
 
 <script lang="ts">
 import { Dimencao } from "@/Model/Enum/DimencaoEnum";
-import ItemModel from "@/Model/Itens/ItemModel";
+import ItemDto from "@/Model/Itens/ItemDto";
 import TipoModel from "@/Model/Itens/TipoModel";
 import { StoreNamespaces } from "@/store";
 import { ItensActionTypes } from "@/store/Item/actions";
@@ -82,21 +73,21 @@ const item = namespace(StoreNamespaces.ITEM);
 @Component({})
 export default class CadastroItemUnitario extends Vue {
   @item.Action(ItensActionTypes.SALVAR_ITEM)
-  public salvaItem!:(item: ItemModel) => Promise<any>;
+  public salvaItem!:(item: ItemDto) => Promise<any>;
 
   @item.State
  private tipos!: TipoModel[];
 
-  public item = new ItemModel();
+  public item = new ItemDto();
   public selecuinaIdSelect(){
   this.idSelect = this.tipos.find(x=>x.descricao == this.select)?.id;
 }
   public idSelect?: number;
   public select = '';
   public async salvarItem(){
-    this.item.tipoItemId = this.idSelect || 0;
-    this.item.dimencaoId = Dimencao.Unidade;
-    this.item.direcaoCalculoId = 1;
+    // this.item.tipoItemId = this.idSelect || 0;
+    // this.item.dimencaoId = Dimencao.Unidade;
+    // this.item.direcaoCalculoId = 1;
     await this.salvaItem(this.item).then(()=>{
       this.dialogItem = false;
     })

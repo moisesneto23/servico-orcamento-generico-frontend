@@ -1,11 +1,11 @@
 <template>
   <div justify="center">
-    <v-dialog v-model="dialog" persistent max-width="800px">
+    <v-dialog v-model="dialog" persistent max-width="1000px" >
       <v-card min-height="800px">
         <v-card-title>
           <span class="text-h5">Adicionar Itens ao Produto</span>
         </v-card-title>
-        <listagem-itens-produto :produtoId="produtoId"></listagem-itens-produto>
+        <listagem-itens-produto :produtoId="produtoId" @fecha-dialogo="dialog = false"></listagem-itens-produto>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="primary" @click="adicionarItens">
@@ -33,7 +33,7 @@ import { namespace } from 'vuex-class';
 import ListagemItensProduto from './ListagemItensProduto.vue'
 import ItemDto from "@/Model/Itens/ItemDto";
 import { ProdutosActionTypes } from "@/store/Produtos/actions";
-import ProdutoItemDimencaoDto from "@/Model/Produtos/ProdutoItemDimencaoDto";
+import ItemProdutoDimencaoDto from "@/Model/Produtos/ItemProdutoDimencaoDto";
 
 const produto = namespace(StoreNamespaces.PRODUTO);
 @Component({
@@ -46,7 +46,7 @@ export default class DialogoItemProduto extends Vue {
   @Prop()
   public produtoId!: number;
 
-  @produto.Action(ProdutosActionTypes.SALVAR_ITEM_PRODUTO)
+  @produto.Action(ProdutosActionTypes.SALVAR_ITEM_PRODUTO_DIMENCAO)
   public salvaItensProduto!: (categoria: CategoriaDto) => Promise<any>;
 
   public dialog = false;
@@ -60,3 +60,16 @@ export default class DialogoItemProduto extends Vue {
   }
 }
 </script>
+<style>
+.fullscreen-dialog {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+</style>

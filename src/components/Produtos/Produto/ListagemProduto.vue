@@ -38,7 +38,7 @@
   import { ProdutosActionTypes } from "@/store/Produtos/actions";
   import ProdutoDto from "@/Model/Produtos/ProdutoDto";
   import DialogoItemProduto from "../ItemProduto/DialogoItemProduto.vue"
-import ProdutoItemDimencaoDto from "@/Model/Produtos/ProdutoItemDimencaoDto";
+import ItemProdutoDimencaoDto from "@/Model/Produtos/ItemProdutoDimencaoDto";
   
   const produto = namespace(StoreNamespaces.PRODUTO);
   @Component({
@@ -55,7 +55,7 @@ import ProdutoItemDimencaoDto from "@/Model/Produtos/ProdutoItemDimencaoDto";
     @produto.Action(ProdutosActionTypes.REMOVER_PRODUTO)
     public removerProduto!:(id: number) => Promise<any>;
     
-    @produto.Action(ProdutosActionTypes.OBTER_ITEMS_PRODUTO)
+    @produto.Action(ProdutosActionTypes.OBTER_ITEMS_PRODUTO_DIMENCAO)
     public obterItensProduto!:() => Promise<any>;
 
     @produto.State

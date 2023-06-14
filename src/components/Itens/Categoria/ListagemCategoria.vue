@@ -37,20 +37,20 @@ export default class ListagemCategoria extends Vue {
  @item.State
  public categorias!: CategoriaDto[];
    
-  @item.Action(ItensActionTypes.REMOVER_CATEGORIA_ITEM)
-  public removerCategoriaItem!:(id: number) => Promise<any>;
+  // @item.Action(ItensActionTypes.REMOVER_CATEGORIA_ITEM)
+  // public removerCategoriaItem!:(id: number) => Promise<any>;
 
-  @item.Action(ItensActionTypes.OBTER_TIPOS_ITEM)
-  public obterTiposItem!:() => Promise<any>;
+  // @item.Action(ItensActionTypes.OBTER_TIPOS_ITEM)
+  // public obterTiposItem!:() => Promise<any>;
 
   public alteracaoCategoria(categoria: CategoriaDto){
     this.categorias.filter(x=>x.id===categoria.id).map(c=>c =categoria);
   }
 
       public async excluirCategoria(id:number){
-       await this.removerCategoriaItem(id).then(()=>{
-        this.obterTiposItem();
-       });
+      //  await this.removerCategoriaItem(id).then(()=>{
+      //   this.obterTiposItem();
+      //  });
       }
 }
 </script>

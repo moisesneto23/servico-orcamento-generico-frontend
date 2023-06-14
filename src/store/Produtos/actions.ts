@@ -4,8 +4,8 @@ import { ProdutoState } from './state';
 import { RootState } from '@/store';
 import  {ProdutosMutationTypes}  from './mutations';
 import { Container, Inject } from 'typescript-ioc';
-import ItemProdutoService from '@/Service/Produtos/ItemProdutoService';
-import  ItemProdutoModel  from '@/Model/Produtos/ProdutoItemDimencaoDto';
+import ItemProdutoDimencaoService from '@/Service/Produtos/ItemProdutoDimencaoService';
+import  ItemProdutoDimencaoDto  from '@/Model/Produtos/ItemProdutoDimencaoDto';
 import ProdutoService from '@/Service/Produtos/ProdutoService';
 import  ProdutoModel  from '@/Model/Produtos/ProdutoDto';
 import  CategoriaProdutoModel  from '@/Model/Produtos/CategoriaProdutoDto';
@@ -21,10 +21,11 @@ export enum ProdutosActionTypes {
   EDITAR_CATEGORIA_PRODUTO = 'EDITAR_CATEGORIA_PRODUTO',
   REMOVER_CATEGORIA_PRODUTO = 'REMOVER_CATEGORIA_PRODUTO',
 
-  OBTER_ITEMS_PRODUTO = 'OBTER_ITEMS_PRODUTO',
-  SALVAR_ITEM_PRODUTO = 'SALVAR_ITEM_PRODUTO',
+  OBTER_ITEMS_PRODUTO_DIMENCAO = 'OBTER_ITEMS_PRODUTO_DIMENCAO',
+  SALVAR_ITEM_PRODUTO_DIMENCAO = 'SALVAR_ITEM_PRODUTO_DIMENCAO',
   EDITAR_ITEM_PRODUTO = 'EDITAR_ITEM_PRODUTO',
-  REMOVER_ITEM_PRODUTO = 'REMOVER_ITEM_PRODUTO',
+  REMOVER_ITEM_PRODUTO_DIMENCAO = 'REMOVER_ITEM_PRODUTO_DIMENCAO',
+  OBTER_ITENS_PRODUTO_POR_PRODUTO = 'OBTER_ITENS_PRODUTO_POR_PRODUTO',
 
   OBTER_PRODUTOS = 'OBTER_PRODUTOS',
   SALVAR_PRODUTO = 'SALVAR_PRODUTO',
@@ -66,33 +67,41 @@ const actions: ActionTree<ProdutoState, RootState> = {
 
 
 
-  async [ProdutosActionTypes.OBTER_ITEMS_PRODUTO]({ commit }) {
-    const service = (Container.get(ItemProdutoService) as ItemProdutoService);
+  async [ProdutosActionTypes.OBTER_ITEMS_PRODUTO_DIMENCAO]({ commit }) {
+    const service = (Container.get(ItemProdutoDimencaoService) as ItemProdutoDimencaoService);
     const itensProduto = await service.obterTodosItensProduto();
     commit(ProdutosMutationTypes.SET_ITENS_PRODUTO, itensProduto);
   },
 
-  async [ProdutosActionTypes.SALVAR_ITEM_PRODUTO]({ commit }, produto: ItemProdutoModel) {
-    const service = (Container.get(ItemProdutoService) as ItemProdutoService);
+
+
+  async [ProdutosActionTypes.SALVAR_ITEM_PRODUTO_DIMENCAO]({ commit }, produto: ItemProdutoDimencaoDto) {
+    const service = (Container.get(ItemProdutoDimencaoService) as ItemProdutoDimencaoService);
     await service.salvarItemProduto(produto);
-    const itensProduto = await service.obterTodosItensProduto();
+    const itensProduto = await service.obterItensCadastradoPorProduto(produto.produtoId);
     commit(ProdutosMutationTypes.SET_ITENS_PRODUTO, itensProduto);
   },
 
-  async [ProdutosActionTypes.EDITAR_ITEM_PRODUTO]({ commit }, produto: ItemProdutoModel) {
-    const service = (Container.get(ItemProdutoService) as ItemProdutoService);
+  async [ProdutosActionTypes.EDITAR_ITEM_PRODUTO]({ commit }, produto: ItemProdutoDimencaoDto) {
+    const service = (Container.get(ItemProdutoDimencaoService) as ItemProdutoDimencaoService);
     await service.editarItemProduto(produto);
     const itensProduto = await service.obterTodosItensProduto();
     commit(ProdutosMutationTypes.SET_ITENS_PRODUTO, itensProduto);
   },
 
-  async [ProdutosActionTypes.REMOVER_ITEM_PRODUTO]({ commit }, id: number) {
-    const service = (Container.get(ItemProdutoService) as ItemProdutoService);
+  async [ProdutosActionTypes.REMOVER_ITEM_PRODUTO_DIMENCAO]({ commit }, id: number) {
+    const service = (Container.get(ItemProdutoDimencaoService) as ItemProdutoDimencaoService);
     await service.delete(id);
     const itensProduto = await service.obterTodosItensProduto();
     commit(ProdutosMutationTypes.SET_ITENS_PRODUTO, itensProduto);
   },
 
+  async [ProdutosActionTypes.OBTER_ITENS_PRODUTO_POR_PRODUTO]({ commit }, produtoId: number) {
+    const service = (Container.get(ItemProdutoDimencaoService) as ItemProdutoDimencaoService);
+    const itensProduto = await service.obterItensCadastradoPorProduto(produtoId);
+  // await service.obterItensCadastradoPorProduto();
+    commit(ProdutosMutationTypes.SET_ITENS_PRODUTO, itensProduto);
+  },
 
 
 

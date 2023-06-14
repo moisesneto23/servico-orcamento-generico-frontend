@@ -21,7 +21,7 @@
                 <v-col cols="12" sm="6">
                   <v-select
                     :items="descricaoCategorias"
-                    label="Selecione o tipo do produto*"
+                    label="Selecione a Categoria do produto*"
                     required
                     v-model="select"
                   ></v-select>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-expansion-panels focusable>
-      <v-expansion-panel v-for="(item, i) in obterItensArea" :key="i" class="mb-1">
+      <v-expansion-panel v-for="(item, i) in obterItensVolume" :key="i" class="mb-1">
         <v-expansion-panel-header>
           <h3> {{ item.nome }}</h3>
           <v-divider vertical class="mx-2"></v-divider>
@@ -10,18 +10,34 @@
         </v-expansion-panel-header>
         <v-expansion-panel-content>
           <v-row>
+
+            <v-col cols="4" sm="4" md="4">
+              <v-text-field type="number" v-model="itemProduto.somatorioLargura" label="Somatorio Largura"></v-text-field>
+              <v-text-field type="number" v-model="itemProduto.somatorioALtura" label="Somatorio Altura"></v-text-field>
+              <v-text-field type="number" v-model="itemProduto.somatorioComprimento"
+                label="Sommatorio Comprimento"></v-text-field>
+            </v-col>
+
+            <v-col cols="4" sm="4" md="4">
+              <v-text-field type="number" v-model="itemProduto.coeficienteLargura"
+                label="Coeficiente Largura"></v-text-field>
+              <v-text-field type="number" v-model="itemProduto.coeficienteAltura"
+                label="Coeficiente Altura"></v-text-field>
+              <v-text-field type="number" v-model="itemProduto.coeficienteComprimento"
+                label="Coeficiente Comprimento"></v-text-field>
+            </v-col>
+          </v-row>
+          <v-row>
             <v-col cols="4" sm="4" md="4">
               <v-text-field type="number" v-model="quantidade" label="Quantidade de itens*" required></v-text-field>
             </v-col>
 
             <v-col cols="4" sm="6" md="4">
               <v-text-field label="Valor adicional" type="number" v-model="valorAdicional" step="0.01" locale="pt-BR"
-                prefix="R$" required
-               ></v-text-field>
+                prefix="R$" required></v-text-field>
             </v-col>
             <v-col>
-              <v-btn color="primary" class="mt-5" @click="selecionaItem(item)"
-              :disabled="!quantidade || quantidade < 1 ">
+              <v-btn color="primary" class="mt-5" @click="selecionaItem(item)" :disabled="!quantidade || quantidade < 1">
                 <v-icon dark>
                   mdi-plus
                 </v-icon>
@@ -36,7 +52,7 @@
 <script lang="ts">
 import { Dimencao } from "@/Model/Enum/DimencaoEnum";
 import ItemDto from "@/Model/Itens/ItemDto";
-import ProdutoItemDimencaoDto from "@/Model/Produtos/ProdutoItemDimencaoDto";
+import ItemProdutoDimencaoDto from "@/Model/Produtos/ItemProdutoDimencaoDto";
 import { StoreNamespaces } from "@/store";
 
 import { ProdutosActionTypes } from "@/store/Produtos/actions";
@@ -50,36 +66,46 @@ const produto = namespace(StoreNamespaces.PRODUTO);
   }
 })
 export default class ItensPerimetroSelecao extends Vue {
-
   @Prop()
   produtoId!: number;
 
   @Prop()
   public itensNaoAdicionados!: ItemDto[];
-  
-  @produto.Action(ProdutosActionTypes.SALVAR_ITEM_PRODUTO)
-  private salvarItemProduto!:(itemProduto: ProdutoItemDimencaoDto)=> Promise<void>;
+  public relacaoProdutoItem = new ItemProdutoDimencaoDto();
+
+  @produto.Action(ProdutosActionTypes.SALVAR_ITEM_PRODUTO_DIMENCAO)
+  private salvarItemProduto!: (itemProduto: ItemProdutoDimencaoDto) => Promise<void>;
 
   @item.State
   public itens!: ItemDto[];
 
+  @produto.State
+  public itensProdutoDimencao!: ItemProdutoDimencaoDto[];
 
-public quantidade = 1;
-public valorAdicional = 0;
+  public quantidade = 1;
+  public valorAdicional = 0;
 
-  public get obterItensArea() {
-    debugger
-    const intens = this.itensNaoAdicionados //.filter(i=>i.dimencaoId === Dimencao.Volume);
-    return intens;
+  public get obterItensVolume() {
+    let itensSelecionaveis = this.itens;
+    let itensSelecionados = this.itensProdutoDimencao.filter((x) => x.dimencaoId === 11);
+    itensSelecionados.forEach((item) => {
+      itensSelecionaveis = itensSelecionaveis.filter((x) => x.id !== item.itemId);
+    });
+    return itensSelecionaveis;
   }
-  private itemProduto = new ProdutoItemDimencaoDto();
+  public itemProduto = new ItemProdutoDimencaoDto();
+
 
   public async selecionaItem(item: ItemDto) {
+    this.itemProduto.dimencaoId = 11;
     this.itemProduto.itemId = item.id;
-    this.itemProduto.produtoId =this.produtoId;
+    this.itemProduto.nome = item.nome;
+    this.itemProduto.valorCompra = item.valorCompra;
+    this.itemProduto.valorVenda = item.valorVenda;
+    this.itemProduto.produtoId = this.produtoId;
     this.itemProduto.valorAdicional = this.valorAdicional;
     this.itemProduto.quantidade = this.quantidade;
-    await this.salvarItemProduto(this.itemProduto).then(()=>{
+    await this.salvarItemProduto(this.itemProduto).then(() => {
     });
   }
 

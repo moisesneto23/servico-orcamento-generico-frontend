@@ -1,5 +1,5 @@
 import CategoriaProdutoDto from "./CategoriaProdutoDto";
-import ProdutoItemDimencaoDto from "./ProdutoItemDimencaoDto";
+import ProdutoItemDimencaoDto from "./ItemProdutoDimencaoDto";
 
 
 export default class ProdutoModel {

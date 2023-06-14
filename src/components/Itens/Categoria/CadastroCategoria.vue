@@ -54,8 +54,8 @@ const item = namespace(StoreNamespaces.ITEM);
 @Component({})
 export default class CadastroCategoria extends Vue {
 
-    @item.Action(ItensActionTypes.SALVAR_CATEGORIA_ITEM)
-  public salvarCategoriaItem!:(categoria : CategoriaDto) => Promise<any>;
+  //   @item.Action(ItensActionTypes.SALVAR_CATEGORIA_ITEM)
+  // public salvarCategoriaItem!:(categoria : CategoriaDto) => Promise<any>;
 
   public dialog = false;
  
@@ -63,8 +63,8 @@ export default class CadastroCategoria extends Vue {
 
   public async adicionarCategoria(){
 
-    await this.salvarCategoriaItem(this.categoria).then(()=>{
-    });
+    // await this.salvarCategoriaItem(this.categoria).then(()=>{
+    // });
     this.dialog = false;
   }
 
