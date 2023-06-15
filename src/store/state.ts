@@ -3,6 +3,7 @@ import InformacoesEmpresa from '@/Model/InformacoesEmpresa'
 export class GlobalState {
 
     public informacoesEmpresa!: InformacoesEmpresa;
+    public carregamento = false;
 
     constructor() {
       this.informacoesEmpresa; 

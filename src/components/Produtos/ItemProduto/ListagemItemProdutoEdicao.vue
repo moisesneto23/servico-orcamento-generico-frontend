@@ -15,27 +15,27 @@
           <v-row>
 
             <v-col cols="12" sm="6">
-              <v-select v-model="select" :items="direcoesCauculoLinear" item-text="descricao" item-value="id"
+              <v-select color="teal" v-model="select" :items="direcoesCauculoLinear" item-text="descricao" item-value="id"
                 label="Select" persistent-hint return-object single-line></v-select>
             </v-col>
 
           </v-row>
           <v-row>
             <v-col cols="4" sm="4" md="4">
-              <v-text-field type="number" v-model="item.somatorioLargura" label="Somatorio Largura"
+              <v-text-field color="teal" type="number" v-model="item.somatorioLargura" label="Somatorio Largura"
                 v-if="obterIdDirecaoCauculo === 2"></v-text-field>
-              <v-text-field type="number" v-model="item.somatorioALtura" label="Somatorio Altura"
+              <v-text-field color="teal" type="number" v-model="item.somatorioALtura" label="Somatorio Altura"
                 v-else-if="obterIdDirecaoCauculo === 3"></v-text-field>
-              <v-text-field type="number" v-model="item.somatorioComprimento" label="Sommatorio Comprimento"
+              <v-text-field color="teal" type="number" v-model="item.somatorioComprimento" label="Sommatorio Comprimento"
                 v-else-if="obterIdDirecaoCauculo === 4"></v-text-field>
             </v-col>
 
             <v-col cols="4" sm="4" md="4">
-              <v-text-field type="number" v-model="item.coeficienteLargura" label="Coeficiente Largura"
+              <v-text-field color="teal" type="number" v-model="item.coeficienteLargura" label="Coeficiente Largura"
                 v-if="obterIdDirecaoCauculo === 2"></v-text-field>
-              <v-text-field type="number" v-model="item.coeficienteAltura" label="Coeficiente Altura"
+              <v-text-field color="teal" type="number" v-model="item.coeficienteAltura" label="Coeficiente Altura"
                 v-else-if="obterIdDirecaoCauculo === 3"></v-text-field>
-              <v-text-field type="number" v-model="item.coeficienteComprimento" label="Coeficiente Comprimento"
+              <v-text-field color="teal" type="number" v-model="item.coeficienteComprimento" label="Coeficiente Comprimento"
                 v-else-if="obterIdDirecaoCauculo === 4"></v-text-field>
             </v-col>
           </v-row>
@@ -45,7 +45,7 @@
           <v-row>
 
             <v-col cols="12" sm="6">
-              <v-select v-model="select" :items="direcoesCauculoPerimetro" item-text="descricao" item-value="id"
+              <v-select color="teal" v-model="select" :items="direcoesCauculoPerimetro" item-text="descricao" item-value="id"
                 label="Select" persistent-hint return-object single-line></v-select>
             </v-col>
 
@@ -53,20 +53,20 @@
           <v-row>
 
             <v-col cols="4" sm="4" md="4">
-              <v-text-field type="number" v-model="item.somatorioLargura" label="Somatorio Largura"
+              <v-text-field color="teal" type="number" v-model="item.somatorioLargura" label="Somatorio Largura"
                 v-if="obterIdDirecaoCauculo === 5 || obterIdDirecaoCauculo === 7"></v-text-field>
-              <v-text-field type="number" v-model="item.somatorioALtura" label="Somatorio Altura"
+              <v-text-field color="teal" type="number" v-model="item.somatorioALtura" label="Somatorio Altura"
                 v-if="obterIdDirecaoCauculo === 5 || obterIdDirecaoCauculo === 6"></v-text-field>
-              <v-text-field type="number" v-model="item.somatorioComprimento" label="Sommatorio Comprimento"
+              <v-text-field color="teal" type="number" v-model="item.somatorioComprimento" label="Sommatorio Comprimento"
                 v-if="obterIdDirecaoCauculo === 6 || obterIdDirecaoCauculo === 7"></v-text-field>
             </v-col>
 
             <v-col cols="4" sm="4" md="4">
-              <v-text-field type="number" v-model="item.coeficienteLargura" label="Coeficiente Largura"
+              <v-text-field color="teal" type="number" v-model="item.coeficienteLargura" label="Coeficiente Largura"
                 v-if="obterIdDirecaoCauculo === 5 || obterIdDirecaoCauculo === 7"></v-text-field>
-              <v-text-field type="number" v-model="item.coeficienteAltura" label="Coeficiente Altura"
+              <v-text-field color="teal" type="number" v-model="item.coeficienteAltura" label="Coeficiente Altura"
                 v-if="obterIdDirecaoCauculo === 5 || obterIdDirecaoCauculo === 6"></v-text-field>
-              <v-text-field type="number" v-model="item.coeficienteComprimento" label="Coeficiente Comprimento"
+              <v-text-field color="teal" type="number" v-model="item.coeficienteComprimento" label="Coeficiente Comprimento"
                 v-if="obterIdDirecaoCauculo === 6 || obterIdDirecaoCauculo === 7"></v-text-field>
             </v-col>
           </v-row>
@@ -76,7 +76,7 @@
           <v-row>
 
             <v-col cols="12" sm="6">
-              <v-select v-model="select" :items="direcoesCauculoPerimetro" item-text="descricao" item-value="id"
+              <v-select color="teal" v-model="select" :items="direcoesCauculoPerimetro" item-text="descricao" item-value="id"
                 label="Select" persistent-hint return-object single-line></v-select>
             </v-col>
 
@@ -84,20 +84,20 @@
           <v-row>
 
             <v-col cols="4" sm="4" md="4">
-              <v-text-field type="number" v-model="item.somatorioLargura" label="Somatorio Largura"
+              <v-text-field color="teal" type="number" v-model="item.somatorioLargura" label="Somatorio Largura"
                 v-if="obterIdDirecaoCauculo === 8 || obterIdDirecaoCauculo === 10"></v-text-field>
-              <v-text-field type="number" v-model="item.somatorioALtura" label="Somatorio Altura"
+              <v-text-field color="teal" type="number" v-model="item.somatorioALtura" label="Somatorio Altura"
                 v-if="obterIdDirecaoCauculo === 8 || obterIdDirecaoCauculo === 9"></v-text-field>
-              <v-text-field type="number" v-model="item.somatorioComprimento" label="Sommatorio Comprimento"
+              <v-text-field color="teal" type="number" v-model="item.somatorioComprimento" label="Sommatorio Comprimento"
                 v-if="obterIdDirecaoCauculo === 9 || obterIdDirecaoCauculo === 10"></v-text-field>
             </v-col>
 
             <v-col cols="4" sm="4" md="4">
-              <v-text-field type="number" v-model="item.coeficienteLargura" label="Coeficiente Largura"
+              <v-text-field color="teal" type="number" v-model="item.coeficienteLargura" label="Coeficiente Largura"
                 v-if="obterIdDirecaoCauculo === 8 || obterIdDirecaoCauculo === 10"></v-text-field>
-              <v-text-field type="number" v-model="item.coeficienteAltura" label="Coeficiente Altura"
+              <v-text-field color="teal" type="number" v-model="item.coeficienteAltura" label="Coeficiente Altura"
                 v-if="obterIdDirecaoCauculo === 8 || obterIdDirecaoCauculo === 9"></v-text-field>
-              <v-text-field type="number" v-model="item.coeficienteComprimento" label="Coeficiente Comprimento"
+              <v-text-field color="teal" type="number" v-model="item.coeficienteComprimento" label="Coeficiente Comprimento"
                 v-if="obterIdDirecaoCauculo === 9 || obterIdDirecaoCauculo === 10"></v-text-field>
             </v-col>
           </v-row>
@@ -107,16 +107,16 @@
           <v-row>
 
             <v-col cols="4" sm="4" md="4">
-              <v-text-field type="number" v-model="item.somatorioLargura" label="Somatorio Largura"></v-text-field>
-              <v-text-field type="number" v-model="item.somatorioALtura" label="Somatorio Altura"></v-text-field>
-              <v-text-field type="number" v-model="item.somatorioComprimento"
+              <v-text-field color="teal" type="number" v-model="item.somatorioLargura" label="Somatorio Largura"></v-text-field>
+              <v-text-field color="teal" type="number" v-model="item.somatorioALtura" label="Somatorio Altura"></v-text-field>
+              <v-text-field color="teal" type="number" v-model="item.somatorioComprimento"
                 label="Sommatorio Comprimento"></v-text-field>
             </v-col>
 
             <v-col cols="4" sm="4" md="4">
-              <v-text-field type="number" v-model="item.coeficienteLargura" label="Coeficiente Largura"></v-text-field>
-              <v-text-field type="number" v-model="item.coeficienteAltura" label="Coeficiente Altura"></v-text-field>
-              <v-text-field type="number" v-model="item.coeficienteComprimento"
+              <v-text-field color="teal" type="number" v-model="item.coeficienteLargura" label="Coeficiente Largura"></v-text-field>
+              <v-text-field color="teal" type="number" v-model="item.coeficienteAltura" label="Coeficiente Altura"></v-text-field>
+              <v-text-field color="teal" type="number" v-model="item.coeficienteComprimento"
                 label="Coeficiente Comprimento"></v-text-field>
             </v-col>
           </v-row>
@@ -124,11 +124,11 @@
 
         <v-row>
           <v-col cols="4" sm="4" md="4">
-            <v-text-field type="number" v-model="item.quantidade" label="Quantidade de itens*" required></v-text-field>
+            <v-text-field type="number" v-model="item.quantidade" label="Quantidade de itens*" color="teal" required></v-text-field>
           </v-col>
 
           <v-col cols="4" sm="6" md="4">
-            <v-text-field label="Valor adicional" type="number" v-model="item.valorAdicional" step="0.01" locale="pt-BR"
+            <v-text-field type="number" v-model="item.valorAdicional" label="Valor adicional" step="0.01" locale="pt-BR" color="teal"
               prefix="R$" required></v-text-field>
           </v-col>
           <v-col>
@@ -151,9 +151,10 @@
 import { DimencaoDto } from "@/Model/Itens/DimencaoDto";
 import ItemProdutoDimencaoDto from "@/Model/Produtos/ItemProdutoDimencaoDto";
 import { ProdutosActionTypes } from "@/store/Produtos/actions";
+import { GlobalActionTypes } from "@/store/actions";
 import { StoreNamespaces } from "@/store/namespaces";
 import { Vue, Component, Prop } from "vue-property-decorator";
-import { namespace } from "vuex-class";
+import { Action, namespace } from "vuex-class";
 
 const produto = namespace(StoreNamespaces.PRODUTO);
 
@@ -169,9 +170,20 @@ export default class ListagemItemProdutoEdicao extends Vue {
   @produto.Action(ProdutosActionTypes.REMOVER_ITEM_PRODUTO_DIMENCAO)
   private removeItemProduto!: (id: number) => Promise<void>;
 
+  @produto.Action(ProdutosActionTypes.EDITAR_ITEM_PRODUTO_DIMENCAO)
+  private editarItemProdutoDimencao!: (itemProduto: ItemProdutoDimencaoDto) => Promise<void>;
 
-  public editarItemProduto(item: ItemProdutoDimencaoDto) {
+    @Action(GlobalActionTypes.ATIVAR_CARREGAMENTO)
+    private AtivarCarregamento!:() => Promise<void>
 
+    @Action(GlobalActionTypes.DESATIVAR_CARREGAMENTO)
+    private DesativarCarregamento!:() => Promise<void>
+
+  public editarItemProduto(itemProduto: ItemProdutoDimencaoDto) {
+    this.AtivarCarregamento();
+    this.editarItemProdutoDimencao(itemProduto).then(()=>{
+      this.DesativarCarregamento();
+    });
   }
   public async excluirItemProduto(id: number) {
     await this.removeItemProduto(id).then();

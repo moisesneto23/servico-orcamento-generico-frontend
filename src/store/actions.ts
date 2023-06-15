@@ -10,6 +10,9 @@ import Login from '@/Model/Login';
 export enum GlobalActionTypes {
   FAZER_LOGIN = "FAZER_LOGIN",
   OBTER_INFORMACOES_EMPRESA = "OBTER_INFORMACOES_EMPRESA",
+  ATIVAR_CARREGAMENTO = "ATIVAR_CARREGAMENTO",
+  DESATIVAR_CARREGAMENTO = "DESATIVAR_CARREGAMENTO",
+
 }
 
 const actions: ActionTree<GlobalState, RootState> = {
@@ -22,6 +25,14 @@ const actions: ActionTree<GlobalState, RootState> = {
     const idEmpresa = data.empresaModel.id.toString()
     localStorage.setItem('businessId',idEmpresa);
     commit(GlobalMutationTypes.SET_FAZER_LOGIN, data); 
+  },
+
+  async [GlobalActionTypes.ATIVAR_CARREGAMENTO]({ commit }): Promise<any> {
+    commit(GlobalMutationTypes.ATIVAR_CARREGAMENTO); 
+  },
+
+  async [GlobalActionTypes.DESATIVAR_CARREGAMENTO]({ commit }): Promise<any> {
+    commit(GlobalMutationTypes.DESATIVAR_CARREGAMENTO); 
   },
 
   /*async [GlobalActionTypes.OBTER_INFORMACOES_EMPRESA]({ commit }): Promise<any> {

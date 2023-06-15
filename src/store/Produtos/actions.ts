@@ -23,7 +23,7 @@ export enum ProdutosActionTypes {
 
   OBTER_ITEMS_PRODUTO_DIMENCAO = 'OBTER_ITEMS_PRODUTO_DIMENCAO',
   SALVAR_ITEM_PRODUTO_DIMENCAO = 'SALVAR_ITEM_PRODUTO_DIMENCAO',
-  EDITAR_ITEM_PRODUTO = 'EDITAR_ITEM_PRODUTO',
+  EDITAR_ITEM_PRODUTO_DIMENCAO = 'EDITAR_ITEM_PRODUTO_DIMENCAO',
   REMOVER_ITEM_PRODUTO_DIMENCAO = 'REMOVER_ITEM_PRODUTO_DIMENCAO',
   OBTER_ITENS_PRODUTO_POR_PRODUTO = 'OBTER_ITENS_PRODUTO_POR_PRODUTO',
 
@@ -82,10 +82,10 @@ const actions: ActionTree<ProdutoState, RootState> = {
     commit(ProdutosMutationTypes.SET_ITENS_PRODUTO, itensProduto);
   },
 
-  async [ProdutosActionTypes.EDITAR_ITEM_PRODUTO]({ commit }, produto: ItemProdutoDimencaoDto) {
+  async [ProdutosActionTypes.EDITAR_ITEM_PRODUTO_DIMENCAO]({ commit }, produto: ItemProdutoDimencaoDto) {
     const service = (Container.get(ItemProdutoDimencaoService) as ItemProdutoDimencaoService);
     await service.editarItemProduto(produto);
-    const itensProduto = await service.obterTodosItensProduto();
+    const itensProduto = await service.obterItensCadastradoPorProduto(produto.produtoId);
     commit(ProdutosMutationTypes.SET_ITENS_PRODUTO, itensProduto);
   },
 

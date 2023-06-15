@@ -8,7 +8,7 @@ export default class ItemProdutoDimencaoDto {
   public nome!: string;
   public valorTotal!: number;
   public quantidade: number = 1;
-  public valorAdicional!: number;
+  public valorAdicional: number = 0;
   public produto!: ProdutoDto;
   public produtoId!: number;
   public dimencao!: DimencaoDto;
