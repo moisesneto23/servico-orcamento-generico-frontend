@@ -48,13 +48,20 @@
 import { Vue, Component } from "vue-property-decorator";
 
 import { StoreNamespaces } from '@/store';
-import { namespace } from 'vuex-class';
+import { Action, namespace } from 'vuex-class';
 import { ProdutosActionTypes } from "@/store/Produtos/actions";
 import CategoriaProdutoDto from "@/Model/Produtos/CategoriaProdutoDto";
+import { GlobalActionTypes } from "@/store/actions";
 
 const produto = namespace(StoreNamespaces.PRODUTO);
 @Component({})
 export default class CadastroCategoria extends Vue {
+
+  @Action(GlobalActionTypes.ATIVAR_CARREGAMENTO)
+    private AtivarCarregamento!:() => Promise<void>
+
+    @Action(GlobalActionTypes.DESATIVAR_CARREGAMENTO)
+    private DesativarCarregamento!:() => Promise<void>
 
     @produto.Action(ProdutosActionTypes.SALVAR_CATEGORIA_PRODUTO)
   public salvarCategoriaProduto!:(categoria : CategoriaProdutoDto) => Promise<any>;
@@ -64,8 +71,9 @@ export default class CadastroCategoria extends Vue {
   public CategoriaProduto = new CategoriaProdutoDto();
 
   public async adicionarCategoriaProduto(){
-
+    this.AtivarCarregamento();
     await this.salvarCategoriaProduto(this.CategoriaProduto).then(()=>{
+      this.DesativarCarregamento();
     });
     this.dialog = false;
   }

@@ -45,9 +45,10 @@
 <script lang="ts">
 import { Vue, Component,Prop } from "vue-property-decorator";
 import { StoreNamespaces } from "@/store";
-import { namespace } from "vuex-class";
+import { Action, namespace } from "vuex-class";
 import { ProdutosActionTypes } from "@/store/Produtos/actions";
 import ProdutoDto from "@/Model/Produtos/ProdutoDto";
+import { GlobalActionTypes } from "@/store/actions";
 
 const produto = namespace(StoreNamespaces.PRODUTO);
 
@@ -56,6 +57,12 @@ export default class EdicaoTipoProduto extends Vue {
   public dialog = false;
  @produto.Action(ProdutosActionTypes.EDITAR_PRODUTO)
   public editaProduto!:(produto: ProdutoDto) => Promise<any>;
+
+    @Action(GlobalActionTypes.ATIVAR_CARREGAMENTO)
+    private AtivarCarregamento!:() => Promise<void>
+
+    @Action(GlobalActionTypes.DESATIVAR_CARREGAMENTO)
+    private DesativarCarregamento!:() => Promise<void>
   @Prop()
   public produto!: ProdutoDto;
   public get exibeProduto(){
@@ -67,9 +74,14 @@ export default class EdicaoTipoProduto extends Vue {
   }
 
   private async editarProduto(produto: ProdutoDto): Promise<any>{
+    this.AtivarCarregamento();
        await this.editaProduto(produto).then(()=>{
+        this.DesativarCarregamento();
         this.dialog = false;
-        });
+        }).catch(()=>{
+      this.DesativarCarregamento();
+      alert("Algo deu errado nesta operação")
+    });
   }
 }
 </script>

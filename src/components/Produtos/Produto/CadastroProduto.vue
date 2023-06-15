@@ -57,9 +57,10 @@
 import ProdutoDto from "@/Model/Produtos/ProdutoDto";
 import { StoreNamespaces } from "@/store";
 import { Vue, Component } from "vue-property-decorator";
-import { namespace } from "vuex-class";
+import { Action, namespace } from "vuex-class";
 import { ProdutosActionTypes } from "@/store/Produtos/actions";
 import CategoriaProdutoDto from "@/Model/Produtos/CategoriaProdutoDto";
+import { GlobalActionTypes } from "@/store/actions";
 const produto = namespace(StoreNamespaces.PRODUTO);
 
 @Component({})
@@ -70,6 +71,12 @@ export default class CadastroProduto extends Vue {
  @produto.State
   private categoriasProduto!: CategoriaProdutoDto[];
 
+  @Action(GlobalActionTypes.ATIVAR_CARREGAMENTO)
+    private AtivarCarregamento!:() => Promise<void>
+
+    @Action(GlobalActionTypes.DESATIVAR_CARREGAMENTO)
+    private DesativarCarregamento!:() => Promise<void>
+
   public produto = new ProdutoDto();
   // public selecuinaIdSelect(){
   // this.idSelect = this.categoriaProduto.find(x=>x.descricao == this.select)?.id;
@@ -77,11 +84,16 @@ export default class CadastroProduto extends Vue {
   public idSelect?: number;
   public select = '';
   public async salvarproduto(){
+    this.AtivarCarregamento();
     this.produto.categoriaProdutoId = this.idSelect || 0;
     await this.salvaproduto(this.produto).then(()=>{
         //this.descricaoTipos;
       this.dialogproduto = false;
-    })
+      this.DesativarCarregamento();
+    }).catch(()=>{
+      this.DesativarCarregamento();
+      alert("Algo deu errado nesta operação")
+    });
   }
   public selecionaIdSelect(){
   this.idSelect = this.categoriasProduto.find(x=>x.descricao == this.select)?.id;

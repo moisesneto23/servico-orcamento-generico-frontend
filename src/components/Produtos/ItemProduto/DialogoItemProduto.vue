@@ -26,14 +26,12 @@
 
 
 <script lang="ts">
-import CategoriaDto from "@/Model/Itens/CategoriaDto";
 import { Vue, Component, Prop } from "vue-property-decorator";
 import { StoreNamespaces } from '@/store';
 import { namespace } from 'vuex-class';
 import ListagemItensProduto from './ListagemItensProduto.vue'
 import ItemDto from "@/Model/Itens/ItemDto";
-import { ProdutosActionTypes } from "@/store/Produtos/actions";
-import ItemProdutoDimencaoDto from "@/Model/Produtos/ItemProdutoDimencaoDto";
+
 
 const produto = namespace(StoreNamespaces.PRODUTO);
 @Component({
@@ -45,9 +43,6 @@ export default class DialogoItemProduto extends Vue {
 
   @Prop()
   public produtoId!: number;
-
-  @produto.Action(ProdutosActionTypes.SALVAR_ITEM_PRODUTO_DIMENCAO)
-  public salvaItensProduto!: (categoria: CategoriaDto) => Promise<any>;
 
   public dialog = false;
 

@@ -44,10 +44,11 @@
 
 <script lang="ts">
 import { Vue, Component,Prop } from "vue-property-decorator";
-import { namespace } from "vuex-class";
+import { Action, namespace } from "vuex-class";
 import { StoreNamespaces } from "@/store";
 import CategoriaProdutoDto from "@/Model/Produtos/CategoriaProdutoDto";
 import { ProdutosActionTypes } from "@/store/Produtos/actions";
+import { GlobalActionTypes } from "@/store/actions";
 
 const produto = namespace(StoreNamespaces.PRODUTO);
 @Component({})
@@ -56,6 +57,13 @@ export default class EdicaoCategoriaProduto extends Vue {
   @produto.Action(ProdutosActionTypes.EDITAR_CATEGORIA_PRODUTO)
   public editarCategoriaProduto!:(categoriaProduto: CategoriaProdutoDto) => Promise<any>;
   public dialog = false;
+
+  @Action(GlobalActionTypes.ATIVAR_CARREGAMENTO)
+    private AtivarCarregamento!:() => Promise<void>
+
+    @Action(GlobalActionTypes.DESATIVAR_CARREGAMENTO)
+    private DesativarCarregamento!:() => Promise<void>
+
 
   @Prop()
   private categoriaProduto!: CategoriaProdutoDto;
@@ -66,9 +74,14 @@ export default class EdicaoCategoriaProduto extends Vue {
     console.log(this.categoriaProduto)
   }
   public processarEdicao(categoriaProduto: CategoriaProdutoDto){
+    this.AtivarCarregamento();
     this.editarCategoriaProduto(categoriaProduto).then(()=>{
+      this.DesativarCarregamento();
       this.dialog = false; 
       this.$emit('categoriaAlterada',this.categoriaProduto);
+    }).catch(()=>{
+      this.DesativarCarregamento();
+      alert("Algo deu errado nesta operação")
     });
   }
 

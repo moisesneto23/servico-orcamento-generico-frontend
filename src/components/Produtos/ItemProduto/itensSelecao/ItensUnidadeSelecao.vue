@@ -42,8 +42,9 @@ import { StoreNamespaces } from "@/store";
 import { ItensActionTypes } from "@/store/Item/actions";
 
 import { ProdutosActionTypes } from "@/store/Produtos/actions";
+import { GlobalActionTypes } from "@/store/actions";
 import { Vue, Component, Prop } from "vue-property-decorator";
-import { namespace } from "vuex-class";
+import { Action, namespace } from "vuex-class";
 
 const item = namespace(StoreNamespaces.ITEM);
 const produto = namespace(StoreNamespaces.PRODUTO);
@@ -64,6 +65,12 @@ export default class ItensPerimetroSelecao extends Vue {
 
   @produto.State
   public itensProdutoDimencao!: ItemProdutoDimencaoDto[];
+
+  @Action(GlobalActionTypes.ATIVAR_CARREGAMENTO)
+    private AtivarCarregamento!:() => Promise<void>
+
+    @Action(GlobalActionTypes.DESATIVAR_CARREGAMENTO)
+    private DesativarCarregamento!:() => Promise<void>
 
 public quantidade = 1;
 public valorAdicional = 0;
@@ -88,8 +95,13 @@ public valorAdicional = 0;
     this.itemProduto.nome = item.nome;
     this.itemProduto.valorAdicional = this.valorAdicional;
     this.itemProduto.quantidade = this.quantidade;
-    await this.salvarItemProduto(this.itemProduto).then(()=>{
-      //this.$emit('fechar-dialogo');
+    this.itemProduto.valorTotal = 0;
+    this.AtivarCarregamento();
+    await this.salvarItemProduto(this.itemProduto).then(() => {
+      this.DesativarCarregamento();
+    }).catch(()=>{
+      this.DesativarCarregamento();
+      alert("Algo deu errado nesta operação")
     });
   }
 }

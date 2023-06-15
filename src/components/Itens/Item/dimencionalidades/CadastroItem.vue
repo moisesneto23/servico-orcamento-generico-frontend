@@ -77,8 +77,9 @@ import ItemDto from "@/Model/Itens/ItemDto";
 import TipoModel from "@/Model/Itens/TipoModel";
 import { StoreNamespaces } from "@/store";
 import { ItensActionTypes } from "@/store/Item/actions";
+import { GlobalActionTypes } from "@/store/actions";
 import { Vue, Component } from "vue-property-decorator";
-import { namespace } from "vuex-class";
+import { Action, namespace } from "vuex-class";
 const item = namespace(StoreNamespaces.ITEM);
 
 @Component({})
@@ -99,6 +100,11 @@ export default class CadastroItem extends Vue {
     public idSelect?: number;
     public select = '';
  
+    @Action(GlobalActionTypes.ATIVAR_CARREGAMENTO)
+    private AtivarCarregamento!:() => Promise<void>
+
+    @Action(GlobalActionTypes.DESATIVAR_CARREGAMENTO)
+    private DesativarCarregamento!:() => Promise<void>
 
     public async salvarItem() {
        
@@ -106,10 +112,14 @@ export default class CadastroItem extends Vue {
         
         this.item.valorCompra = parseFloat(this.valorCompraStr) ;
         this.item.valorVenda = parseFloat(this.valorVendaStr);
+        this.AtivarCarregamento();
         await this.salvaItem(this.item).then(() => {
-            this.dialogItem = false;
-        })
-    }
+      this.DesativarCarregamento();
+    }).catch(()=>{
+      this.DesativarCarregamento();
+      alert("Algo deu errado nesta operação")
+    });
+  }
 
     public get descricaoTipos() {
         return this.tipos.map((c) => c.descricao);

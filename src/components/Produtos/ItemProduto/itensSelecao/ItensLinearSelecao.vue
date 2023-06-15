@@ -72,8 +72,9 @@ import ItemProdutoDimencaoDto from "@/Model/Produtos/ItemProdutoDimencaoDto";
 
 import { ProdutosActionTypes } from "@/store/Produtos/actions";
 import { Vue, Component, Prop } from "vue-property-decorator";
-import { namespace } from "vuex-class";
+import { Action, namespace } from "vuex-class";
 import { DimencaoDto } from "@/Model/Itens/DimencaoDto";
+import { GlobalActionTypes } from "@/store/actions";
 
 const item = namespace(StoreNamespaces.ITEM);
 const produto = namespace(StoreNamespaces.PRODUTO);
@@ -88,6 +89,12 @@ export default class ItensLinearSelecao extends Vue {
 
   @produto.Action(ProdutosActionTypes.SALVAR_ITEM_PRODUTO_DIMENCAO)
   private salvarItemProduto!: (itemProduto: ItemProdutoDimencaoDto) => Promise<void>;
+
+    @Action(GlobalActionTypes.ATIVAR_CARREGAMENTO)
+    private AtivarCarregamento!:() => Promise<void>
+
+    @Action(GlobalActionTypes.DESATIVAR_CARREGAMENTO)
+    private DesativarCarregamento!:() => Promise<void>
 
   @item.State
   public itens!: ItemDto[];
@@ -130,7 +137,13 @@ export default class ItensLinearSelecao extends Vue {
     this.itemProduto.produtoId = this.produtoId;
     this.itemProduto.valorAdicional = this.valorAdicional;
     this.itemProduto.quantidade = this.quantidade;
+    this.itemProduto.valorTotal = 0;
+    this.AtivarCarregamento();
     await this.salvarItemProduto(this.itemProduto).then(() => {
+      this.DesativarCarregamento();
+    }).catch(()=>{
+      this.DesativarCarregamento();
+      alert("Algo deu errado nesta operação")
     });
   }
 

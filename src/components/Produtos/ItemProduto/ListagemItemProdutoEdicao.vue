@@ -186,7 +186,10 @@ export default class ListagemItemProdutoEdicao extends Vue {
     });
   }
   public async excluirItemProduto(id: number) {
-    await this.removeItemProduto(id).then();
+    this.AtivarCarregamento();
+    await this.removeItemProduto(id).then(()=>{
+      this.DesativarCarregamento();
+    });
   }
 
   public obterNomeDimencao(dimencaoId: number) {
