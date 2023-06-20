@@ -27,15 +27,6 @@
               <v-text-field type="number" v-model="itemProduto.somatorioComprimento" label="Sommatorio Comprimento"
                 v-else-if="obterIdDirecaoCauculo === 4"></v-text-field>
             </v-col>
-
-            <v-col cols="4" sm="4" md="4">
-              <v-text-field type="number" v-model="itemProduto.coeficienteLargura" label="Coeficiente Largura"
-                v-if="obterIdDirecaoCauculo === 2"></v-text-field>
-              <v-text-field type="number" v-model="itemProduto.coeficienteAltura" label="Coeficiente Altura"
-                v-else-if="obterIdDirecaoCauculo === 3"></v-text-field>
-              <v-text-field type="number" v-model="itemProduto.coeficienteComprimento" label="Coeficiente Comprimento"
-                v-else-if="obterIdDirecaoCauculo === 4"></v-text-field>
-            </v-col>
           </v-row>
           <v-row>
             <v-col cols="4" sm="4" md="4">
@@ -118,12 +109,15 @@ export default class ItensLinearSelecao extends Vue {
   public valorAdicional = 0;
 
   public get obterItensUnirarioNaoSelecionado() {
-    let itensSelecionaveis = this.itens;
-    let itensSelecionados = this.itensProdutoDimencao.filter((x) => x.dimencaoId === 2 || x.dimencaoId === 3 || x.dimencaoId === 4);
-    itensSelecionados.forEach((item) => {
-      itensSelecionaveis = itensSelecionaveis.filter((x) => x.id !== item.itemId);
-    });
-    return itensSelecionaveis;
+    return  this.itens.filter((x) => this.possuiTodasDimencoesLinear(this.itensProdutoDimencao, x.id));;
+  }
+
+  private possuiTodasDimencoesLinear(ipd: ItemProdutoDimencaoDto[], itemId : number){
+    let data = ipd.filter((x)=> (x.dimencaoId === 2 || x.dimencaoId === 3 || x.dimencaoId === 4) && itemId === x.itemId)
+    if (data.length > 2){
+      return false;
+    }
+    return true;
   }
 
   public itemProduto = new ItemProdutoDimencaoDto();

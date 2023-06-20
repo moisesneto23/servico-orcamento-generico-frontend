@@ -29,15 +29,6 @@
               <v-text-field color="teal" type="number" v-model="item.somatorioComprimento" label="Sommatorio Comprimento"
                 v-else-if="obterIdDirecaoCauculo === 4"></v-text-field>
             </v-col>
-
-            <v-col cols="4" sm="4" md="4">
-              <v-text-field color="teal" type="number" v-model="item.coeficienteLargura" label="Coeficiente Largura"
-                v-if="obterIdDirecaoCauculo === 2"></v-text-field>
-              <v-text-field color="teal" type="number" v-model="item.coeficienteAltura" label="Coeficiente Altura"
-                v-else-if="obterIdDirecaoCauculo === 3"></v-text-field>
-              <v-text-field color="teal" type="number" v-model="item.coeficienteComprimento" label="Coeficiente Comprimento"
-                v-else-if="obterIdDirecaoCauculo === 4"></v-text-field>
-            </v-col>
           </v-row>
         </div>
 
@@ -76,7 +67,7 @@
           <v-row>
 
             <v-col cols="12" sm="6">
-              <v-select color="teal" v-model="select" :items="direcoesCauculoPerimetro" item-text="descricao" item-value="id"
+              <v-select color="teal" v-model="select" :items="direcoesCauculoArea" item-text="descricao" item-value="id"
                 label="Select" persistent-hint return-object single-line></v-select>
             </v-col>
 
@@ -99,25 +90,6 @@
                 v-if="obterIdDirecaoCauculo === 8 || obterIdDirecaoCauculo === 9"></v-text-field>
               <v-text-field color="teal" type="number" v-model="item.coeficienteComprimento" label="Coeficiente Comprimento"
                 v-if="obterIdDirecaoCauculo === 9 || obterIdDirecaoCauculo === 10"></v-text-field>
-            </v-col>
-          </v-row>
-        </div>
-
-        <div class="item-volume" v-if="item.dimencaoId === 11">
-          <v-row>
-
-            <v-col cols="4" sm="4" md="4">
-              <v-text-field color="teal" type="number" v-model="item.somatorioLargura" label="Somatorio Largura"></v-text-field>
-              <v-text-field color="teal" type="number" v-model="item.somatorioALtura" label="Somatorio Altura"></v-text-field>
-              <v-text-field color="teal" type="number" v-model="item.somatorioComprimento"
-                label="Sommatorio Comprimento"></v-text-field>
-            </v-col>
-
-            <v-col cols="4" sm="4" md="4">
-              <v-text-field color="teal" type="number" v-model="item.coeficienteLargura" label="Coeficiente Largura"></v-text-field>
-              <v-text-field color="teal" type="number" v-model="item.coeficienteAltura" label="Coeficiente Altura"></v-text-field>
-              <v-text-field color="teal" type="number" v-model="item.coeficienteComprimento"
-                label="Coeficiente Comprimento"></v-text-field>
             </v-col>
           </v-row>
         </div>

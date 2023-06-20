@@ -116,13 +116,18 @@ export default class ItensPerimetroSelecao extends Vue {
 
 
   public get obterItensPerimetro() {
-    let itensSelecionaveis = this.itens;
-    let itensSelecionados = this.itensProdutoDimencao.filter((x) => x.dimencaoId === 5 || x.dimencaoId === 6 || x.dimencaoId === 7);
-    itensSelecionados.forEach((item) => {
-      itensSelecionaveis = itensSelecionaveis.filter((x) => x.id !== item.itemId);
-    });
-    return itensSelecionaveis;
+    return  this.itens.filter((x) => this.possuiTodasDimencoesPerimetro(this.itensProdutoDimencao, x.id));;
   }
+
+  private possuiTodasDimencoesPerimetro(ipd: ItemProdutoDimencaoDto[], itemId : number){
+    let data = ipd.filter((x)=> (x.dimencaoId === 5 || x.dimencaoId === 6 || x.dimencaoId === 7) && itemId === x.itemId)
+    if (data.length > 2){
+      return false;
+    }
+    return true;
+  }
+
+
   public itemProduto = new ItemProdutoDimencaoDto();
 
   public async selecionaItem(item: ItemDto) {

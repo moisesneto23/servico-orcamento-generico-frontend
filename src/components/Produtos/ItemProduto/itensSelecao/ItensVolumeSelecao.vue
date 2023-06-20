@@ -9,24 +9,7 @@
           </h4>
         </v-expansion-panel-header>
         <v-expansion-panel-content>
-          <v-row>
-
-            <v-col cols="4" sm="4" md="4">
-              <v-text-field type="number" v-model="itemProduto.somatorioLargura" label="Somatorio Largura"></v-text-field>
-              <v-text-field type="number" v-model="itemProduto.somatorioALtura" label="Somatorio Altura"></v-text-field>
-              <v-text-field type="number" v-model="itemProduto.somatorioComprimento"
-                label="Sommatorio Comprimento"></v-text-field>
-            </v-col>
-
-            <v-col cols="4" sm="4" md="4">
-              <v-text-field type="number" v-model="itemProduto.coeficienteLargura"
-                label="Coeficiente Largura"></v-text-field>
-              <v-text-field type="number" v-model="itemProduto.coeficienteAltura"
-                label="Coeficiente Altura"></v-text-field>
-              <v-text-field type="number" v-model="itemProduto.coeficienteComprimento"
-                label="Coeficiente Comprimento"></v-text-field>
-            </v-col>
-          </v-row>
+        
           <v-row>
             <v-col cols="4" sm="4" md="4">
               <v-text-field type="number" v-model="quantidade" label="Quantidade de itens*" required></v-text-field>

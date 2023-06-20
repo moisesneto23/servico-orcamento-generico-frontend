@@ -106,13 +106,17 @@ public quantidade = 1;
 public valorAdicional = 0;
 
   public get obterItensArea() {
-    let itensSelecionaveis = this.itens;
-    let itensSelecionados = this.itensProdutoDimencao.filter((x)=> x.dimencaoId === 8 || x.dimencaoId === 9 || x.dimencaoId === 10);
-    itensSelecionados.forEach((item)=>{
-      itensSelecionaveis = itensSelecionaveis.filter((x)=>x.id !== item.itemId);
-    });
-    return itensSelecionaveis;
+    return  this.itens.filter((x) => this.possuiTodasDimencoesArea(this.itensProdutoDimencao, x.id));
   }
+
+  private possuiTodasDimencoesArea(ipd: ItemProdutoDimencaoDto[], itemId : number){
+    let data = ipd.filter((x)=> (x.dimencaoId === 8 || x.dimencaoId === 9 || x.dimencaoId === 10) && itemId === x.itemId)
+    if (data.length > 2){
+      return false;
+    }
+    return true;
+  }
+
   public itemProduto = new ItemProdutoDimencaoDto();
   
   
