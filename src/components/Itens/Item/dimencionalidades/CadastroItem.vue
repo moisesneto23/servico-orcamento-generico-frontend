@@ -115,6 +115,7 @@ export default class CadastroItem extends Vue {
         this.AtivarCarregamento();
         await this.salvaItem(this.item).then(() => {
       this.DesativarCarregamento();
+      this.dialogItem = false;
     }).catch(()=>{
       this.DesativarCarregamento();
       alert("Algo deu errado nesta operação")

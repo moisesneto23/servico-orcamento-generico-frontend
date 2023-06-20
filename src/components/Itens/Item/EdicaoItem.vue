@@ -4,7 +4,7 @@
       <v-dialog v-model="dialog" persistent max-width="600px">
         <v-card>
           <v-card-title>
-            <span class="text-h5">Criar Categoria</span>
+            <span class="text-h5">Editar Item</span>
           </v-card-title>
           <v-card-text>
             <v-container>
@@ -59,11 +59,11 @@
 
 <script lang="ts">
 import { Vue, Component,Prop } from "vue-property-decorator";
-import TipoModel from "@/Model/Itens/TipoModel";
 import { StoreNamespaces } from "@/store";
-import { namespace } from "vuex-class";
+import { Action, namespace } from "vuex-class";
 import { ItensActionTypes } from "@/store/Item/actions";
 import ItemDto from "@/Model/Itens/ItemDto";
+import { GlobalActionTypes } from "@/store/actions";
 
 const item = namespace(StoreNamespaces.ITEM);
 
@@ -74,14 +74,25 @@ export default class EdicaoItem extends Vue {
  @item.Action(ItensActionTypes.EDITAR_ITEM)
   public editaItem!:(item: ItemDto) => Promise<any>;
 
+    @Action(GlobalActionTypes.ATIVAR_CARREGAMENTO)
+    private AtivarCarregamento!:() => Promise<void>
+
+    @Action(GlobalActionTypes.DESATIVAR_CARREGAMENTO)
+    private DesativarCarregamento!:() => Promise<void>
+
   @Prop()
   public itemEdicao!: ItemDto;
   
 
   public async editarItem(item: ItemDto): Promise<any>{
+    this.AtivarCarregamento();
        await this.editaItem(item).then(()=>{
-           this.dialog = false;
-        });
+      this.DesativarCarregamento();
+      this.dialog = false;
+    }).catch(()=>{
+      this.DesativarCarregamento();
+      alert("Algo deu errado nesta operação")
+    });
   }
 }
 </script>

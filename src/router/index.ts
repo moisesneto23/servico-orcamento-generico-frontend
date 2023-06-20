@@ -22,7 +22,7 @@ const routes: Array<RouteConfig> = [
       },
       {
         path: "/cadastro-empresa",
-        name: "CadastroEmpresa",
+        name: "Cadastro Empresa",
         component: CadastroEmpresa,
       },
       {
@@ -41,18 +41,23 @@ const routes: Array<RouteConfig> = [
     [
       {
         path: "/cadastro/itens",
-        name: "CadastroItens",
+        name: "Cadastro Itens",
         component: () => import("@/views/Inicio/CadastroItens.vue"),
       },
       {
         path: "/cadastro/produtos",
-        name: "CadastroProdutos",
+        name: "Cadastro Produtos",
         component: () => import('@/views/Inicio/CadastroProdutos.vue'),
       },
       {
         path: "/cadastro/orcamento",
-        name: "CadastroOrcamento",
+        name: "Cadastro Orcamento",
         component: () => import('@/views/Inicio/CadastroOrcamento.vue'),
+      },
+      {
+        path: "/",
+        name: "Inicio",
+        component: () => import('@/views/Inicio/Inicio.vue'),
       },
     ],
     beforeEnter,

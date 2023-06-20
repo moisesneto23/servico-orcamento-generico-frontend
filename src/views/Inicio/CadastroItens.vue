@@ -49,7 +49,8 @@
 
     </v-tabs-items> versão antiga desativada   <listagem-item></listagem-item> -->
    
-    <cadastro-item></cadastro-item>
+    <cadastro-item class="mb-8"></cadastro-item>
+    <listagem-item></listagem-item>
    
   </div>
 </template>
@@ -62,8 +63,8 @@ import ListagemItem from '@/components/Itens/Item/ListagemItem.vue';
 import { StoreNamespaces } from "@/store/namespaces";
 import { namespace } from "vuex-class";
 import { ItensActionTypes } from "@/store/Item/actions";
-import CadastroItemDimensionalidade from "@/components/Itens/Item/CadastroItemDimensionalidade.vue"
-import CadastroItem from '@/components/Itens/Item/dimencionalidades/CadastroItem.vue'
+import CadastroItemDimensionalidade from "@/components/Itens/Item/CadastroItemDimensionalidade.vue";
+import CadastroItem from '@/components/Itens/Item/dimencionalidades/CadastroItem.vue';
 const item = namespace(StoreNamespaces.ITEM);
 @Component({
   components: {
@@ -85,7 +86,7 @@ export default class CadastroOrcamento extends Vue {
 
     @item.Action(ItensActionTypes.OBTER_ITENS)
   public obterTodosItens!:() => Promise<any>;
-
+  
     public async mounted(){
     //  this.obterTodasCategoriasItem();
     //  this.obterTodosTiposItem();
