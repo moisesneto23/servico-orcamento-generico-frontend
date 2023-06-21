@@ -99,7 +99,6 @@ const actions: ActionTree<ProdutoState, RootState> = {
   async [ProdutosActionTypes.OBTER_ITENS_PRODUTO_POR_PRODUTO]({ commit }, produtoId: number) {
     const service = (Container.get(ItemProdutoDimencaoService) as ItemProdutoDimencaoService);
     const itensProduto = await service.obterItensCadastradoPorProduto(produtoId);
-  // await service.obterItensCadastradoPorProduto();
     commit(ProdutosMutationTypes.SET_ITENS_PRODUTO, itensProduto);
   },
 

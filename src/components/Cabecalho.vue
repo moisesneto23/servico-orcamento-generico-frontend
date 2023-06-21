@@ -90,10 +90,6 @@ export default class Cabecalho extends Vue {
   public Empresas: EmpresaDto[] = [];
   @Inject
   public empresaService!: EmpresaService;
-  // public async buscaEmpresas() {
-  //   this.Empresas = await this.empresaService.obterTodasEmpresas();
-  // }
-  
   public Inicio = Rotas.Inicio;
   public CadastroItens = Rotas.Cadastros.CadastroItens;
   public Ajuda = Rotas.Ajuda;

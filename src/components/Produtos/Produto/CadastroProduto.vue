@@ -78,16 +78,12 @@ export default class CadastroProduto extends Vue {
     private DesativarCarregamento!:() => Promise<void>
 
   public produto = new ProdutoDto();
-  // public selecuinaIdSelect(){
-  // this.idSelect = this.categoriaProduto.find(x=>x.descricao == this.select)?.id;
-  //}
   public idSelect?: number;
   public select = '';
   public async salvarproduto(){
     this.AtivarCarregamento();
     this.produto.categoriaProdutoId = this.idSelect || 0;
     await this.salvaproduto(this.produto).then(()=>{
-        //this.descricaoTipos;
       this.dialogproduto = false;
       this.DesativarCarregamento();
     }).catch(()=>{
@@ -99,16 +95,10 @@ export default class CadastroProduto extends Vue {
   this.idSelect = this.categoriasProduto.find(x=>x.descricao == this.select)?.id;
 }
 
-  // public get descricaoTipos(){
-  //   return this.categoriaProduto.map(c=>c.descricao);
-  // }
   public dialogproduto = false;
 
   @produto.Action(ProdutosActionTypes.OBTER_CATEGORIAS_PRODUTO)
   public obterTodasCategorias!:() => Promise<any>;
-
-  //  @produto.Action(ProdutosActionTypes.SALVAR_TIPO_PRODUTO)
-  // public salvarTipoItem!:(tipo: TipoProdutoModel) => Promise<any>;
   
   public get descricaoCategorias(){
     return this.categoriasProduto.map((c)=>c.descricao);
@@ -117,13 +107,5 @@ export default class CadastroProduto extends Vue {
    await this.obterTodasCategorias();
   }
 
-
-
-  // public adicionarTipo(){
-   
-  //   this.tipo.categoriaProdutoId = this.idSelect || 0;
-  //   this.salvarTipoItem(this.tipo).then(()=>{
-  //      this.dialogTipo = false;
-  //   });
 }
 </script>

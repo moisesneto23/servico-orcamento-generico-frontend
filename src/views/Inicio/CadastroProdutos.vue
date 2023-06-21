@@ -51,8 +51,3 @@ export default class CadastroProdutos extends Vue {
 }
 
 </script>
-<style scoped>
-#cadastroOrcamento{
-  background-color: rgb(60, 172, 224);
-}
-</style>

@@ -19,9 +19,7 @@ const mutations: MutationTree<ProdutoState> = {
   [ProdutosMutationTypes.SET_CATEGORIAS_PRODUTO](state: ProdutoState, categoriasProduto: CategoriaProdutoModel[]) {
     state.categoriasProduto =categoriasProduto;
   },
-  // [ProdutosMutationTypes.SET_TIPO_PRODUTO](state: ProdutoState, tiposProduto: TipoProdutoModel[]) {
-  //   state.tiposProduto = tiposProduto;
-  // },
+
   [ProdutosMutationTypes.SET_ITENS_PRODUTO](state: ProdutoState, itensProduto: ItemProdutoDimencaoDto[]) {
     state.itensProdutoDimencao =itensProduto;
   },

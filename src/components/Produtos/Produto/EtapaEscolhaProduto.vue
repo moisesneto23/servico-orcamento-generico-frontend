@@ -47,21 +47,16 @@
   <script lang="ts">
   import { Vue, Component } from "vue-property-decorator";
   import CadastroCategoriaProduto from "@/components/Produtos/CategoriaProduto/CadastroCategoriaProduto.vue";
-  // import CadastroTipoProduto from '@/components/Produtos/TipoProduto/CadastroTipoProduto.vue';
   import ListagemCategoriaProduto from '@/components/Produtos/CategoriaProduto/ListagemCategoriaProduto.vue'
-  //import ListagemTipoProduto from '@/components/Produtos/TipoProduto/ListagemTipoProduto.vue'
   import ListagemProduto from '@/components/Produtos/Produto/ListagemProduto.vue';
   import CadastroProduto from '@/components/Produtos/Produto/CadastroProduto.vue';
-  import { ProdutosActionTypes } from "@/store/Produtos/actions";
   import { namespace } from "vuex-class";
   import { StoreNamespaces } from "@/store/namespaces";
   const produto = namespace(StoreNamespaces.PRODUTO);
   @Component({
     components: {
       CadastroCategoriaProduto,
-      // CadastroTipoProduto,
       ListagemCategoriaProduto,
-     // ListagemTipoProduto,
       ListagemProduto,
       CadastroProduto
     },

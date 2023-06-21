@@ -268,11 +268,9 @@ export default class EtapasCadastroEmpresa extends Vue {
 
   public confirmaSenha: string = ''; 
 
-// opção usando "error-messages" para validar formulario
   public getErrorMessage(fieldName: string): string[] | null {
-    // Retorna as mensagens de erro para o campo especificado
     switch (fieldName) {
-      case "nomeEmpresa":
+      case "nomeEmpresa": 
         return !this.Empresa.nome ? ["Campo obrigatório"] : null;
       case "nomeGerente":
         return !this.Colaborador.nome ? ["Campo obrigatório"] : null;
