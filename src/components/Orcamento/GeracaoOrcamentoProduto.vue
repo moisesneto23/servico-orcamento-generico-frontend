@@ -17,7 +17,7 @@
           <h4>Tipo:<h5> {{ item.nome }} </h5>
           </h4> -->
         </v-expansion-panel-header>
-        <v-expansion-panel-content class="jus" color="#FCE4" >
+        <v-expansion-panel-content class="jus" color="deep-purple lighten-4" >
 
           
 

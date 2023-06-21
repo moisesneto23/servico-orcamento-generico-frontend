@@ -68,7 +68,12 @@
   
     
    public async excluirProduto(id: number){
-      await this.removerProduto(id);
+    this.AtivarCarregamento();
+      await this.removerProduto(id).then(()=>{
+        this.DesativarCarregamento();
+      }).catch(()=>{
+        alert("Algo deu errado nesta operação")
+        this.DesativarCarregamento()});;
    }
 
    public dialog = true;

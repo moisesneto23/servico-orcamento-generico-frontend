@@ -12,7 +12,7 @@
 
           <v-row>
             <v-col cols="12" sm="6">
-              <v-select v-model="select" :items="direcoesCauculo" item-text="descricao" item-value="id" label="Select"
+              <v-select v-model="select" :items="direcoesCauculo" item-text="descricao" item-value="id" label="Direção de calculo"
                 persistent-hint return-object single-line></v-select>
             </v-col>
           </v-row>

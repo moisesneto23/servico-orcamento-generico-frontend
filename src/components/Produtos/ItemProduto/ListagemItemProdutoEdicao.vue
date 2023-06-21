@@ -8,7 +8,7 @@
         <h4>Dimenção:<h5> {{ obterNomeDimencao(item.dimencaoId) }} </h5>
         </h4>
       </v-expansion-panel-header>
-      <v-expansion-panel-content>
+      <v-expansion-panel-content color="red lighten-5">
 
 
         <div class="item-linear" v-if="item.dimencaoId > 1 && item.dimencaoId < 5">
@@ -16,7 +16,7 @@
 
             <v-col cols="12" sm="6">
               <v-select color="teal" v-model="select" :items="direcoesCauculoLinear" item-text="descricao" item-value="id"
-                label="Select" persistent-hint return-object single-line></v-select>
+                label="Direção de calculo" persistent-hint return-object single-line></v-select>
             </v-col>
 
           </v-row>
@@ -37,7 +37,7 @@
 
             <v-col cols="12" sm="6">
               <v-select color="teal" v-model="select" :items="direcoesCauculoPerimetro" item-text="descricao" item-value="id"
-                label="Select" persistent-hint return-object single-line></v-select>
+                label="Direção de calculo" persistent-hint return-object single-line></v-select>
             </v-col>
 
           </v-row>
@@ -68,7 +68,7 @@
 
             <v-col cols="12" sm="6">
               <v-select color="teal" v-model="select" :items="direcoesCauculoArea" item-text="descricao" item-value="id"
-                label="Select" persistent-hint return-object single-line></v-select>
+                label="Direção de calculo" persistent-hint return-object single-line></v-select>
             </v-col>
 
           </v-row>
