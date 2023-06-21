@@ -23,21 +23,24 @@ export default class CadastroEmpresa extends Vue {
 
   private senha = '';
 
-  private group = null;
-  private carregando =false;
-  private show1= false;
+
   
 @Action(GlobalActionTypes.FAZER_LOGIN)
 private fazLogin!: (login:Login)=> Promise<void>;
+  @Action(GlobalActionTypes.ATIVAR_CARREGAMENTO)
+    private AtivarCarregamento!:() => Promise<void>
+
+    @Action(GlobalActionTypes.DESATIVAR_CARREGAMENTO)
+    private DesativarCarregamento!:() => Promise<void>
+
 
 public async fazerLogin(){
-
-      this.carregando= true;
+this.AtivarCarregamento();
       const login = new Login(this.email, this.senha);
       await this.fazLogin(login).then(()=>{
-        this.carregando =false;
+        this.DesativarCarregamento();
         this.$router.push(Rotas.Inicio);
-      });   
+      }).catch(()=>this.DesativarCarregamento());   
 };
 }
 </script>

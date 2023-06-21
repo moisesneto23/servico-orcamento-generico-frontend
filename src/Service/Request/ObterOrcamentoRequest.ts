@@ -8,7 +8,9 @@ export class ObterValorProdutoResponse {
 
   export class ValorProdutoRequest {
     public ProdutoId!: number;
-    public largura!: number;
+    public Largura!: number;
     public Altura!: number;
     public Comprimento!: number;
+    public NomeProduto!: string;
+    public Observacoes!: string
   }

@@ -18,12 +18,6 @@ export class OrcamentoService {
        // return URL.createObjectURL(response.data.arquivoOrcamento);
 //return response.data.arquivoOrcamento;
       }
-      public criarBlob(response: any): Blob {
-        return new Blob([response.data], {
-          type: 'application/pdf',
-        });
-      }
-    
 }
 
 

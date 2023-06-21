@@ -9,17 +9,17 @@
       </v-tab>
 
       <v-tab href="#tab-2">
-        Comprimento
+        Linear
         <v-icon>mdi-arrow-right-thin</v-icon>
       </v-tab>
 
       <v-tab href="#tab-3">
-        Perimetro
+        Perímetro
         <v-icon>mdi-network-strength-outline</v-icon>
       </v-tab>
 
       <v-tab href="#tab-4">
-        Area
+        Área
         <v-icon>mdi-square-outline</v-icon>
       </v-tab>
 

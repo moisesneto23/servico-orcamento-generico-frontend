@@ -34,11 +34,11 @@
   import { Vue, Component } from "vue-property-decorator";
   import EdicaoProduto from './EdicaoProduto.vue'
   import { StoreNamespaces } from "@/store";
-  import { namespace } from "vuex-class";
+  import { Action, namespace } from "vuex-class";
   import { ProdutosActionTypes } from "@/store/Produtos/actions";
   import ProdutoDto from "@/Model/Produtos/ProdutoDto";
-  import DialogoItemProduto from "../ItemProduto/DialogoItemProduto.vue"
-import ItemProdutoDimencaoDto from "@/Model/Produtos/ItemProdutoDimencaoDto";
+  import DialogoItemProduto from "../ItemProduto/DialogoItemProduto.vue";
+  import { GlobalActionTypes } from "@/store/actions";
   
   const produto = namespace(StoreNamespaces.PRODUTO);
   @Component({
@@ -58,6 +58,12 @@ import ItemProdutoDimencaoDto from "@/Model/Produtos/ItemProdutoDimencaoDto";
     @produto.Action(ProdutosActionTypes.OBTER_ITEMS_PRODUTO_DIMENCAO)
     public obterItensProduto!:() => Promise<any>;
 
+      @Action(GlobalActionTypes.ATIVAR_CARREGAMENTO)
+    private AtivarCarregamento!:() => Promise<void>
+
+    @Action(GlobalActionTypes.DESATIVAR_CARREGAMENTO)
+    private DesativarCarregamento!:() => Promise<void>
+      
     @produto.State
     public produtos!: ProdutoDto[];
   
@@ -71,7 +77,13 @@ import ItemProdutoDimencaoDto from "@/Model/Produtos/ItemProdutoDimencaoDto";
    public dialog = true;
 
    public async buscaItensProduto(){
-    await this.obterItensProduto()
+    this.AtivarCarregamento();
+    await this.obterItensProduto().then(() => {
+      this.DesativarCarregamento();
+    }).catch(()=>{
+      this.DesativarCarregamento();
+      alert("Algo deu errado nesta operação")
+    });
    }
     
   }
