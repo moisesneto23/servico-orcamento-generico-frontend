@@ -61,7 +61,7 @@
       CadastroProduto
     },
   })
-export default class EtapasEscolhaProduto extends Vue {
+export default class EtapaEscolhaProduto extends Vue {
     public tab = null;
 }
 </script>

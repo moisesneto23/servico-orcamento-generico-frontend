@@ -46,7 +46,7 @@
 import { Vue, Component,Prop } from "vue-property-decorator";
 import { Action, namespace } from "vuex-class";
 import { StoreNamespaces } from "@/store";
-import CategoriaProdutoDto from "@/Model/Produtos/CategoriaProdutoDto";
+import {CategoriaProdutoDto} from "@/Model/Produtos/CategoriaProdutoDto";
 import { ProdutosActionTypes } from "@/store/Produtos/actions";
 import { GlobalActionTypes } from "@/store/actions";
 

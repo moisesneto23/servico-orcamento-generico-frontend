@@ -59,7 +59,7 @@ import { StoreNamespaces } from "@/store";
 import { Vue, Component } from "vue-property-decorator";
 import { Action, namespace } from "vuex-class";
 import { ProdutosActionTypes } from "@/store/Produtos/actions";
-import CategoriaProdutoDto from "@/Model/Produtos/CategoriaProdutoDto";
+import {CategoriaProdutoDto} from "@/Model/Produtos/CategoriaProdutoDto";
 import { GlobalActionTypes } from "@/store/actions";
 const produto = namespace(StoreNamespaces.PRODUTO);
 
@@ -97,15 +97,11 @@ export default class CadastroProduto extends Vue {
 
   public dialogproduto = false;
 
-  @produto.Action(ProdutosActionTypes.OBTER_CATEGORIAS_PRODUTO)
-  public obterTodasCategorias!:() => Promise<any>;
   
   public get descricaoCategorias(){
     return this.categoriasProduto.map((c)=>c.descricao);
   }
-  public async  mounted(){
-   await this.obterTodasCategorias();
-  }
+ 
 
 }
 </script>

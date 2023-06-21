@@ -1,25 +1,49 @@
 
+
 import ProdutoDto from '@/Model/Produtos/ProdutoDto';
-import { ProdutoRepository } from '@/Repository/Produtos/ProdutoRepository';
+import { AppHttpAxios } from '@/axios/AppHttpAxios';
 import { Inject } from 'typescript-ioc';
 
 export default class ProdutoService {
-    
     @Inject
-    private _produto!: ProdutoRepository;
-
+private $http!: AppHttpAxios;
+private idEmpresa = this.pegaIdEmpresa();
+private pegaIdEmpresa(): number{
+    let id = localStorage.getItem('businessId') || '0';
+    return parseInt(id);
+}
+  
     public async obterTodosProdutos(): Promise<ProdutoDto[]> {
-        return await this._produto.obterTodosProdutos();
+        const result = await this.$http.get(`Produto/${this.idEmpresa}`);
+        return result.data;
     }
 
-    public async salvarProduto(Produto:ProdutoDto): Promise<any> {
-         await this._produto.salvarProduto(Produto);
+
+    public async salvarProduto(produto: ProdutoDto): Promise<any> {
+        const result = await this.$http.post(`Produto/${this.idEmpresa}`, produto);
     }
 
-    public async editarProduto(Produto:ProdutoDto): Promise<ProdutoDto> {
-       return await this._produto.editarProduto(Produto);
+
+    public async editarProduto(produto: ProdutoDto): Promise<ProdutoDto> {
+        const result = await this.$http.patch(`Produto/${this.idEmpresa}`, produto);
+        return result.data;
     }
-    public async delete(id: number): Promise<any>{
-        await this._produto.delete(id);
+
+    public async delete(id: any) : Promise<any>{
+        const url =`Produto/${id}`;
+        await this.$http.delete(url);
     }
+
+    public async obterTodosProdutosPorCategoria(idCategoria: number) {
+        const result = await this.$http.get(`Produto/${this.idEmpresa}/Categorias/${idCategoria}`);
+        return result.data;
+      }
 };
+
+
+
+
+
+
+
+

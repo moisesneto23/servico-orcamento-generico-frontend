@@ -49,8 +49,7 @@
   })
   export default class ListagemTipoProduto extends Vue {
     
-    @produto.Action(ProdutosActionTypes.OBTER_PRODUTOS)
-    public obterTodosProdutos!:() => Promise<any>;
+  
   
     @produto.Action(ProdutosActionTypes.REMOVER_PRODUTO)
     public removerProduto!:(id: number) => Promise<any>;
@@ -67,9 +66,7 @@
     @produto.State
     public produtos!: ProdutoDto[];
   
-    public async mounted(){
-      await this.obterTodosProdutos();
-    }
+    
    public async excluirProduto(id: number){
       await this.removerProduto(id);
    }

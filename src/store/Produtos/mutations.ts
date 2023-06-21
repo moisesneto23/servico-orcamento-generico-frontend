@@ -1,8 +1,7 @@
 
-import CategoriaProdutoModel from '@/Model/Produtos/CategoriaProdutoDto';
+import {CategoriaProdutoDto} from '@/Model/Produtos/CategoriaProdutoDto';
 import ItemProdutoDimencaoDto from '@/Model/Produtos/ItemProdutoDimencaoDto';
 import ProdutoModel from '@/Model/Produtos/ProdutoDto';
-import TipoProdutoModel  from '@/Model/Produtos/TipoProdutoModel';
 import { MutationTree } from 'vuex';
 import { ProdutoState } from './state';
 
@@ -16,7 +15,7 @@ export enum ProdutosMutationTypes {
 }
 
 const mutations: MutationTree<ProdutoState> = {
-  [ProdutosMutationTypes.SET_CATEGORIAS_PRODUTO](state: ProdutoState, categoriasProduto: CategoriaProdutoModel[]) {
+  [ProdutosMutationTypes.SET_CATEGORIAS_PRODUTO](state: ProdutoState, categoriasProduto: CategoriaProdutoDto[]) {
     state.categoriasProduto =categoriasProduto;
   },
 

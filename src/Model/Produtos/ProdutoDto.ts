@@ -1,4 +1,4 @@
-import CategoriaProdutoDto from "./CategoriaProdutoDto";
+import {CategoriaProdutoDto} from "./CategoriaProdutoDto";
 import ProdutoItemDimencaoDto from "./ItemProdutoDimencaoDto";
 
 

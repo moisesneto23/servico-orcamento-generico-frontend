@@ -8,7 +8,7 @@ import ItemProdutoDimencaoService from '@/Service/Produtos/ItemProdutoDimencaoSe
 import  ItemProdutoDimencaoDto  from '@/Model/Produtos/ItemProdutoDimencaoDto';
 import ProdutoService from '@/Service/Produtos/ProdutoService';
 import  ProdutoModel  from '@/Model/Produtos/ProdutoDto';
-import  CategoriaProdutoModel  from '@/Model/Produtos/CategoriaProdutoDto';
+import  {CategoriaProdutoDto}  from '@/Model/Produtos/CategoriaProdutoDto';
 import CategoriaProdutoService from '@/Service/Produtos/CategoriaProdutoService';
 import TipoProdutoService from '@/Service/Produtos/TipoProdutoService';
 import TipoProdutoModel  from '@/Model/Produtos/TipoProdutoModel';
@@ -31,6 +31,7 @@ export enum ProdutosActionTypes {
   SALVAR_PRODUTO = 'SALVAR_PRODUTO',
   EDITAR_PRODUTO = 'EDITAR_PRODUTO',
   REMOVER_PRODUTO = 'REMOVER_PRODUTO',
+  OBTER_PRODUTOS_POR_CATEGORIA = 'OBTER_PRODUTOS_POR_CATEGORIA',
 }
 
 
@@ -42,14 +43,14 @@ const actions: ActionTree<ProdutoState, RootState> = {
     commit(ProdutosMutationTypes.SET_CATEGORIAS_PRODUTO, categoriasProduto);
   },
 
-  async [ProdutosActionTypes.SALVAR_CATEGORIA_PRODUTO]({ commit }, categoria: CategoriaProdutoModel ) {
+  async [ProdutosActionTypes.SALVAR_CATEGORIA_PRODUTO]({ commit }, categoria: CategoriaProdutoDto ) {
     const service = (Container.get(CategoriaProdutoService) as CategoriaProdutoService);
     await service.salvarCategoriaProduto(categoria);
     const categoriasProduto = await service.obterTodasCategoriasProduto();
     commit(ProdutosMutationTypes.SET_CATEGORIAS_PRODUTO, categoriasProduto);
   },
 
-  async [ProdutosActionTypes.EDITAR_CATEGORIA_PRODUTO]({ commit }, categoria: CategoriaProdutoModel ) {
+  async [ProdutosActionTypes.EDITAR_CATEGORIA_PRODUTO]({ commit }, categoria: CategoriaProdutoDto ) {
     const service = (Container.get(CategoriaProdutoService) as CategoriaProdutoService);
     await service.editarCategoriaProduto(categoria);
     const categoriasProduto = await service.obterTodasCategoriasProduto();
@@ -109,6 +110,12 @@ const actions: ActionTree<ProdutoState, RootState> = {
   async [ProdutosActionTypes.OBTER_PRODUTOS]({ commit }) {
     const service = (Container.get(ProdutoService) as ProdutoService);
     const produtos = await service.obterTodosProdutos();
+    commit(ProdutosMutationTypes.SET_PRODUTOS, produtos);
+  },
+
+  async [ProdutosActionTypes.OBTER_PRODUTOS_POR_CATEGORIA]({ commit }, idCategoria: number) {
+    const service = (Container.get(ProdutoService) as ProdutoService);
+    const produtos = await service.obterTodosProdutosPorCategoria(idCategoria);
     commit(ProdutosMutationTypes.SET_PRODUTOS, produtos);
   },
 

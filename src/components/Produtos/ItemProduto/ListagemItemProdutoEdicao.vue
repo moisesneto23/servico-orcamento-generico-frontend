@@ -2,7 +2,7 @@
 <template>
   <v-expansion-panels focusable>
     <v-expansion-panel v-for="(item, i) in itemProdutoDimencao" :key="i">
-      <v-expansion-panel-header>
+      <v-expansion-panel-header color="red">
         <h3> {{ item.nome }}</h3>
         <v-divider vertical class="mx-2"></v-divider>
         <h4>Dimenção:<h5> {{ obterNomeDimencao(item.dimencaoId) }} </h5>

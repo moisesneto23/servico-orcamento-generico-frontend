@@ -22,6 +22,7 @@
                     label="Valor de compra"
                     hint="custo de compra do item"
                      v-model="itemEdicao.valorCompra"
+                     type="number"
                   ></v-text-field>
                 </v-col>
 
@@ -30,6 +31,7 @@
                     label="Valor de venda"
                     hint="pretenção de venda do item"
                      v-model="itemEdicao.valorVenda"
+                     type="number"
                   ></v-text-field>
                 </v-col>
                

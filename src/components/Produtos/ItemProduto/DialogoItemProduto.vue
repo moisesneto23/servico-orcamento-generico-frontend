@@ -3,7 +3,7 @@
     <v-dialog v-model="dialog" persistent max-width="1000px" >
       <v-card min-height="800px">
         <v-card-title>
-          <span class="text-h5">Adicionar Itens ao Produto</span>
+          <span class="text-h5">Adicionar, editar ou excluir Itens ao Produto</span>
         </v-card-title>
         <listagem-itens-produto :produtoId="produtoId" @fecha-dialogo="dialog = false"></listagem-itens-produto>
         <v-card-actions>
@@ -28,12 +28,14 @@
 <script lang="ts">
 import { Vue, Component, Prop } from "vue-property-decorator";
 import { StoreNamespaces } from '@/store';
-import { namespace } from 'vuex-class';
+import { Action, namespace } from 'vuex-class';
 import ListagemItensProduto from './ListagemItensProduto.vue'
 import ItemDto from "@/Model/Itens/ItemDto";
+import { ItensActionTypes } from "@/store/Item/actions";
+import { GlobalActionTypes } from "@/store/actions";
 
+const item =namespace(StoreNamespaces.ITEM);
 
-const produto = namespace(StoreNamespaces.PRODUTO);
 @Component({
   components: {
     ListagemItensProduto,
@@ -44,6 +46,15 @@ export default class DialogoItemProduto extends Vue {
   @Prop()
   public produtoId!: number;
 
+  @item.Action(ItensActionTypes.OBTER_ITENS)
+  public obterTodosItens!:() => Promise<any>;
+
+    @Action(GlobalActionTypes.ATIVAR_CARREGAMENTO)
+    private AtivarCarregamento!:() => Promise<void>
+
+    @Action(GlobalActionTypes.DESATIVAR_CARREGAMENTO)
+    private DesativarCarregamento!:() => Promise<void>
+
   public dialog = false;
 
   public itensSelecionados!: ItemDto[];
@@ -53,6 +64,14 @@ export default class DialogoItemProduto extends Vue {
   public async salvarItensProduto() {
     this.$emit('produto-adicao-concluido')
   }
+
+  mounted(){
+    this.AtivarCarregamento();
+    this.obterTodosItens().then(()=>{
+        this.DesativarCarregamento();
+      }).catch(()=>this.DesativarCarregamento());
+  }
+
 }
 </script>
 <style>

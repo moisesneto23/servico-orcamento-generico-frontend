@@ -12,7 +12,7 @@ import EtapaEscolhaProduto from "@/components/Produtos/Produto/EtapaEscolhaProdu
 import { ItensActionTypes } from "@/store/Item/actions";
 import { GlobalActionTypes } from "@/store/actions";
 
-const item =namespace(StoreNamespaces.ITEM);
+
 const produto = namespace(StoreNamespaces.PRODUTO);
 @Component({
   components: {
@@ -32,8 +32,7 @@ export default class CadastroProdutos extends Vue {
     public obterProdutos!:() => Promise<any>;
 
     
-      @item.Action(ItensActionTypes.OBTER_ITENS)
-  public obterTodosItens!:() => Promise<any>;
+  
 
     @Action(GlobalActionTypes.ATIVAR_CARREGAMENTO)
     private AtivarCarregamento!:() => Promise<void>
@@ -44,7 +43,7 @@ export default class CadastroProdutos extends Vue {
   public async mounted(){
     this.AtivarCarregamento();
     await this.obterCategoriassProduto();
-    await this.obterTodosItens();
+    //await this.obterTodosItens();
     await this.obterProdutos();
     this.DesativarCarregamento();
 }

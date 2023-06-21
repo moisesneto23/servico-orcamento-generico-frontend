@@ -50,7 +50,7 @@ import { Vue, Component } from "vue-property-decorator";
 import { StoreNamespaces } from '@/store';
 import { Action, namespace } from 'vuex-class';
 import { ProdutosActionTypes } from "@/store/Produtos/actions";
-import CategoriaProdutoDto from "@/Model/Produtos/CategoriaProdutoDto";
+import {CategoriaProdutoDto} from "@/Model/Produtos/CategoriaProdutoDto";
 import { GlobalActionTypes } from "@/store/actions";
 
 const produto = namespace(StoreNamespaces.PRODUTO);
