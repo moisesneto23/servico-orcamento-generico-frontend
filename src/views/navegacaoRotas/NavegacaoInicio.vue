@@ -27,9 +27,8 @@
 <script lang="ts">
 
 import Cabecalho from '@/components/Cabecalho.vue';
-import { GlobalActionTypes } from '@/store/actions';
 import { Component, Vue, Prop } from 'vue-property-decorator';
-import { Action, State } from 'vuex-class';
+import { State } from 'vuex-class';
 
 
 @Component({

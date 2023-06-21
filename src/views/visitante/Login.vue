@@ -37,11 +37,9 @@
 <script lang='ts'>
 import { Vue, Component } from "vue-property-decorator";
 import Rotas from "@/router/Rotas";
-import { StoreNamespaces } from '@/store';
-import { Action } from 'vuex-class';
-import { GlobalActionTypes } from '@/store/actions';
 import Login from '@/Model/Login';
-import router from "@/router";
+import { Action } from "vuex-class";
+import { GlobalActionTypes } from "@/store/actions";
 
 @Component({
   components: {},
@@ -52,22 +50,28 @@ export default class Loginin extends Vue {
 
   public senha = '';
 
-  private group = null;
-  private carregando =false;
+ 
   public show1= false;
-  
+
+  @Action(GlobalActionTypes.ATIVAR_CARREGAMENTO)
+    private AtivarCarregamento!:() => Promise<void>
+
+    @Action(GlobalActionTypes.DESATIVAR_CARREGAMENTO)
+    private DesativarCarregamento!:() => Promise<void>
+
 @Action(GlobalActionTypes.FAZER_LOGIN)
 private fazLogin!: (login:Login)=> Promise<void>;
 
-public async fazerLogin(){
+public fazerLogin(){
 
-      this.carregando= true;
+      this.AtivarCarregamento();
       const login = new Login(this.email, this.senha);
-      await this.fazLogin(login).then(()=>{
-        this.carregando =false;
+       this.fazLogin(login).then(()=>{
+        this.DesativarCarregamento();
         this.$router.push(Rotas.Inicio);
-      });   
+      }).catch(()=>this.DesativarCarregamento());  
 };
+
 }
 </script>
 <style scoped>

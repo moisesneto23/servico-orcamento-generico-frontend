@@ -61,10 +61,11 @@ import { Vue, Component } from "vue-property-decorator";
 import ListagemCategoria from '@/components/Itens/Categoria/ListagemCategoria.vue'
 import ListagemItem from '@/components/Itens/Item/ListagemItem.vue';
 import { StoreNamespaces } from "@/store/namespaces";
-import { namespace } from "vuex-class";
+import { Action, namespace } from "vuex-class";
 import { ItensActionTypes } from "@/store/Item/actions";
 import CadastroItemDimensionalidade from "@/components/Itens/Item/CadastroItemDimensionalidade.vue";
 import CadastroItem from '@/components/Itens/Item/dimencionalidades/CadastroItem.vue';
+import { GlobalActionTypes } from "@/store/actions";
 const item = namespace(StoreNamespaces.ITEM);
 @Component({
   components: {
@@ -78,19 +79,20 @@ const item = namespace(StoreNamespaces.ITEM);
 export default class CadastroOrcamento extends Vue {
   public tab = null;
 
-  // @item.Action(ItensActionTypes.OBTER_CATEGORIAS_ITEM)
-  // public obterTodasCategoriasItem!:() => Promise<any>;
-
-  //   @item.Action(ItensActionTypes.OBTER_TIPOS_ITEM)
-  // public obterTodosTiposItem!:() => Promise<any>;
-
     @item.Action(ItensActionTypes.OBTER_ITENS)
   public obterTodosItens!:() => Promise<any>;
   
+    @Action(GlobalActionTypes.ATIVAR_CARREGAMENTO)
+    private AtivarCarregamento!:() => Promise<void>
+
+    @Action(GlobalActionTypes.DESATIVAR_CARREGAMENTO)
+    private DesativarCarregamento!:() => Promise<void>
     public async mounted(){
-    //  this.obterTodasCategoriasItem();
-    //  this.obterTodosTiposItem();
-     this.obterTodosItens();
+   
+    this.AtivarCarregamento();
+     this.obterTodosItens().then(()=>{
+        this.DesativarCarregamento();
+      }).catch(()=>this.DesativarCarregamento()); 
   }
 }
 </script>

@@ -90,15 +90,20 @@ import { StoreNamespaces } from '@/store/namespaces';
     return this.$vuetify.breakpoint.xsOnly;
   }
 
+  
+
   @produto.Action(ProdutosActionTypes.OBTER_PRODUTOS)
     public obterTodosProdutos!:() => Promise<any>;
       
     async mounted(){
+      this.AtivarCarregamento();
       await this.obterTodosProdutos();
+      this.DesativarCarregamento();
     }
 
     @produto.State
     public produtos!: ProdutoDto[];
+
     @Action(GlobalActionTypes.ATIVAR_CARREGAMENTO)
     private AtivarCarregamento!:() => Promise<void>
 

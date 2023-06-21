@@ -6,10 +6,11 @@
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
 import { ProdutosActionTypes } from "@/store/Produtos/actions";
-import { namespace } from "vuex-class";
+import { Action, namespace } from "vuex-class";
 import { StoreNamespaces } from "@/store/namespaces";
 import EtapaEscolhaProduto from "@/components/Produtos/Produto/EtapaEscolhaProduto.vue";
 import { ItensActionTypes } from "@/store/Item/actions";
+import { GlobalActionTypes } from "@/store/actions";
 
 const item =namespace(StoreNamespaces.ITEM);
 const produto = namespace(StoreNamespaces.PRODUTO);
@@ -30,16 +31,22 @@ export default class CadastroProdutos extends Vue {
       @produto.Action(ProdutosActionTypes.OBTER_PRODUTOS)
     public obterProdutos!:() => Promise<any>;
 
-    //   @produto.Action(ProdutosActionTypes.OBTER_TIPOS_PRODUTO)
-    // public obterTiposProduto!:() => Promise<any>;
+    
       @item.Action(ItensActionTypes.OBTER_ITENS)
   public obterTodosItens!:() => Promise<any>;
 
+    @Action(GlobalActionTypes.ATIVAR_CARREGAMENTO)
+    private AtivarCarregamento!:() => Promise<void>
+
+    @Action(GlobalActionTypes.DESATIVAR_CARREGAMENTO)
+    private DesativarCarregamento!:() => Promise<void>
+
   public async mounted(){
+    this.AtivarCarregamento();
     await this.obterCategoriassProduto();
     await this.obterTodosItens();
     await this.obterProdutos();
-   // await this.obterTiposProduto();
+    this.DesativarCarregamento();
 }
 }
 
