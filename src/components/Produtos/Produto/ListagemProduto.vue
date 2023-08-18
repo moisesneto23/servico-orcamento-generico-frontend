@@ -47,7 +47,7 @@
       DialogoItemProduto
     }
   })
-  export default class ListagemTipoProduto extends Vue {
+  export default class ListagemProduto extends Vue {
     
   
   

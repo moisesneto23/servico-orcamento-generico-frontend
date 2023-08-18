@@ -51,12 +51,11 @@ export default class ListagemItem extends Vue {
   }
  public async excluirItem(id: number){
   this.AtivarCarregamento();
-    await this.removerItem(id).then(()=>{
-      this.DesativarCarregamento();
-    }).catch(()=>{
-      this.DesativarCarregamento();
-      alert("Algo deu errado nesta operação")
-    });
+  try {
+    await this.removerItem(id);
+  } finally {
+    this.DesativarCarregamento();
+  }
  }
   @item.State
   public itens!: ItemDto[];

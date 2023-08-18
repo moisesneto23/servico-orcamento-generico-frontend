@@ -18,7 +18,7 @@
           </v-row>
 
           <v-row>
-            <v-col cols="4" sm="4" md="4">
+            <v-col cols="6" sm="6" md="6">
               <v-text-field type="number" v-model="itemProduto.somatorioLargura" label="Somatorio Largura"
                 v-if="obterIdDirecaoCauculo === 8 || obterIdDirecaoCauculo === 10"></v-text-field>
               <v-text-field type="number" v-model="itemProduto.somatorioALtura" label="Somatorio Altura"
@@ -27,7 +27,7 @@
                 v-if="obterIdDirecaoCauculo === 9 || obterIdDirecaoCauculo === 10"></v-text-field>
             </v-col>
 
-            <v-col cols="4" sm="4" md="4">
+            <v-col cols="6" sm="6" md="6">
               <v-text-field type="number" v-model="itemProduto.coeficienteLargura" label="Coeficiente Largura"
               v-if="obterIdDirecaoCauculo === 8 || obterIdDirecaoCauculo === 10"></v-text-field>
               <v-text-field type="number" v-model="itemProduto.coeficienteAltura" label="Coeficiente Altura"
@@ -38,11 +38,11 @@
           </v-row>
 
           <v-row>
-            <v-col cols="4" sm="4" md="4">
-              <v-text-field type="number" v-model="quantidade" label="Quantidade de itens*" required></v-text-field>
+            <v-col cols="6" sm="6" md="6">
+              <v-text-field type="number" v-model="itemProduto.quantidade" label="Quantidade de itens*" required></v-text-field>
             </v-col>
-            <v-col cols="4" sm="6" md="4">
-              <v-text-field label="Valor adicional" type="number" v-model="valorAdicional" step="0.01" locale="pt-BR"
+            <v-col cols="6" sm="6" md="6">
+              <v-text-field label="Valor adicional" type="number" v-model="itemProduto.valorAdicional" step="0.01" locale="pt-BR"
                 prefix="R$" required
                ></v-text-field>
             </v-col>
@@ -139,7 +139,9 @@ public valorAdicional = 0;
     this.itemProduto.valorVenda = item.valorVenda;
     this.itemProduto.produtoId = this.produtoId;
     this.itemProduto.valorAdicional = this.valorAdicional;
-    this.itemProduto.quantidade = this.quantidade;
+    
+    const quant = this.quantidade;
+    this.itemProduto.quantidade = (quant);
     this.itemProduto.valorTotal = 0;
     this.AtivarCarregamento();
     await this.salvarItemProduto(this.itemProduto).then(() => {
