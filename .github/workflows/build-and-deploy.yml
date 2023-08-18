@@ -21,15 +21,15 @@ jobs:
         uses: docker/login-action@v2
         with:
           registry: https://mcr.microsoft.com/
-          username: ${{ secrets.AzureAppService_ContainerUsername_ff6aabbf9b1e413796bc1e06201fdd45 }}
-          password: ${{ secrets.AzureAppService_ContainerPassword_b3b3a92171634841bac320018850cbd0 }}
+          username: moises
+          password: moises
 
       - name: Build and push container image to registry
         uses: docker/build-push-action@v3
         with:
           context: .
           push: true
-          tags: mcr.microsoft.com/${{ secrets.AzureAppService_ContainerUsername_ff6aabbf9b1e413796bc1e06201fdd45 }}/appsvc/staticsite:${{ github.sha }}
+          tags: mcr.microsoft.com/moises/appsvc/staticsite:${{ github.sha }}
           file: ./Dockerfile
 
       - name: Deploy to Azure Web App
@@ -38,4 +38,4 @@ jobs:
           app-name: 'orcamentogenericofrontend'
           slot-name: 'production'
           publish-profile: ${{ secrets.AzureAppService_PublishProfile_ea9492f6852a4950a6a37112a7bfea0b }}
-          images: 'mcr.microsoft.com/${{ secrets.AzureAppService_ContainerUsername_ff6aabbf9b1e413796bc1e06201fdd45 }}/appsvc/staticsite:${{ github.sha }}'
+          images: 'mcr.microsoft.com/moises/appsvc/staticsite:${{ github.sha }}'
