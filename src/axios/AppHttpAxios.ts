@@ -9,7 +9,7 @@ export class AppHttpAxios {
   //meu construtor
   constructor() {
     this.axiosInstance = Axios.create({
-      baseURL : 'https://servico-orcamento-generico.azurewebsites.net/'
+      baseURL : 'https://servico-orcamento-generico.azurewebsites.net/api/'
     });
     this.axiosInstance.defaults.withCredentials = true;
     this.axiosInstance.interceptors.request.use(Request);
