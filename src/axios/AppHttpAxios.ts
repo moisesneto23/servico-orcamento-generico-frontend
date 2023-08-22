@@ -11,7 +11,6 @@ export class AppHttpAxios {
     this.axiosInstance = Axios.create({
       baseURL : 'https://servico-orcamento-generico.azurewebsites.net/api/'
     });
-    this.axiosInstance.defaults.withCredentials = true;
     this.axiosInstance.interceptors.request.use(Request);
     this.axiosInstance.defaults.headers.common['Authorization'] = localStorage.getItem('ocirenegotnemacro') || '';
     this.axiosInstance.interceptors.response.use(function (response) {

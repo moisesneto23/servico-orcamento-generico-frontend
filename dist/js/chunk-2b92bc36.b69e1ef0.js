@@ -1,2 +1,2 @@
 (window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2b92bc36"],{a806:function(t,e,n){},d5f0:function(t,e,n){"use strict";n("a806")},ffe0:function(t,e,n){"use strict";n.r(e);var s=function(){var t=this;t._self._c,t._self._setupProxy;return t._m(0)},c=[function(){var t=this,e=t._self._c;t._self._setupProxy;return e("div",{attrs:{id:"cadastroOrcamento"}},[e("h1",[t._v("tela em construção")])])}],a=n("9ab4"),r=n("1b40");let o=class extends r["c"]{constructor(){super(...arguments),this.tab=null}};o=Object(a["a"])([Object(r["a"])({components:{}})],o);var u=o,f=u,i=(n("d5f0"),n("2877")),l=Object(i["a"])(f,s,c,!1,null,"1f23eab1",null);e["default"]=l.exports}}]);
-//# sourceMappingURL=chunk-2b92bc36.dfa066c9.js.map
+//# sourceMappingURL=chunk-2b92bc36.b69e1ef0.js.map
