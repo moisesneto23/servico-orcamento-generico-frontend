@@ -12,7 +12,8 @@
           
           <v-row>
             <v-col cols="12" sm="6">
-              <v-select v-model="select" :items="direcoesCauculo" item-text="descricao" item-value="id" label="Direção de calculo"
+              <v-select v-model="select" :items="direcoesCauculo"
+               item-text="descricao" item-value="id" label="Direção de calculo"
                 persistent-hint return-object single-line></v-select>
             </v-col>
           </v-row>
@@ -103,12 +104,9 @@ export default class ItensPerimetroSelecao extends Vue {
   public direcoesCauculo: DimencaoDto[] = [];
   public select = new DimencaoDto();
   mounted() {
-    const ai = { id: 5, nome: 'Perimetro', descricao: 'LarguraAltura', direcaoCalculoId: 5 };
-    const aa = { id: 6, nome: 'Perimetro', descricao: 'AlturaComprimento', direcaoCalculoId: 6 };
-    const aaa = { id: 7, nome: 'Perimetro', descricao: 'ComprimentoLargura', direcaoCalculoId: 7 };
-    this.direcoesCauculo.push(ai);
-    this.direcoesCauculo.push(aa);
-    this.direcoesCauculo.push(aaa);
+    this.direcoesCauculo.push({ id: 5, nome: 'Perimetro', descricao: 'LarguraAltura', direcaoCalculoId: 5 });
+    this.direcoesCauculo.push({ id: 6, nome: 'Perimetro', descricao: 'AlturaComprimento', direcaoCalculoId: 6 });
+    this.direcoesCauculo.push({ id: 7, nome: 'Perimetro', descricao: 'ComprimentoLargura', direcaoCalculoId: 7 });
     this.select.id = 0;
   }
   public quantidade = 1;
