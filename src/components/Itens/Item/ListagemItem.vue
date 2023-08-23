@@ -1,11 +1,18 @@
 <template>
   <v-expansion-panels focusable>
     <v-expansion-panel v-for="(item, i) in obterItensUnitarios" :key="i" class="mb-2">
-      <v-expansion-panel-header><h3>  {{ item.nome }}</h3>
-        <v-divider vertical class="mx-2"></v-divider> 
-         <h4>Categoria: <h5> {{ item.nome}} </h5></h4> </v-expansion-panel-header>
-      <v-expansion-panel-content>
+      <v-expansion-panel-header class="my-n1">
         <v-row>
+         <v-col class="mt-1">
+          <h3>  {{ item.nome }}</h3>
+          </v-col>
+         <v-col>
+          <h4>Medida de unidade:<h5> {{ item.nomeUnidadeMedida }} </h5></h4>
+         </v-col>
+          </v-row>
+         </v-expansion-panel-header>
+      <v-expansion-panel-content>
+        <v-row class="mt-3">
           <v-col cols="6">
             <edicao-item :itemEdicao="item" ></edicao-item>
             <h3 class="text-center">Editar</h3></v-col>
