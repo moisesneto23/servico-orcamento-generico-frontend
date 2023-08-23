@@ -85,7 +85,7 @@
 
         itens selecionados
         
-  <listagem-item-produto-edicao :itemProdutoDimencao="itensAdicionados"></listagem-item-produto-edicao>
+  <listagem-item-produto-edicao :produtoId="produtoId"></listagem-item-produto-edicao>
           <!-- <v-expansion-panel v-for="(item, i) in itensAdicionados" :key="i" class="mb-1" expand-icon="mdi-plus">
             <v-expansion-panel-header @click="removerItem(item)" expand-icon="mdi-minus"
               style="background-color: #f2f2f2;">
@@ -180,14 +180,6 @@ export default class ListagemItensProduto extends Vue {
     this.itensSelecionados.push(item);
   }
 
-  public get itensAdicionados(): ItemProdutoDimencaoDto[] {
-    let itensRetorno: ItemProdutoDimencaoDto[] = [];
-    this.itensProdutoDimencao.forEach(itensProduto => {
-        if (itensProduto.produtoId === this.produtoId)
-          itensRetorno.push(itensProduto);
-      })
-    return itensRetorno;
-  }
   public fechaDialogo() {
     this.$emit('fecha-dialogo');
   }

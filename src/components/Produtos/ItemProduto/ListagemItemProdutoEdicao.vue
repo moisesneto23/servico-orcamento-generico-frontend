@@ -1,7 +1,7 @@
 
 <template>
   <v-expansion-panels focusable>
-    <v-expansion-panel v-for="(item, i) in itemProdutoDimencao" :key="i" class="mb-1">
+    <v-expansion-panel v-for="(item, i) in itensAdicionados" :key="i" class="mb-1">
       <v-expansion-panel-header color="red">
         <v-row class="my-n5">
           <v-col>
@@ -11,7 +11,7 @@
             <h4>Orientação de calculo:<h5 class="mt-1"> {{ obterNomeDimencao(item.dimencaoId) }} </h5> </h4>
           </v-col>
           <v-col>
-            <h4>Medida de unidade:<h5 class="mt-1"> {{ item.item.nomeUnidadeMedida }} </h5> </h4>
+            <h4>Medida de unidade:<h5 class="mt-1"> {{ item.nomeUnidadeMedida }} </h5> </h4>
           </v-col>
         </v-row>
   
@@ -145,7 +145,14 @@ const produto = namespace(StoreNamespaces.PRODUTO);
 export default class ListagemItemProdutoEdicao extends Vue {
 
   @Prop()
-  public itemProdutoDimencao!: ItemProdutoDimencaoDto[];
+  public produtoId!: number;
+
+  public get itensAdicionados(): ItemProdutoDimencaoDto[] {
+    return this.itensProdutoDimencao.filter(a=>a.produtoId = this.produtoId);
+  }
+
+  @produto.State
+  private itensProdutoDimencao!: ItemProdutoDimencaoDto[];
 
   @produto.Action(ProdutosActionTypes.REMOVER_ITEM_PRODUTO_DIMENCAO)
   private removeItemProduto!: (id: number) => Promise<void>;
@@ -169,7 +176,9 @@ export default class ListagemItemProdutoEdicao extends Vue {
     this.AtivarCarregamento();
     await this.removeItemProduto(id).then(()=>{
       this.DesativarCarregamento();
-    });
+    }).catch(()=>{
+      this.DesativarCarregamento();
+    })
   }
 
   public obterNomeDimencao(dimencaoId: number) {

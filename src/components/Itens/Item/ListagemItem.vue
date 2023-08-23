@@ -12,8 +12,8 @@
           </v-row>
          </v-expansion-panel-header>
       <v-expansion-panel-content>
-        <v-row class="mt-3">
-          <v-col cols="6">
+        <v-row>
+          <v-col cols="6" class="mt-2">
             <edicao-item :itemEdicao="item" ></edicao-item>
             <h3 class="text-center">Editar</h3></v-col>
           <v-col cols="6">

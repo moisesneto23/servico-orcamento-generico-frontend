@@ -23,4 +23,5 @@ export default class ItemProdutoDimencaoDto {
   public coeficienteAltura!: number;
   public item!: ItemDto;
   public itemId!: number;
+  public  nomeUnidadeMedida!: string;
 }
