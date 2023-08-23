@@ -72,8 +72,12 @@ public fazerLogin(){
       }).catch(()=>this.DesativarCarregamento());  
 };
 
+mounted(){
+  this.DesativarCarregamento();
+}
 }
 </script>
 <style scoped>
+
 
 </style>
