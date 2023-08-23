@@ -14,11 +14,11 @@
         </v-expansion-panel-header>
         <v-expansion-panel-content class="mt-4">
           <v-row>
-            <v-col cols="4" sm="4" md="4">
+            <v-col cols="6" sm="4" md="4">
               <v-text-field type="number" v-model="quantidade" label="Quantidade de itens*" required></v-text-field>
             </v-col>
 
-            <v-col cols="4" sm="6" md="4">
+            <v-col cols="6" sm="6" md="4">
               <v-text-field label="Valor adicional" type="number" v-model="valorAdicional" step="0.01" locale="pt-BR"
                 prefix="R$" required
                ></v-text-field>

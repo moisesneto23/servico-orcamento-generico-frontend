@@ -4,7 +4,7 @@
       <v-expansion-panel v-for="(item, i) in obterItensVolume" :key="i" class="mb-1">
         <v-expansion-panel-header class="my-n2">
           <v-row>
-            <v-col class="mt-1">
+            <v-col>
             <h3> {{ item.nome }}</h3>
           </v-col>
          <v-col>
@@ -14,12 +14,12 @@
         </v-expansion-panel-header>
         <v-expansion-panel-content>
         
-          <v-row>
-            <v-col cols="4" sm="4" md="4">
+          <v-row  class="mt-2">
+            <v-col cols="6" sm="4" md="4">
               <v-text-field type="number" v-model="quantidade" label="Quantidade de itens*" required></v-text-field>
             </v-col>
 
-            <v-col cols="4" sm="6" md="4">
+            <v-col cols="6" sm="6" md="4">
               <v-text-field label="Valor adicional" type="number" v-model="valorAdicional" step="0.01" locale="pt-BR"
                 prefix="R$" required></v-text-field>
             </v-col>

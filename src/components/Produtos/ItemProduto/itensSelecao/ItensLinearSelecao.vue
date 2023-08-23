@@ -15,7 +15,7 @@
         <v-expansion-panel-content>
           <v-row>
 
-            <v-col cols="12" sm="6">
+            <v-col cols="8" sm="6">
               <v-select v-model="select" :items="direcoesCauculo" item-text="descricao" item-value="id" label="Direção de calculo"
                 persistent-hint return-object single-line></v-select>
             </v-col>
@@ -23,7 +23,7 @@
           </v-row>
           <v-row>
 
-            <v-col cols="4" sm="4" md="4">
+            <v-col cols="8" sm="4" md="4">
               <v-text-field type="number" v-model="itemProduto.somatorioLargura" label="Somatorio Largura"
                 v-if="obterIdDirecaoCauculo === 2"></v-text-field>
               <v-text-field type="number" v-model="itemProduto.somatorioALtura" label="Somatorio Altura"
@@ -33,11 +33,11 @@
             </v-col>
           </v-row>
           <v-row>
-            <v-col cols="4" sm="4" md="4">
+            <v-col cols="6" sm="4" md="4">
               <v-text-field type="number" v-model="quantidade" label="Quantidade de itens*" required></v-text-field>
             </v-col>
 
-            <v-col cols="4" sm="6" md="4">
+            <v-col cols="6" sm="6" md="4">
               <v-text-field label="Valor adicional" type="number" v-model="valorAdicional" step="0.01" locale="pt-BR"
                 prefix="R$" required></v-text-field>
             </v-col>

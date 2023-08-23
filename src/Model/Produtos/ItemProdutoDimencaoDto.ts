@@ -15,12 +15,12 @@ export default class ItemProdutoDimencaoDto {
   public dimencaoId!: number;
   public valorVenda!: number;
   public valorCompra!: number;
-  public somatorioLargura!: number ;
-  public somatorioALtura!: number ;
-  public somatorioComprimento!: number ;
-  public coeficienteComprimento!: number ;
-  public coeficienteLargura!: number;
-  public coeficienteAltura!: number;
+  public somatorioLargura: number = 0;
+  public somatorioALtura: number= 0 ;
+  public somatorioComprimento: number = 0 ;
+  public coeficienteComprimento: number = 1 ;
+  public coeficienteLargura: number = 1;
+  public coeficienteAltura: number = 1;
   public item!: ItemDto;
   public itemId!: number;
   public  nomeUnidadeMedida!: string;
