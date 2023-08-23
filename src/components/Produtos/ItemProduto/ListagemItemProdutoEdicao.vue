@@ -1,12 +1,20 @@
 
 <template>
   <v-expansion-panels focusable>
-    <v-expansion-panel v-for="(item, i) in itemProdutoDimencao" :key="i">
+    <v-expansion-panel v-for="(item, i) in itemProdutoDimencao" :key="i" class="mb-1">
       <v-expansion-panel-header color="red">
-        <h3> {{ item.nome }}</h3>
-        <v-divider vertical class="mx-2"></v-divider>
-        <h4>Dimenção:<h5> {{ obterNomeDimencao(item.dimencaoId) }} </h5>
-        </h4>
+        <v-row class="my-n5">
+          <v-col>
+            <h3 class="mt-2"> {{ item.nome }}</h3>
+          </v-col>
+          <v-col>
+            <h4>Orientação de calculo:<h5 class="mt-1"> {{ obterNomeDimencao(item.dimencaoId) }} </h5> </h4>
+          </v-col>
+          <v-col>
+            <h4>Medida de unidade:<h5 class="mt-1"> {{ item.item.nomeUnidadeMedida }} </h5> </h4>
+          </v-col>
+        </v-row>
+  
       </v-expansion-panel-header>
       <v-expansion-panel-content color="red lighten-5">
 
@@ -199,30 +207,18 @@ export default class ListagemItemProdutoEdicao extends Vue {
   public direcoesCauculoArea: DimencaoDto[] = [];
   public select = new DimencaoDto();
   mounted() {
-    const ai = { id: 2, nome: 'Linear', descricao: 'Largura', direcaoCalculoId: 2 };
-    const aa = { id: 3, nome: 'Linear', descricao: 'Altura', direcaoCalculoId: 3 };
-    const aaa = { id: 4, nome: 'Linear', descricao: 'Comprimento', direcaoCalculoId: 4 };
+    //const vol = { id: 11, nome: 'Volume', descricao: 'Volume', direcaoCalculoId: 8 };
+    this.direcoesCauculoLinear.push( { id: 2, nome: 'Linear', descricao: 'Largura', direcaoCalculoId: 2 });
+    this.direcoesCauculoLinear.push({ id: 3, nome: 'Linear', descricao: 'Altura', direcaoCalculoId: 3 });
+    this.direcoesCauculoLinear.push({ id: 4, nome: 'Linear', descricao: 'Comprimento', direcaoCalculoId: 4 });
 
-    const pai = { id: 5, nome: 'Perimetro', descricao: 'LarguraAltura', direcaoCalculoId: 5 };
-    const paa = { id: 6, nome: 'Perimetro', descricao: 'AlturaComprimento', direcaoCalculoId: 6 };
-    const paaa = { id: 7, nome: 'Perimetro', descricao: 'ComprimentoLargura', direcaoCalculoId: 7 };
+    this.direcoesCauculoPerimetro.push({ id: 5, nome: 'Perimetro', descricao: 'LarguraAltura', direcaoCalculoId: 5 });
+    this.direcoesCauculoPerimetro.push({ id: 6, nome: 'Perimetro', descricao: 'AlturaComprimento', direcaoCalculoId: 6 });
+    this.direcoesCauculoPerimetro.push({ id: 7, nome: 'Perimetro', descricao: 'ComprimentoLargura', direcaoCalculoId: 7 });
 
-    const apai = { id: 8, nome: 'Area', descricao: 'LarguraAltura', direcaoCalculoId: 5 };
-    const apaa = { id: 9, nome: 'Area', descricao: 'AlturaComprimento', direcaoCalculoId: 6 };
-    const apaaa = { id: 10, nome: 'Area', descricao: 'ComprimentoLargura', direcaoCalculoId: 7 };
-
-    const vol = { id: 11, nome: 'Volume', descricao: 'Volume', direcaoCalculoId: 8 };
-    this.direcoesCauculoLinear.push(ai);
-    this.direcoesCauculoLinear.push(aa);
-    this.direcoesCauculoLinear.push(aaa);
-
-    this.direcoesCauculoPerimetro.push(pai);
-    this.direcoesCauculoPerimetro.push(paa);
-    this.direcoesCauculoPerimetro.push(paaa);
-
-    this.direcoesCauculoArea.push(apai);
-    this.direcoesCauculoArea.push(apaa);
-    this.direcoesCauculoArea.push(apaaa);
+    this.direcoesCauculoArea.push({ id: 8, nome: 'Area', descricao: 'LarguraAltura', direcaoCalculoId: 5 });
+    this.direcoesCauculoArea.push({ id: 9, nome: 'Area', descricao: 'AlturaComprimento', direcaoCalculoId: 6 });
+    this.direcoesCauculoArea.push({ id: 10, nome: 'Area', descricao: 'ComprimentoLargura', direcaoCalculoId: 7 });
 
     this.select.id = 0;
   }

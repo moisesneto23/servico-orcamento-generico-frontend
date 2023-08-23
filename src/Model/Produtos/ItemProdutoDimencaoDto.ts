@@ -21,6 +21,6 @@ export default class ItemProdutoDimencaoDto {
   public coeficienteComprimento!: number ;
   public coeficienteLargura!: number;
   public coeficienteAltura!: number;
-  public itemDto!: ItemDto;
+  public item!: ItemDto;
   public itemId!: number;
 }

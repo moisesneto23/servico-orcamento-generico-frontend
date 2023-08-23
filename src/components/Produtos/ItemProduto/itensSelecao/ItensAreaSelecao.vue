@@ -2,11 +2,15 @@
   <div>
     <v-expansion-panels focusable>
       <v-expansion-panel v-for="(item, i) in obterItensArea" :key="i" class="mb-1">
-        <v-expansion-panel-header>
-          <h3> {{ item.nome }}</h3>
-          <!-- <v-divider vertical class="mx-2"></v-divider>
-          <h4>Tipo:<h5> {{ item.nome }} </h5>
-          </h4> -->
+        <v-expansion-panel-header class="my-n2">
+          <v-row>
+            <v-col class="mt-1">
+            <h3> {{ item.nome }}</h3>
+          </v-col>
+         <v-col>
+          <h4>Medida de unidade:<h5> {{ item.nomeUnidadeMedida }} </h5></h4>
+         </v-col>
+          </v-row>
         </v-expansion-panel-header>
         <v-expansion-panel-content>
 
