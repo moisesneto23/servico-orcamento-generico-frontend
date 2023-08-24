@@ -1,8 +1,9 @@
 <template>
     <div>
-        <div></div>
-      <input type="file" @change="handleFileChange" accept=".csv,.xlsx" />
-      <pre>{{ jsonData }}</pre>
+        <div>
+    <input type="file" @change="AcionarImportacaoArquivo" accept=".xlsx, .csv" />
+    <pre>{{ jsonData }}</pre>
+  </div>
       <div>
         <table v-if="parsedData.length > 0" class="product-table">
           <thead>
@@ -16,7 +17,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(produto, index) in parsedData" :key="index">
+            <tr v-for="(produto, index) in obterTodos" :key="index">
               <td>{{ produto.Id }}</td>
               <td>{{ produto.Nome }}</td>
               <td>{{ produto.ValorVenda }}</td>
@@ -34,26 +35,83 @@
   import { Component, Vue } from 'vue-property-decorator';
   import csvToJson from 'csvtojson';
   import ItemCsvImport from '@/Model/Itens/ItemCsvImport';
-  
+  import * as XLSX from 'xlsx';
+  import fs from 'fs';
+
   @Component({
-    components: {},
+    components: {
+    },
   })
   export default class ConversorCsvParaJson extends Vue {
+    public get obterTodos(){
+        return this.parsedData;
+    }
     public parsedData: ItemCsvImport[] = [];
     public jsonData: string = '';
-  
-    async handleFileChange(event: Event): Promise<void> {
+
+    public async AcionarImportacaoArquivo(event: Event): Promise<void> {
+        
+        const inputElement = event.target as HTMLInputElement;
+        if (inputElement.files && inputElement.files.length > 0) {
+        const file = inputElement.files[0];
+        if (file) {
+        const ext = file.name.split('.').pop()?.toLowerCase();
+
+            if (ext === 'csv') {
+            this.carregardadosCsv(file);
+            } 
+            else if (ext === 'xlsx') 
+            {
+                this.carregardadosXlsx(file);
+          
+            }     
+        }
+    }
+}
+
+private salvarArquivoJson(sheetData: any[]){
+    const outputFilePath = 'caminho/para/saida.json';
+                fs.writeFileSync(outputFilePath, JSON.stringify(sheetData, null, 2));
+}
+
+private carregardadosXlsx( arquivo: File){
+    const reader = new FileReader();
+    reader.onload = async (e: ProgressEvent<FileReader>) => {
+        const data = new Uint8Array(e.target!.result as ArrayBuffer);
+        const workbook = XLSX.read(data, { type: 'array' });
+        const sheetName: string = workbook.SheetNames[0];
+        const sheet = workbook.Sheets[sheetName];
+        const sheetData: any[] = XLSX.utils.sheet_to_json(sheet);
+        this.parsedData = sheetData;
+        };
+    reader.readAsArrayBuffer(arquivo);
+}
+
+
+private async carregardadosCsv(arquivo: File){
+    const fileContent = await this.readFileContent(arquivo);
+    this.parsedData = await csvToJson().fromString(fileContent);
+}
+
+
+
+   async handleFileChange(event: Event): Promise<void> {
       const inputElement = event.target as HTMLInputElement;
       if (inputElement.files && inputElement.files.length > 0) {
         const file = inputElement.files[0];
         if (file) {
           const fileContent = await this.readFileContent(file);
-          this.parsedData = await csvToJson().fromString(fileContent);
+          const ext = file.name.split('.').pop()?.toLowerCase();
+          if (ext === 'csv') {
+            this.parsedData = await csvToJson().fromString(fileContent);
+          } else if (ext === 'xlsx') {
+
+          }
         }
       }
     }
   
-    async readFileContent(file: File): Promise<string> {
+    private async readFileContent(file: File): Promise<string> {
       return new Promise<string>((resolve, reject) => {
         const reader = new FileReader();
         reader.onload = (event: any) => {
@@ -62,7 +120,7 @@
         reader.onerror = (error) => {
           reject(error);
         };
-        reader.readAsText(file);
+        reader.readAsBinaryString(file); 
       });
     }
   }
