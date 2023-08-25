@@ -1,7 +1,7 @@
 <template>
     <div>
         <div>
-    <input type="file" @change="AcionarImportacaoArquivo" accept=".xlsx, .csv" />
+    <input type="file" @change="AcionarImportacaoArquivo" accept=".xlsx, .csv, .xml, .json" />
     <pre>{{ jsonData }}</pre>
   </div>
       <div>
@@ -59,22 +59,18 @@
 
             if (ext === 'csv') {
             this.carregardadosCsv(file);
-            } 
-            else if (ext === 'xlsx') 
-            {
-                this.carregardadosXlsx(file);
-          
-            }     
+          } else if (ext === 'xlsx') {
+            this.carregardadosXlsx(file);
+          } else if (ext === 'xml') {
+            this.carregardadosXml(file);
+          } else if (ext === 'json') {
+            this.carregardadosJson(file);
+          }
         }
     }
 }
 
-private salvarArquivoJson(sheetData: any[]){
-    const outputFilePath = 'caminho/para/saida.json';
-                fs.writeFileSync(outputFilePath, JSON.stringify(sheetData, null, 2));
-}
-
-private carregardadosXlsx( arquivo: File){
+private carregardadosXlsx(arquivo: File) {
     const reader = new FileReader();
     reader.onload = async (e: ProgressEvent<FileReader>) => {
         const data = new Uint8Array(e.target!.result as ArrayBuffer);
@@ -94,6 +90,56 @@ private async carregardadosCsv(arquivo: File){
 }
 
 
+private carregardadosXml(arquivo: File) {
+  const reader = new FileReader();
+  reader.onload = async (e: ProgressEvent<FileReader>) => {
+    const xmlContent = e.target!.result as string;
+
+    // Parse do XML para um objeto DOM
+    const parser = new DOMParser();
+    const xmlDoc = parser.parseFromString(xmlContent, 'text/xml');
+
+    // Ler elementos do XML
+    const rows = xmlDoc.getElementsByTagName('row');
+    for (let i = 0; i < rows.length; i++) {
+      const row = rows[i];
+      const id = parseInt(this.getTextContent(row, 'Id'));
+      const nome = this.getTextContent(row, 'Nome');
+      const valorVenda = this.getTextContent(row, 'ValorVenda');
+      const valorCompra = this.getTextContent(row, 'ValorCompra');
+      const empresaId = this.getTextContent(row, 'EmpresaId');
+      const tipoUnidadeMedidaId = this.getTextContent(row, 'TipoUnidadeMedidaId');
+      const nomeUnidadeMedida = this.getTextContent(row, 'NomeUnidadeMedida');
+
+      this.parsedData.push({
+        Id: id,
+        Nome: nome,
+        ValorVenda: parseFloat(valorVenda),
+        ValorCompra: parseFloat(valorCompra),
+        EmpresaId: parseInt(empresaId),
+        TipoUnidadeMedidaId: parseInt(tipoUnidadeMedidaId),
+        NomeUnidadeMedida: nomeUnidadeMedida
+      });
+    }
+
+  };
+  reader.readAsText(arquivo);
+}
+
+private getTextContent(element: Element, tagName: string): string {
+  const tagElement = element.querySelector(tagName);
+  return tagElement ? tagElement.textContent || '' : '';
+}
+  
+    private carregardadosJson(arquivo: File) {
+    const reader = new FileReader();
+    reader.onload = async (e: ProgressEvent<FileReader>) => {
+      const jsonContent = e.target!.result as string;
+      this.parsedData = JSON.parse(jsonContent);
+      console.log('Conteúdo JSON:', jsonContent);
+    };
+    reader.readAsText(arquivo);
+    }
 
    async handleFileChange(event: Event): Promise<void> {
       const inputElement = event.target as HTMLInputElement;
