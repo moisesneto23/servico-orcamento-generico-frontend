@@ -49,10 +49,21 @@
             class="mt-9 mx-auto d-block text-none blue--text text--darken-3"
             depressed
             color="amber"
-            min-width="382"
-            @click="baixarContrato(produto.id, produto.nome)"
+            min-width="300"
+            @click="baixarOrcamentoQuantidadeCompra(produto.id, produto.nome)"
           >
-          <h2>Visualizar orçamento</h2>
+          <h2>Visualizar orçamento de compra</h2>
+            
+          </v-btn>
+          <v-btn
+            :disabled="!request.Largura || !request.Altura || !request.Comprimento"
+            class="mt-9 mx-auto d-block text-none blue--text text--darken-3"
+            depressed
+            color="amber"
+            min-width="300"
+            @click="baixarOrcamentoQuantidadeExata(produto.id, produto.nome)"
+          >
+          <h2>Visualizar orçamento exato</h2>
             
           </v-btn>
 
@@ -115,12 +126,37 @@ import { StoreNamespaces } from '@/store/namespaces';
        this.pdf = await service.ObterOrcamentoProduto(this.request);
     }
 
-    public async baixarContrato(produtoId: number, nome: string) {
+    private async obterArquivoOrcamentoExato(){
+      const service = (Container.get(OrcamentoService) as OrcamentoService);
+       this.pdf = await service.ObterOrcamentoProdutoExato(this.request);
+    }
+
+    public async baixarOrcamentoQuantidadeCompra(produtoId: number, nome: string) {
       this.request.ProdutoId = produtoId;
       this.request.NomeProduto = nome;
       this.request.Observacoes = this.observacoes;
       this.AtivarCarregamento();
       await this.obterArquivo().then(() => {
+       this.DesativarCarregamento();
+       const link = document.createElement('a');
+      link.href = this.pdf;
+      const nomeArquivo = 'Orcamento_'+ produtoId+'la_'+ this.request.Largura+ 'alt_' +this.request.Altura + 'com_' +this.request.Comprimento ;
+      link.setAttribute('download', nomeArquivo);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }).catch(()=>{
+      this.DesativarCarregamento();
+      alert("Algo deu errado nesta operação")
+    });
+    }
+
+    public async baixarOrcamentoQuantidadeExata(produtoId: number, nome: string) {
+      this.request.ProdutoId = produtoId;
+      this.request.NomeProduto = nome;
+      this.request.Observacoes = this.observacoes;
+      this.AtivarCarregamento();
+      await this.obterArquivoOrcamentoExato().then(() => {
        this.DesativarCarregamento();
        const link = document.createElement('a');
       link.href = this.pdf;

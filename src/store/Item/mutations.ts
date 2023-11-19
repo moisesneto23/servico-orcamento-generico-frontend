@@ -1,3 +1,4 @@
+import { DimencaoDto } from './../../Model/Itens/DimencaoDto';
 import ItemModel from '@/Model/Itens/ItemDto';
 import CategoriaModel from '@/Model/Itens/CategoriaDto';
 import TipoModel from '@/Model/Itens/TipoModel';
@@ -11,6 +12,7 @@ export enum ItensMutationTypes {
   SET_CATEGORIA_ITEM = 'SET_CATEGORIA_ITEM',
   SET_TIPOS_ITEM = 'SET_TIPOS_ITEM',
   SET_ITEMS = 'SET_ITEMS',
+  SET_DIMENCOES = 'SET_DIMENCOES',
 }
 
 const mutations: MutationTree<ItemState> = {
@@ -21,7 +23,10 @@ const mutations: MutationTree<ItemState> = {
     state.tipos = tipo
   },
   [ItensMutationTypes.SET_ITEMS](state: ItemState, itens: ItemModel[]) {
-    state.itens =itens;
+    state.itens = itens;
+  },
+  [ItensMutationTypes.SET_DIMENCOES](state: ItemState, dimencoes: DimencaoDto[]) {
+    state.dimencoes = dimencoes;
   },
 };
 

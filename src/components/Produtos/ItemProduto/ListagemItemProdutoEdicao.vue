@@ -137,6 +137,7 @@ import { Vue, Component, Prop } from "vue-property-decorator";
 import { Action, namespace } from "vuex-class";
 
 const produto = namespace(StoreNamespaces.PRODUTO);
+const item = namespace(StoreNamespaces.ITEM);
 
 @Component({
   components: {
@@ -150,6 +151,9 @@ export default class ListagemItemProdutoEdicao extends Vue {
   public get itensAdicionados(): ItemProdutoDimencaoDto[] {
     return this.itensProdutoDimencao.filter(a=>a.produtoId = this.produtoId);
   }
+
+  @item.State
+  private dimencoes!: DimencaoDto[]; 
 
   @produto.State
   private itensProdutoDimencao!: ItemProdutoDimencaoDto[];
@@ -182,52 +186,29 @@ export default class ListagemItemProdutoEdicao extends Vue {
   }
 
   public obterNomeDimencao(dimencaoId: number) {
-    switch (dimencaoId) {
-      case 1:
-        return 'Unidade';
-      case 2:
-        return 'Linear Largura'
-      case 3:
-        return 'Linear Altura'
-      case 4:
-        return 'Linear Comprimento'
-      case 5:
-        return 'Perimetro LarguraAltura'
-      case 6:
-        return 'Perimetro AlturaComprimento'
-      case 7:
-        return 'Perimetro ComprimentoLargura'
-      case 8:
-        return 'Área LarguraAltura'
-      case 9:
-        return 'Área AlturaComprimento'
-      case 10:
-        return 'Área ComprimentoLargura'
-      case 11:
-        return 'Volume'
-
-
-      default:
-        break;
-    }
+    const dimencao = this.dimencoes.find(x => x.id === dimencaoId);
+    return dimencao?.nome + ' ' + dimencao?.descricao;
   }
   public direcoesCauculoLinear: DimencaoDto[] = [];
   public direcoesCauculoPerimetro: DimencaoDto[] = [];
   public direcoesCauculoArea: DimencaoDto[] = [];
   public select = new DimencaoDto();
   mounted() {
-    //const vol = { id: 11, nome: 'Volume', descricao: 'Volume', direcaoCalculoId: 8 };
-    this.direcoesCauculoLinear.push( { id: 2, nome: 'Linear', descricao: 'Largura', direcaoCalculoId: 2 });
-    this.direcoesCauculoLinear.push({ id: 3, nome: 'Linear', descricao: 'Altura', direcaoCalculoId: 3 });
-    this.direcoesCauculoLinear.push({ id: 4, nome: 'Linear', descricao: 'Comprimento', direcaoCalculoId: 4 });
 
-    this.direcoesCauculoPerimetro.push({ id: 5, nome: 'Perimetro', descricao: 'LarguraAltura', direcaoCalculoId: 5 });
-    this.direcoesCauculoPerimetro.push({ id: 6, nome: 'Perimetro', descricao: 'AlturaComprimento', direcaoCalculoId: 6 });
-    this.direcoesCauculoPerimetro.push({ id: 7, nome: 'Perimetro', descricao: 'ComprimentoLargura', direcaoCalculoId: 7 });
+    this.direcoesCauculoLinear  = this.dimencoes.filter(x=>x.nome == 'Linear');
+    //.push( { id: 2, nome: 'Linear', descricao: 'Largura', direcaoCalculoId: 2 });
+    // this.direcoesCauculoLinear.push({ id: 3, nome: 'Linear', descricao: 'Altura', direcaoCalculoId: 3 });
+    // this.direcoesCauculoLinear.push({ id: 4, nome: 'Linear', descricao: 'Comprimento', direcaoCalculoId: 4 });
 
-    this.direcoesCauculoArea.push({ id: 8, nome: 'Area', descricao: 'LarguraAltura', direcaoCalculoId: 5 });
-    this.direcoesCauculoArea.push({ id: 9, nome: 'Area', descricao: 'AlturaComprimento', direcaoCalculoId: 6 });
-    this.direcoesCauculoArea.push({ id: 10, nome: 'Area', descricao: 'ComprimentoLargura', direcaoCalculoId: 7 });
+     this.direcoesCauculoPerimetro  = this.dimencoes.filter(x=>x.nome == 'Perimetro');
+    //.push({ id: 5, nome: 'Perimetro', descricao: 'LarguraAltura', direcaoCalculoId: 5 });
+    // this.direcoesCauculoPerimetro.push({ id: 6, nome: 'Perimetro', descricao: 'AlturaComprimento', direcaoCalculoId: 6 });
+    // this.direcoesCauculoPerimetro.push({ id: 7, nome: 'Perimetro', descricao: 'ComprimentoLargura', direcaoCalculoId: 7 });
+
+     this.direcoesCauculoArea  = this.dimencoes.filter(x=>x.nome == 'Area');
+     //.push({ id: 8, nome: 'Area', descricao: 'LarguraAltura', direcaoCalculoId: 5 });
+    // this.direcoesCauculoArea.push({ id: 9, nome: 'Area', descricao: 'AlturaComprimento', direcaoCalculoId: 6 });
+    // this.direcoesCauculoArea.push({ id: 10, nome: 'Area', descricao: 'ComprimentoLargura', direcaoCalculoId: 7 });
 
     this.select.id = 0;
   }

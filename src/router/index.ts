@@ -59,6 +59,11 @@ const routes: Array<RouteConfig> = [
         name: "Inicio",
         component: () => import('@/views/Inicio/Inicio.vue'),
       },
+      {
+        path: "/pedidos",
+        name: "Pedidos",
+        component: () => import('@/views/Inicio/Pedidos.vue'),
+      },
     ],
     beforeEnter,
   },

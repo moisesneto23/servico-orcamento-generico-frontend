@@ -10,4 +10,5 @@ export enum Dimencao{
     AreaLarguraComprimento =10,
     AreaAlturaComprimento = 9,
     Volume = 11,
+    Horas = 12,
 }

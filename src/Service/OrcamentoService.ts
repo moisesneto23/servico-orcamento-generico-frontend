@@ -11,6 +11,12 @@ export class OrcamentoService {
         const response = await this.$http.get(`orcamento/?${queryString}`,{responseType: 'blob', timeout: 120000});
      return URL.createObjectURL(response.data);
       }
+
+      public async ObterOrcamentoProdutoExato(request: ValorProdutoRequest): Promise<string> {
+        const queryString = qs.stringify(request);
+        const response = await this.$http.get(`orcamento/?${queryString}`,{responseType: 'blob', timeout: 120000});
+     return URL.createObjectURL(response.data);
+        }
 }
 
 

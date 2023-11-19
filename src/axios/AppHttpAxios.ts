@@ -9,8 +9,8 @@ export class AppHttpAxios {
   //meu construtor
   constructor() {
     this.axiosInstance = Axios.create({
-      baseURL : 'https://servico-orcamento-generico.azurewebsites.net/api/'
-      //'http://localhost:5068/api'
+      baseURL : //'https://servico-orcamento-generico.azurewebsites.net/api/'
+      'http://localhost:5068/api'
     });
     this.axiosInstance.interceptors.request.use(Request);
     this.axiosInstance.defaults.headers.common['Authorization'] = localStorage.getItem('ocirenegotnemacro') || '';

@@ -10,4 +10,5 @@ export default class ItemDto {
   public empresaId!: number;
    public tipoUnidadeMedidaId!: number;
    public  nomeUnidadeMedida!: string; 
+   public QuantidadeMinimaPorTipoUnidade!: number
 }

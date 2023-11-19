@@ -13,10 +13,14 @@
               </v-col>
 
               <v-col cols="12" sm="6" md="4">
-                <v-select v-model="selectUnidadeMedida" :items="tipoUnidadeMedida" item-text="nome" item-value="id"
+                <v-select @change="verificaId()" v-model="selectUnidadeMedida" :items="tipoUnidadeMedida" item-text="nome" item-value="id"
                   label="Unidade de medida" persistent-hint return-object outlined></v-select>
               </v-col>
 
+              <v-col cols="12" sm="6" md="4" v-if="obtemIdUnidadeMedida > 5 ">
+                <v-text-field label="Quantidade minima" hint="minimo em m2 ou linear disponivel no mercado" v-model="valorVendaStr"
+                  color="teal" type="number" :rules="valorRules" outlined></v-text-field>
+              </v-col>
             </v-row>
             <v-row>
               <v-col cols="12" sm="6" md="4">
@@ -25,10 +29,10 @@
                   outlined></v-text-field>
               </v-col>
 
-              <v-col cols="12" sm="6" md="4">
+              <!-- <v-col cols="12" sm="6" md="4">
                 <v-text-field label="Valor de venda" hint="pretenção de venda do item" v-model="valorVendaStr"
                   color="teal" prefix="R$" type="number" :rules="valorRules" outlined></v-text-field>
-              </v-col>
+              </v-col> -->
             </v-row>
 
           </v-container>
@@ -79,7 +83,7 @@ export default class CadastroItem extends Vue {
     this.idSelect = this.tipos.find(x => x.descricao == this.select)?.id;
   }
   public comprimentoBarraStr = '1';
-  public valorVendaStr = '';
+  public valorVendaStr = '0';
   public valorCompraStr = '';
   public idSelect?: number;
   public select = '';
@@ -96,7 +100,8 @@ export default class CadastroItem extends Vue {
     let comprimentoBarra = parseFloat(this.comprimentoBarraStr);
     this.item.tipoUnidadeMedidaId=this.selectUnidadeMedida.id;
     this.item.valorCompra = parseFloat(this.valorCompraStr);
-    this.item.valorVenda = parseFloat(this.valorVendaStr);
+    //this.item.valorVenda = parseFloat(this.valorVendaStr);
+    this.item.QuantidadeMinimaPorTipoUnidade = parseFloat(this.valorVendaStr);
     this.AtivarCarregamento();
     await this.salvaItem(this.item).then(() => {
       this.DesativarCarregamento();
@@ -112,8 +117,19 @@ export default class CadastroItem extends Vue {
     this.tipoUnidadeMedida.push({ id: 3, nome: 'Metro' });
     this.tipoUnidadeMedida.push({ id: 4, nome: 'Área/m2' });
     this.tipoUnidadeMedida.push({ id: 5, nome: 'Volume/m3' });
+    this.tipoUnidadeMedida.push({ id: 7, nome: 'Chapa em m2' });
+    this.tipoUnidadeMedida.push({ id: 8, nome: 'Barra em metros'});
+    this.tipoUnidadeMedida.push({ id: 6, nome: 'Hora'});
   }
-
+  public verificaId(){
+    if(this.tipoUnidadeMedida){
+      this.unidadeMedidaId = this.selectUnidadeMedida.id;
+    }
+  }
+  private unidadeMedidaId = 0;
+  public get obtemIdUnidadeMedida(){
+    return this.unidadeMedidaId;
+  }
   public get descricaoTipos() {
     return this.tipos.map((c) => c.descricao);
   }

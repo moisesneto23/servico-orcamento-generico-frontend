@@ -36,6 +36,15 @@
             </v-list-item-content>
           </v-list-item>
 
+          <v-list-item :to="Pedidos">
+            <v-list-item-icon>
+              <v-icon >mdi-shape-plus</v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title>Pedidos</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+
           <v-list-item :to="cadastroProdutos">
             <v-list-item-icon>
               <v-icon >mdi-shape-plus</v-icon>
@@ -94,7 +103,7 @@ export default class Cabecalho extends Vue {
   public CadastroItens = Rotas.Cadastros.CadastroItens;
   public Ajuda = Rotas.Ajuda;
   public RealizaOrcamento = Rotas.Cadastros.RealizaOrcamento;
-
+  public Pedidos = Rotas.Cadastros.Pedidos
   public sair(){
     localStorage.removeItem('ocirenegotnemacro');
     this.$router.push(Rotas.Visitante.Login);

@@ -25,20 +25,24 @@
           <v-row>
             <v-col cols="4" sm="4" md="4">
               <v-text-field type="number" v-model="itemProduto.somatorioLargura" label="Somatorio Largura"
-                v-if="obterIdDirecaoCauculo === 6 || obterIdDirecaoCauculo === 8"></v-text-field>
+                v-if="obterDescricaoCauculo === 'LarguraAltura' || obterDescricaoCauculo === 'ComprimentoLargura'"></v-text-field>
+
               <v-text-field type="number" v-model="itemProduto.somatorioALtura" label="Somatorio Altura"
-                v-if="obterIdDirecaoCauculo === 6 || obterIdDirecaoCauculo === 7"></v-text-field>
+                v-if="obterDescricaoCauculo === 'LarguraAltura' || obterDescricaoCauculo === 'AlturaComprimento'"></v-text-field>
+
               <v-text-field type="number" v-model="itemProduto.somatorioComprimento" label="Sommatorio Comprimento"
-                v-if="obterIdDirecaoCauculo === 7 || obterIdDirecaoCauculo === 8"></v-text-field>
+                v-if="obterDescricaoCauculo === 'ComprimentoLargura' || obterDescricaoCauculo === 'AlturaComprimento'"></v-text-field>
             </v-col>
 
             <v-col cols="4" sm="4" md="4">
               <v-text-field type="number" v-model="itemProduto.coeficienteLargura" label="Coeficiente Largura"
-                v-if="obterIdDirecaoCauculo === 6 || obterIdDirecaoCauculo === 8"></v-text-field>
+                v-if="obterDescricaoCauculo === 'LarguraAltura' || obterDescricaoCauculo === 'ComprimentoLargura'"></v-text-field>
+
               <v-text-field type="number" v-model="itemProduto.coeficienteAltura" label="Coeficiente Altura"
-                v-if="obterIdDirecaoCauculo === 6 || obterIdDirecaoCauculo === 7"></v-text-field>
+                v-if="obterDescricaoCauculo === 'LarguraAltura' || obterDescricaoCauculo === 'AlturaComprimento'"></v-text-field>
+
               <v-text-field type="number" v-model="itemProduto.coeficienteComprimento" label="Coeficiente Comprimento"
-                v-if="obterIdDirecaoCauculo === 7 || obterIdDirecaoCauculo === 8"></v-text-field>
+                v-if="obterDescricaoCauculo === 'ComprimentoLargura' || obterDescricaoCauculo === 'AlturaComprimento'"></v-text-field>
             </v-col>
           </v-row>
 
@@ -99,6 +103,9 @@ export default class ItensPerimetroSelecao extends Vue {
   @produto.Action(ProdutosActionTypes.SALVAR_ITEM_PRODUTO_DIMENCAO)
   private salvarItemProduto!: (itemProduto: ItemProdutoDimencaoDto) => Promise<void>;
 
+    @item.State
+  private dimencoes!: DimencaoDto[]; 
+
   @item.State
   public itens!: ItemDto[];
 
@@ -108,9 +115,10 @@ export default class ItensPerimetroSelecao extends Vue {
   public direcoesCauculo: DimencaoDto[] = [];
   public select = new DimencaoDto();
   mounted() {
-    this.direcoesCauculo.push({ id: 6, nome: 'Perimetro', descricao: 'LarguraAltura', direcaoCalculoId: 5 });
-    this.direcoesCauculo.push({ id: 7, nome: 'Perimetro', descricao: 'AlturaComprimento', direcaoCalculoId: 6 });
-    this.direcoesCauculo.push({ id: 8, nome: 'Perimetro', descricao: 'ComprimentoLargura', direcaoCalculoId: 7 });
+    this.direcoesCauculo = this.dimencoes.filter(x=>x.nome == 'Perimetro');/*.push({ id: 5, nome: 'Perimetro', descricao: 'LarguraAltura', direcaoCalculoId: 5 });
+    this.direcoesCauculo.push({ id: 6, nome: 'Perimetro', descricao: 'AlturaComprimento', direcaoCalculoId: 6 });
+    this.direcoesCauculo.push({ id: 7, nome: 'Perimetro', descricao: 'ComprimentoLargura', direcaoCalculoId: 7 });*/
+
     this.select.id = 0;
   }
   public quantidade = 1;
@@ -149,8 +157,8 @@ export default class ItensPerimetroSelecao extends Vue {
       alert("Algo deu errado nesta operação")
     });
   }
-  public get obterIdDirecaoCauculo(): number {
-    return this.select.id;
+  public get obterDescricaoCauculo(): string {
+    return this.select.descricao;
   }
 
 }

@@ -49,8 +49,11 @@ import { CategoriaProdutoDto } from '@/Model/Produtos/CategoriaProdutoDto';
       
     async mounted(){
       this.AtivarCarregamento();
-      await this.obterTodasCategoriasProduto();
-      this.DesativarCarregamento();
+      await this.obterTodasCategoriasProduto().then(()=>{
+        this.DesativarCarregamento();
+      }).catch(()=>{
+        alert("Algo deu errado nesta operação")
+        this.DesativarCarregamento()});
     }
 
     @produto.State
