@@ -36,7 +36,7 @@ const routes: Array<RouteConfig> = [
   {
     path: "/",
     name: "Inicio",
-    component: () => import("@/views/navegacaoRotas/NavegacaoInicio.vue"),
+    component: () => import("@/views/navegacaoRotas/NavegacaoInicioOrcamentoGenerico.vue"),
     children: 
     [
       {
@@ -58,6 +58,40 @@ const routes: Array<RouteConfig> = [
         path: "/",
         name: "Inicio",
         component: () => import('@/views/Inicio/Inicio.vue'),
+      },
+      {
+        path: "/pedidos",
+        name: "Pedidos",
+        component: () => import('@/views/Inicio/Pedidos.vue'),
+      },
+    ],
+    beforeEnter,
+  },
+  {
+    path: "/Home",
+    name: "Home",
+    component: () => import("@/views/navegacaoRotas/NavegacaoInicioSistemaDeObra.vue"),
+    children: 
+    [
+      {
+        path: "/cadastro/empreendimentos",
+        name: "Cadastro Empreendimentos",
+        component: () => import("@/views/Inicio/CadastroEmpreendimentos.vue"),
+      },
+      {
+        path: "/cadastro/obras",
+        name: "Cadastro Obras",
+        component: () => import('@/views/Inicio/CadastroObras.vue'),
+      },
+      {
+        path: "/cadastro/servicos",
+        name: "Cadastro Serviços",
+        component: () => import('@/views/Inicio/CadastroOrcamento.vue'),
+      },
+      {
+        path: "/",
+        name: "Inicio",
+        component: () => import('@/views/Inicio/SistemaDeObraHome.vue'),
       },
       {
         path: "/pedidos",

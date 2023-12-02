@@ -91,7 +91,7 @@ import EmpresaDto from '@/Model/Empresa/EmpresaDto';
 
   }
 })
-export default class Cabecalho extends Vue {
+export default class CabecalhoOrcamentoGenerico extends Vue {
   public drawer = false;
   public group = null;
   public cadastroItens = Rotas.Cadastros.CadastroItens;

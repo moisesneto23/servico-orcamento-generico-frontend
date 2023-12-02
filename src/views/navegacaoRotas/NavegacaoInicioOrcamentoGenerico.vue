@@ -17,7 +17,7 @@
         </v-card-text>
       </v-card>
     </v-dialog>
-    <cabecalho></cabecalho>
+    <cabecalho-oracamento-generico></cabecalho-oracamento-generico>
 
     <router-view></router-view>
     
@@ -26,17 +26,17 @@
 
 <script lang="ts">
 
-import Cabecalho from '@/components/Cabecalho.vue';
+import CabecalhoOrcamentoGenerico from '@/components/CabecalhoOrcamentoGenerico.vue';
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { State } from 'vuex-class';
 
 
 @Component({
   components: {
-    Cabecalho
+    CabecalhoOrcamentoGenerico
   }
 })
-export default class NavegacaoInicio extends Vue{
+export default class NavegacaoInicioOrcamentoGenerico extends Vue{
   @State
   public carregamento!: boolean;
 
