@@ -14,7 +14,12 @@
   <v-btn @click="sair()">sair</v-btn>
 </v-app-bar>
 
-    <v-navigation-drawer v-model="drawer" absolute bottom temporary>
+    <v-navigation-drawer 
+    v-model="drawer" absolute
+      left
+      temporary
+      class="navigation"
+      style="padding-top: 60px;">
       <v-list>
         <v-list-item-group v-model="group">
 
