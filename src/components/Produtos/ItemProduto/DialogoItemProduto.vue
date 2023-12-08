@@ -1,7 +1,7 @@
 <template>
   <div justify="center">
     <v-dialog v-model="dialog" persistent max-width="1000px" >
-      <v-card min-height="800px">
+      <v-card min-height="">
         <v-card-title>
           <span class="text-h5">Adicionar, editar ou excluir Itens ao Produto</span>
         </v-card-title>

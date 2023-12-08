@@ -1,24 +1,22 @@
 <template>
-    <div id="cadastroOrcamento">
-      <CategoriasProdutoOrcamento></CategoriasProdutoOrcamento>
-  <h1>tela em construção</h1>
+    <div id="Pedidos">
+     
   
+  <EtapasCadastroPedido v-if="etapa === 1"></EtapasCadastroPedido>
+  <v-btn v-else color="primary" rounded @click="etapa = 1"> <h6>Cadastrar pedido</h6></v-btn>
     </div>
   </template>
   <script lang="ts">
   import { Vue, Component } from "vue-property-decorator";
-  import CategoriasProdutoOrcamento from '@/components/Orcamento/CategoriasProdutoOrcamento.vue';
+  import EtapasCadastroPedido from '@/components/Pedido/EtapasCadastroPedido.vue';
   @Component({
     components: {
-      CategoriasProdutoOrcamento,
+      EtapasCadastroPedido,
     },
   })
   export default class Pedidos extends Vue {
+    public etapa = 0
     public tab = null;
   }
   </script>
-  <style scoped>
-  #cadastroOrcamento{
-    background-color: rgb(186, 186, 186);
-  }
-  </style>
+  

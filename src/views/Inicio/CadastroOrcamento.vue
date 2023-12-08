@@ -2,15 +2,15 @@
   <div id="cadastroOrcamento">
 
 <h1>tela em construção</h1>
-
+<CategoriasProdutoOrcamento></CategoriasProdutoOrcamento>
   </div>
 </template>
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
-
+import CategoriasProdutoOrcamento from '@/components/Orcamento/CategoriasProdutoOrcamento.vue';
 @Component({
   components: {
-
+    CategoriasProdutoOrcamento,
   },
 })
 export default class CadastroOrcamento extends Vue {
