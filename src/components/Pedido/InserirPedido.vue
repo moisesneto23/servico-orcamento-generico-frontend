@@ -32,7 +32,6 @@ import { Vue, Component } from "vue-property-decorator";
     public descricao = '';
 
     public acionarInsercao(){
-        debugger
         this.$emit('inserindo-pedido',this.descricao)
     }
 

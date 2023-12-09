@@ -76,23 +76,15 @@ export default class EdicaoItem extends Vue {
  @item.Action(ItensActionTypes.EDITAR_ITEM)
   public editaItem!:(item: ItemDto) => Promise<any>;
 
-    @Action(GlobalActionTypes.ATIVAR_CARREGAMENTO)
-    private AtivarCarregamento!:() => Promise<void>
-
-    @Action(GlobalActionTypes.DESATIVAR_CARREGAMENTO)
-    private DesativarCarregamento!:() => Promise<void>
 
   @Prop()
   public itemEdicao!: ItemDto;
   
 
   public async editarItem(item: ItemDto): Promise<any>{
-    this.AtivarCarregamento();
        await this.editaItem(item).then(()=>{
-      this.DesativarCarregamento();
       this.dialog = false;
     }).catch(()=>{
-      this.DesativarCarregamento();
       alert("Algo deu errado nesta operação")
     });
   }

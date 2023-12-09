@@ -46,24 +46,20 @@ export default class ListagemItem extends Vue {
   @item.Action(ItensActionTypes.REMOVER_ITEM)
   public removerItem!:(id: number) => Promise<void>
 
-    @Action(GlobalActionTypes.ATIVAR_CARREGAMENTO)
-    private AtivarCarregamento!:() => Promise<void>
+    // @Action(GlobalActionTypes.ATIVAR_CARREGAMENTO)
+    // private AtivarCarregamento!:() => Promise<void>
 
-    @Action(GlobalActionTypes.DESATIVAR_CARREGAMENTO)
-    private DesativarCarregamento!:() => Promise<void>
+    // @Action(GlobalActionTypes.DESATIVAR_CARREGAMENTO)
+    // private DesativarCarregamento!:() => Promise<void>
 
   public get obterItensUnitarios(){
     const intens = this.itens //.filter(i=>i.dimencaoId === Dimencao.Unidade);
     return intens;
   }
  public async excluirItem(id: number){
-  this.AtivarCarregamento();
-  try {
     await this.removerItem(id);
-  } finally {
-    this.DesativarCarregamento();
-  }
  }
+ 
   @item.State
   public itens!: ItemDto[];
 

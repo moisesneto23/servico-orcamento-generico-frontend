@@ -1,7 +1,11 @@
 <template>
     <div id="etapasCadastroPedido">
      <InserirPedido @inserindo-pedido="preenchePedido($event)" v-if="tab ===1"></InserirPedido>
-  <InserirProdutoPedido v-else-if="tab === 2"></InserirProdutoPedido>
+  <InserirProdutoPedido  v-else-if="tab === 2"
+  :pedido="pedido"
+  @selecionou-pedido="selecinouPedido($event)"
+  >
+</InserirProdutoPedido>
 
   <!-- <v-btn rounded color="primary">Proxima Etapa</v-btn> -->
     </div>
@@ -20,12 +24,15 @@
   })
   export default class EtapasCadastroPedido extends Vue {
     public tab = 1;
-    private pedido = new PedidoDto();
+    public pedido = new PedidoDto();
 
     public preenchePedido(descricao: string){
-      debugger
       this.pedido.descricao = descricao;
       this.tab = 2
+    }
+
+    public selecinouPedido(pedido: PedidoDto){
+      
     }
   }
   </script>

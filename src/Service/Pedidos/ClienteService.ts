@@ -1,6 +1,7 @@
 import { Inject } from 'typescript-ioc';
 import { AppHttpAxios } from './../../axios/AppHttpAxios';
 import ClienteDto from '@/Model/ClienteDto';
+import store from '@/store/index';
 export default class ClienteService {
     
     @Inject
@@ -16,23 +17,32 @@ private pegaIdEmpresa(): number{
 
 
 
-    public async salvarCliente(Cliente: ClienteDto): Promise<any> {
-        const result = await this.$http.post(`empresas/${this.idEmpresa}/clientes`, Cliente);
+    public async salvarCliente(cliente: ClienteDto): Promise<any> {
+        store.dispatch('ATIVAR_CARREGAMENTO');
+        cliente.empresaId = this.idEmpresa;
+        const result = await this.$http.post(`empresas/${this.idEmpresa}/clientes`, cliente);
+        store.dispatch('DESATIVAR_CARREGAMENTO');
     }
 
 
     public async editarCliente(Cliente: ClienteDto): Promise<ClienteDto> {
-        const result = await this.$http.patch(`empresas/${this.idEmpresa}/clientes`, Cliente);
+        store.dispatch('ATIVAR_CARREGAMENTO');
+        const result = await this.$http.put(`empresas/${this.idEmpresa}/clientes`, Cliente);
+        store.dispatch('DESATIVAR_CARREGAMENTO');
         return result.data;
     }
 
     public async delete(id: any) : Promise<any>{
-        const url =`empresas/${this.idEmpresa}/clientes${id}`;
+        store.dispatch('ATIVAR_CARREGAMENTO');
+        const url =`empresas/${this.idEmpresa}/clientes/${id}`;
         await this.$http.delete(url);
+        store.dispatch('DESATIVAR_CARREGAMENTO');
     }
 
-    public async obterTodosClientes() {
+    public async obterTodosClientes(): Promise<ClienteDto[]> {
+        store.dispatch('ATIVAR_CARREGAMENTO');
         const result = await this.$http.get(`empresas/${this.idEmpresa}/clientes`);
+        store.dispatch('DESATIVAR_CARREGAMENTO');
         return result.data;
       }
 };

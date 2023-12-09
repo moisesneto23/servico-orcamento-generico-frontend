@@ -55,29 +55,30 @@ export enum PedidoActionTypes {
 
     async [PedidoActionTypes.OBTER_CLIENTES]({ commit }) {
       const service = (Container.get(ClienteService) as ClienteService);
-      const PEDIDOS = await service.obterTodosClientes();
-      commit(PedidoMutationTypes.SET_PEDIDOS, PEDIDOS);
+      const clientes = await service.obterTodosClientes();
+      commit(PedidoMutationTypes.SET_CLIENTES, clientes);
     },
   
-    async [PedidoActionTypes.SALVAR_CLIENTE]({ commit }, PEDIDO: ClienteDto) {
+    async [PedidoActionTypes.SALVAR_CLIENTE]({ commit }, cliente: ClienteDto) {
       const service = (Container.get(ClienteService) as ClienteService);
-      await service.salvarCliente(PEDIDO);
+      await service.salvarCliente(cliente);
       const PedidoS = await service.obterTodosClientes();
-      commit(PedidoMutationTypes.SET_PEDIDOS, PedidoS);
+      commit(PedidoMutationTypes.SET_CLIENTES, PedidoS);
     },
   
-    async [PedidoActionTypes.EDITAR_CLIENTE]({ commit }, Pedido: ClienteDto) {
+    async [PedidoActionTypes.EDITAR_CLIENTE]({ commit }, cliente: ClienteDto) {
+      debugger
       const service = (Container.get(ClienteService) as ClienteService);
-      await service.editarCliente(Pedido);
-      const PedidoS = await service.obterTodosClientes();
-      commit(PedidoMutationTypes.SET_PEDIDOS, PedidoS);
+      await service.editarCliente(cliente);
+      const clientes = await service.obterTodosClientes();
+      commit(PedidoMutationTypes.SET_CLIENTES, clientes);
     },
   
     async [PedidoActionTypes.REMOVER_CLIENTE]({ commit }, id: number) {
       const service = (Container.get(ClienteService) as ClienteService);
       await service.delete(id);
       const PedidoS = await service.obterTodosClientes();
-      commit(PedidoMutationTypes.SET_PEDIDOS, PedidoS);
+      commit(PedidoMutationTypes.SET_CLIENTES, PedidoS);
     },
   
   

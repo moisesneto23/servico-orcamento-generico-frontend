@@ -3,6 +3,7 @@ import { EnderecoDto } from "./EnderecoDto";
 import PedidoDto from "./Pedido/PedidoDto";
 
 export default class ClienteDto {
+    public id !: number;
     public nome!: string;
     public telefone?: string;
     public cpf?: string;

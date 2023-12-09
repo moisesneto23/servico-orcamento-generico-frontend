@@ -102,12 +102,11 @@ export default class CadastroItem extends Vue {
     this.item.valorCompra = parseFloat(this.valorCompraStr);
     //this.item.valorVenda = parseFloat(this.valorVendaStr);
     this.item.QuantidadeMinimaPorTipoUnidade = parseFloat(this.valorVendaStr);
-    this.AtivarCarregamento();
+   
     await this.salvaItem(this.item).then(() => {
-      this.DesativarCarregamento();
+    
       this.dialogItem = false;
     }).catch(() => {
-      this.DesativarCarregamento();
       alert("Algo deu errado nesta operação")
     });
   }

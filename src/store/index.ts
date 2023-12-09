@@ -6,7 +6,7 @@ import {state} from './state';
 import getters from './getters';
 import mutations from './mutations';
 import produto from './Produtos/index';
-import pedido from './Produtos/index';
+import pedido from './Pedido/index';
 
 export { StoreNamespaces } from '@/store/namespaces';
 
