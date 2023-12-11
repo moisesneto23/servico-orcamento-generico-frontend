@@ -31,6 +31,7 @@ export enum ProdutosActionTypes {
   SALVAR_PRODUTO = 'SALVAR_PRODUTO',
   EDITAR_PRODUTO = 'EDITAR_PRODUTO',
   REMOVER_PRODUTO = 'REMOVER_PRODUTO',
+  REMOVER_PRODUTO_STORE = 'REMOVER_PRODUTO_STORE',
   OBTER_PRODUTOS_POR_CATEGORIA = 'OBTER_PRODUTOS_POR_CATEGORIA',
 }
 
@@ -138,6 +139,10 @@ const actions: ActionTree<ProdutoState, RootState> = {
     await service.delete(id);
     const produtos = await service.obterTodosProdutos();
     commit(ProdutosMutationTypes.SET_PRODUTOS, produtos);
+  },
+
+  [ProdutosActionTypes.REMOVER_PRODUTO_STORE]({ commit }, id: number) {
+    commit(ProdutosMutationTypes.SET_REMOVE_PRODUTO, id);
   },
 };
 

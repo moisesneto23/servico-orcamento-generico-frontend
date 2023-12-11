@@ -23,7 +23,7 @@
                 <h3 class="text-center">Editar</h3>
               </v-col>
 
-              <v-col cols="2">
+              <v-col cols="2" v-if="eRotaSelecao">
                 <v-btn @click="selecionarCliente(cliente)"><v-icon large>mdi-account-plus</v-icon></v-btn>
               </v-col>
 
@@ -87,6 +87,10 @@
     public selecao = false;
     public async excluirCategoriaProduto(id: number) {
       await this.removerCategoriaProduto(id).then(() => {});
+    }
+
+    public get eRotaSelecao() : boolean{
+      return this.$route.name === 'Pedidos';
     }
 
     public selecionarCliente(cliente: ClienteDto){

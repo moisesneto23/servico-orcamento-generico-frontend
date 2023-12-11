@@ -2,7 +2,7 @@ import {CategoriaProdutoDto} from "./CategoriaProdutoDto";
 import ProdutoItemDimencaoDto from "./ItemProdutoDimencaoDto";
 
 
-export default class ProdutoModel {
+export default class ProdutoDto {
   public id!: number;
   public nome!: string;
   public valorVenda!: number;

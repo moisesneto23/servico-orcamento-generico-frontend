@@ -9,6 +9,7 @@ export enum PedidoMutationTypes {
     SET_PEDIDOS = 'SET_PEDIDOS',
     SET_PEDIDO_PRODUTOS = 'SET_PEDIDO_PRODUTOS',
     SET_CLIENTES = 'SET_CLIENTES',
+    SET_PEDIDO_PRODUTO = 'SET_PEDIDO_PRODUTO',
   
   }
   
@@ -21,6 +22,10 @@ export enum PedidoMutationTypes {
     },
     [PedidoMutationTypes.SET_CLIENTES](state: PedidoState, cliente: ClienteDto[]) {
       state.clientes = cliente;
+    },
+
+    [PedidoMutationTypes.SET_PEDIDO_PRODUTO](state: PedidoState, pedidoProduto: PedidoProdutoDto) {
+      state.pedidoProdutos?.push(pedidoProduto);
     },
     
   };

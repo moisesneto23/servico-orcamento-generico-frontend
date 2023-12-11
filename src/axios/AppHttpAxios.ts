@@ -10,20 +10,21 @@ export class AppHttpAxios {
   constructor() {
     this.axiosInstance = Axios.create({
       baseURL : //'https://servico-orcamento-generico.azurewebsites.net/api/'
-      'http://localhost:5068/api'
+      //'http://localhost:5068/api'
+      'http://192.168.3.10:7068/api/'
     });
     this.axiosInstance.interceptors.request.use(Request);
     this.axiosInstance.defaults.headers.common['Authorization'] = localStorage.getItem('ocirenegotnemacro') || '';
     this.axiosInstance.interceptors.response.use(function (response) {
       return response;
     }, function (error) {
-      if(error.response.status === 404 || error.response.status === 401){
-        alert(error.response.data.detail);
-        router.push(Rotas.Visitante.Login);
-      }
-      if(error.response.status === 400 ){
-        alert(error.response.data.detail);
-      }
+      // if(error.response.status === 404 || error.response.status === 401){
+      //   alert(error.response.data.detail);
+      //   router.push(Rotas.Visitante.Login);
+      // }
+      // if(error.response.status === 400 ){
+      //   alert(error.response.data.detail);
+      // }
       return Promise.reject(error);
     });
   }

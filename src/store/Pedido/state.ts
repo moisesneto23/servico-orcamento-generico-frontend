@@ -6,6 +6,7 @@ export class PedidoState {
     public pedidos?: PedidoDto[];
     public pedidoProdutos?: PedidoProdutoDto[] ;
     public clientes?: ClienteDto[];
+    public pedidoSolicitacao ?:PedidoDto;
   
   }
   
@@ -13,4 +14,5 @@ export class PedidoState {
     pedidos: [],
     pedidoProdutos: [],
     clientes: [],
+    pedidoSolicitacao : new PedidoDto(),
   };

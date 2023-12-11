@@ -7,6 +7,7 @@ import PedidoService from '@/Service/Pedidos/PedidoService';
 import { Container } from 'typescript-ioc';
 import ClienteService from '@/Service/Pedidos/ClienteService';
 import ClienteDto from '@/Model/ClienteDto';
+import PedidoProdutoDto from '@/Model/Pedido/PedidoProdutoDto';
 
 export enum PedidoActionTypes {
 
@@ -19,6 +20,8 @@ export enum PedidoActionTypes {
     SALVAR_CLIENTE = 'SALVAR_CLIENTE',
     EDITAR_CLIENTE = 'EDITAR_CLIENTE',
     REMOVER_CLIENTE = 'REMOVER_CLIENTE',
+
+    SET_PEDIDO_PRODUTO = 'SET_PEDIDO_PRODUTO',
 
   }
   
@@ -33,6 +36,7 @@ export enum PedidoActionTypes {
     },
   
     async [PedidoActionTypes.SALVAR_PEDIDO]({ commit }, PEDIDO: PedidoDto) {
+      debugger
       const service = (Container.get(PedidoService) as PedidoService);
       await service.salvarPedido(PEDIDO);
       const PedidoS = await service.obterTodosPedidos();
@@ -67,7 +71,6 @@ export enum PedidoActionTypes {
     },
   
     async [PedidoActionTypes.EDITAR_CLIENTE]({ commit }, cliente: ClienteDto) {
-      debugger
       const service = (Container.get(ClienteService) as ClienteService);
       await service.editarCliente(cliente);
       const clientes = await service.obterTodosClientes();
@@ -81,7 +84,9 @@ export enum PedidoActionTypes {
       commit(PedidoMutationTypes.SET_CLIENTES, PedidoS);
     },
   
-  
+    async [PedidoActionTypes.SET_PEDIDO_PRODUTO]({ commit }, pedidoProduto: PedidoProdutoDto) {
+      commit(PedidoMutationTypes.SET_PEDIDO_PRODUTO, pedidoProduto);
+    },
     
   };
   

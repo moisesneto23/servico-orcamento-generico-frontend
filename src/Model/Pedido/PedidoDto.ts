@@ -1,5 +1,5 @@
 import ClienteDto from "../ClienteDto";
-import pedidoProdutoDto from "./PedidoProdutoDto";
+import PedidoProdutoDto from "./PedidoProdutoDto";
 
 export default class PedidoDto {
     public id !: number;
@@ -7,6 +7,7 @@ export default class PedidoDto {
     public valorTotal?: number;
     public empresaId!: number;
     public cliente?: ClienteDto;
-    public pedidoProdutos?: pedidoProdutoDto[];
+    public clienteId?: number;
+    public pedidoProdutos?: PedidoProdutoDto[];
 
 }
