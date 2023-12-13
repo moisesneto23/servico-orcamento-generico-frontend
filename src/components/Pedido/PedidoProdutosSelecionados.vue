@@ -1,8 +1,8 @@
 <template>
     <v-expansion-panels focusable v-if="dialog">
       <v-expansion-panel v-for="(produto, i) in pedidoProdutos" :key="i" class="mb-2">
-        <v-expansion-panel-header> 
-            <h3>  {{ produto.nomeProduto }}</h3> 
+        <v-expansion-panel-header @click="obterNomeProduto(produto.id)"> 
+            <h3>  {{ obterNomeProduto(produto.produtoId) }}</h3> 
          
            </v-expansion-panel-header>
         <v-expansion-panel-content class="mt-10">
@@ -92,13 +92,16 @@ import { PedidoActionTypes } from "@/store/Pedido/actions";
    public dialog = true;
 
 
-
+      public obterNomeProduto(id: number) : string{
+        debugger
+        let prod = this.produtos.find(x=>x.id === id);
+        console.log(prod)
+        return prod?.nome || '';
+      }
   public async  removeProduto(produto: PedidoProdutoDto) {
-    debugger
-    const list = this.pedidoProdutos.filter(x=>produto.nomeProduto !== x.nomeProduto );
- this.atualizarPedidoProduto( list);
-}
 
+    
+  }
 
 
     

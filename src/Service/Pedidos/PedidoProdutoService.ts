@@ -2,7 +2,7 @@ import  PedidoProdutoDto  from '@/Model/Pedido/PedidoProdutoDto';
 import { AppHttpAxios } from '@/axios/AppHttpAxios';
 import { Inject } from "typescript-ioc";
 import store from '@/store/index';
-export default class PedidoService {
+export default class PedidoProdutoService {
     
     @Inject
 private $http!: AppHttpAxios;
@@ -24,9 +24,9 @@ private pegaIdEmpresa(): number{
     }
 
 
-    public async salvarPedido(Pedido: PedidoProdutoDto): Promise<any> {
+    public async salvarPedidoProduto(Pedido: PedidoProdutoDto): Promise<any> {
         store.dispatch('ATIVAR_CARREGAMENTO');
-        const result = await this.$http.post(`empresas/${this.idEmpresa}/pedidos`, Pedido);
+        const result = await this.$http.post(`empresas/${this.idEmpresa}/pedido-produtos`, Pedido);
         store.dispatch('DESATIVAR_CARREGAMENTO');
         return result.data;
     }

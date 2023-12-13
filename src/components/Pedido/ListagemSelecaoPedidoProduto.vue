@@ -64,6 +64,7 @@
   import { GlobalActionTypes } from "@/store/actions";
 import PedidoProdutoDto from "@/Model/Pedido/PedidoProdutoDto";
 import { PedidoActionTypes } from "@/store/Pedido/actions";
+import PedidoDto from "@/Model/Pedido/PedidoDto";
   
   const produto = namespace(StoreNamespaces.PRODUTO);
   const pedido = namespace(StoreNamespaces.PEDIDO);
@@ -79,14 +80,15 @@ import { PedidoActionTypes } from "@/store/Pedido/actions";
 
        
       @pedido.State
-    private pedidoProdutos!: PedidoProdutoDto[];
+    private pedidoSolicitacao!: PedidoDto;
       
+    
     @produto.State
     public produtos!: ProdutoDto[];
   
 
-    @pedido.Action(PedidoActionTypes.ATUALIZAR_PEDIDO_PRODUTO_STORE)
-    private adicionarPedidoProduto !:(PedProd: PedidoProdutoDto[]) => Promise<any>;
+    @pedido.Action(PedidoActionTypes.SALVAR_PEDIDO_PRODUTO)
+    private adicionarPedidoProduto !:(PedProd: PedidoProdutoDto) => Promise<any>;
 
       @produto.Action(ProdutosActionTypes.REMOVER_PRODUTO_STORE)
     private removerProduto !:(id: number) => Promise<any>;
@@ -108,12 +110,11 @@ public  get produtoss(){
    public pedidoProduto = new PedidoProdutoDto();
 
   public async  selecionarProduto(produto: ProdutoDto) {
-const prod = new PedidoProdutoDto(0,this.pedidoProduto.largura,this.pedidoProduto.altura, this.pedidoProduto.comprimento, this.pedidoProduto.valorAdicional ,this.pedidoProduto.quantidade,
-produto.id,0, produto.nome);
-  this.lista = this.pedidoProdutos;
-  this.lista.push(prod);
- this.adicionarPedidoProduto(this.lista);
-}
+    debugger
+   this.pedidoProduto.pedidoId = this.pedidoSolicitacao.id;
+   this.pedidoProduto.produtoId = produto.id;
+    this.adicionarPedidoProduto(this.pedidoProduto);
+  }  
 
 
 

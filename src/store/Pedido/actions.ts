@@ -8,6 +8,7 @@ import { Container } from 'typescript-ioc';
 import ClienteService from '@/Service/Pedidos/ClienteService';
 import ClienteDto from '@/Model/ClienteDto';
 import PedidoProdutoDto from '@/Model/Pedido/PedidoProdutoDto';
+import PedidoProdutoService from '@/Service/Pedidos/PedidoProdutoService';
 
 export enum PedidoActionTypes {
 
@@ -21,7 +22,7 @@ export enum PedidoActionTypes {
     EDITAR_CLIENTE = 'EDITAR_CLIENTE',
     REMOVER_CLIENTE = 'REMOVER_CLIENTE',
     ATUALIZAR_PEDIDO_PRODUTO_STORE = 'ATUALIZAR_PEDIDO_PRODUTO_STORE',
-
+    SALVAR_PEDIDO_PRODUTO = 'SALVAR_PEDIDO_PRODUTO',
   }
   
   
@@ -87,6 +88,12 @@ export enum PedidoActionTypes {
       commit(PedidoMutationTypes.SET_PEDIDO_PRODUTO, pedidoProduto);
     },
     
+    async [PedidoActionTypes.SALVAR_PEDIDO_PRODUTO]({ commit }, pedidoProduto: PedidoProdutoDto) {
+      const service = (Container.get(PedidoProdutoService) as PedidoProdutoService);
+      const data = await service.salvarPedidoProduto(pedidoProduto);
+      commit(PedidoMutationTypes.SET_PEDIDO_PRODUTOS, data);
+    },
+
   };
   
   export default actions;
