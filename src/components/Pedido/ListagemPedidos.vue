@@ -3,7 +3,7 @@
     <v-expansion-panel v-for="(produto, i) in pedidos" :key="produto.id" class="mb-2">
       <v-expansion-panel-header> <h3>  {{ produto.descricao }}</h3> 
         <v-divider vertical class="mx-2"></v-divider> 
-         <h4>Categoria Produto: <h5>{{ produto.descricao}}</h5>  </h4> </v-expansion-panel-header> 
+         <h4>Cliente: <h5>{{ produto.cliente?.nome}}</h5>  </h4> </v-expansion-panel-header> 
       <v-expansion-panel-content class="mt-10">
  
 
@@ -59,7 +59,7 @@ export default class ListagemPedidos extends Vue {
   public pedidos!: PedidoDto[];
 
 
-  @pedido.Action(PedidoActionTypes.SET_PEDIDO_PRODUTO)
+  @pedido.Action(PedidoActionTypes.ATUALIZAR_PEDIDO_PRODUTO_STORE)
   private adicionarPedidoProduto !:(PedProd: PedidoProdutoDto) => Promise<any>;
 
     @produto.Action(ProdutosActionTypes.REMOVER_PRODUTO_STORE)

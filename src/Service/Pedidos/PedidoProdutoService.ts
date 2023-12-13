@@ -1,5 +1,5 @@
+import  PedidoProdutoDto  from '@/Model/Pedido/PedidoProdutoDto';
 import { AppHttpAxios } from '@/axios/AppHttpAxios';
-import PedidoDto from "@/Model/Pedido/PedidoDto";
 import { Inject } from "typescript-ioc";
 import store from '@/store/index';
 export default class PedidoService {
@@ -15,16 +15,16 @@ private pegaIdEmpresa(): number{
 
 
 
-    public async obterTodosPedidos(): Promise<PedidoDto[]> {
+    public async obterPedidoProdutosPorProdutoId(pedidoId: number): Promise<PedidoProdutoDto[]> {
         store.dispatch('ATIVAR_CARREGAMENTO');
-        const result = await this.$http.get(`empresas/${this.idEmpresa}/pedidos`);
+       
+        const result = await this.$http.get(`empresas/${this.idEmpresa}/pedido-produtos?pedidoId=${pedidoId}`);
         store.dispatch('DESATIVAR_CARREGAMENTO');
         return result.data;
     }
 
 
-    public async salvarPedido(Pedido: PedidoDto): Promise<any> {
-        Pedido.empresaId = this.idEmpresa;
+    public async salvarPedido(Pedido: PedidoProdutoDto): Promise<any> {
         store.dispatch('ATIVAR_CARREGAMENTO');
         const result = await this.$http.post(`empresas/${this.idEmpresa}/pedidos`, Pedido);
         store.dispatch('DESATIVAR_CARREGAMENTO');
@@ -32,8 +32,8 @@ private pegaIdEmpresa(): number{
     }
 
 
-    public async editarPedido(Pedido: PedidoDto): Promise<PedidoDto> {
-        Pedido.empresaId = this.idEmpresa;
+    public async editarPedido(Pedido: PedidoProdutoDto): Promise<PedidoProdutoDto> {
+      
         store.dispatch('ATIVAR_CARREGAMENTO');
         const result = await this.$http.patch(`empresas/${this.idEmpresa}/pedidos`, Pedido);
         store.dispatch('DESATIVAR_CARREGAMENTO');
@@ -41,7 +41,7 @@ private pegaIdEmpresa(): number{
     }
 
     public async delete(id: any) : Promise<any>{
-        const url =`empresas/${this.idEmpresa}/pedidos/${id}`;
+        const url =`empresas/${this.idEmpresa}/pedido-produtos/${id}`;
         await this.$http.delete(url);
         store.dispatch('DESATIVAR_CARREGAMENTO');
     }

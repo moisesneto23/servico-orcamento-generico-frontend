@@ -1,10 +1,10 @@
 <template>
     <div id="etapasCadastroPedido">
-     <InserirPedido @inserindo-pedido="preenchePedido($event)" v-if="tab ===1"></InserirPedido>
+     <InserirPedido @inserindo-pedido="preencheDescricaoPedido($event)" v-if="tab ===1"></InserirPedido>
     
   <InserirProdutoPedido  v-else-if="tab === 2"
   :pedido="pedido"
-  @selecionou-pedido="selecinouPedido($event)"
+  @cliente-selecionado="clienteSelecionado($event)"
   @solicitar-pedido="solicitarPedido()"
   >
 </InserirProdutoPedido>
@@ -33,16 +33,20 @@ import PedidoProdutoDto from "@/Model/Pedido/PedidoProdutoDto";
     public tab = 1;
     public pedido = new PedidoDto();
 
-    public preenchePedido(descricao: string){
+    public preencheDescricaoPedido(descricao: string){
       this.pedido.descricao = descricao;
       this.tab = 2
     }
+    
     @pedido.Action(PedidoActionTypes.SALVAR_PEDIDO)
-  public salvarPedido!:(pedido : PedidoDto) => Promise<any>;
+  public salvarPedido!:(pedido : PedidoDto) => Promise<PedidoDto>;
 
     public selecinouPedido(pedido: PedidoProdutoDto[]){
       this.pedido.pedidoProdutos = pedido;
       
+    }
+    public  clienteSelecionado(pedido: PedidoDto){
+       this.salvarPedido(pedido).then(()=> {this.tab = 2}).catch(()=>{alert('Não é possivel adicionar o pedido' + pedido.descricao)});
     }
 
     public solicitarPedido(){

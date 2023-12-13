@@ -77,14 +77,16 @@ import { PedidoActionTypes } from "@/store/Pedido/actions";
     @produto.Action(ProdutosActionTypes.OBTER_PRODUTOS)
     private obterProduto!:() => Promise<any>;
 
-   
+       
+      @pedido.State
+    private pedidoProdutos!: PedidoProdutoDto[];
       
     @produto.State
     public produtos!: ProdutoDto[];
   
 
-    @pedido.Action(PedidoActionTypes.SET_PEDIDO_PRODUTO)
-    private adicionarPedidoProduto !:(PedProd: PedidoProdutoDto) => Promise<any>;
+    @pedido.Action(PedidoActionTypes.ATUALIZAR_PEDIDO_PRODUTO_STORE)
+    private adicionarPedidoProduto !:(PedProd: PedidoProdutoDto[]) => Promise<any>;
 
       @produto.Action(ProdutosActionTypes.REMOVER_PRODUTO_STORE)
     private removerProduto !:(id: number) => Promise<any>;
@@ -100,12 +102,17 @@ import { PedidoActionTypes } from "@/store/Pedido/actions";
 public  get produtoss(){
   return this.produtos;
 }
+
+
+  private lista : PedidoProdutoDto[] = [];
    public pedidoProduto = new PedidoProdutoDto();
 
   public async  selecionarProduto(produto: ProdutoDto) {
-  this.pedidoProduto.produtoId = produto.id;
- this.adicionarPedidoProduto(this.pedidoProduto);
- this.removerProduto( produto.id);
+const prod = new PedidoProdutoDto(0,this.pedidoProduto.largura,this.pedidoProduto.altura, this.pedidoProduto.comprimento, this.pedidoProduto.valorAdicional ,this.pedidoProduto.quantidade,
+produto.id,0, produto.nome);
+  this.lista = this.pedidoProdutos;
+  this.lista.push(prod);
+ this.adicionarPedidoProduto(this.lista);
 }
 
 

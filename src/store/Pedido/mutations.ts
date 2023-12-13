@@ -10,7 +10,8 @@ export enum PedidoMutationTypes {
     SET_PEDIDO_PRODUTOS = 'SET_PEDIDO_PRODUTOS',
     SET_CLIENTES = 'SET_CLIENTES',
     SET_PEDIDO_PRODUTO = 'SET_PEDIDO_PRODUTO',
-  
+    SET_REMOVE_PEDIDO_PRODUTO = 'SET_REMOVE_PEDIDO_PRODUTO',
+    SET_PEDIDO_SOLICITACAO = 'SET_PEDIDO_SOLICITACAO',
   }
   
   const mutations: MutationTree<PedidoState> = {
@@ -24,8 +25,12 @@ export enum PedidoMutationTypes {
       state.clientes = cliente;
     },
 
-    [PedidoMutationTypes.SET_PEDIDO_PRODUTO](state: PedidoState, pedidoProduto: PedidoProdutoDto) {
-      state.pedidoProdutos?.push(pedidoProduto);
+    [PedidoMutationTypes.SET_PEDIDO_PRODUTO](state: PedidoState, pedidoProduto: PedidoProdutoDto[]) {
+      state.pedidoProdutos = pedidoProduto;
+    },
+
+    [PedidoMutationTypes.SET_PEDIDO_SOLICITACAO](state: PedidoState, pedidoSolicitacao: PedidoDto) {
+      state.pedidoSolicitacao = pedidoSolicitacao;
     },
     
   };

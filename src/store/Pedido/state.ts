@@ -14,5 +14,4 @@ export class PedidoState {
     pedidos: [],
     pedidoProdutos: [],
     clientes: [],
-    pedidoSolicitacao : new PedidoDto(),
   };
