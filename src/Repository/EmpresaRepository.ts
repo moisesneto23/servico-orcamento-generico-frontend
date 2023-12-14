@@ -16,7 +16,6 @@ export class EmpresaRepository  {
 
     public async obterInformacoesEmpresa(login: Login): Promise<InformacoesEmpresa> {
         const res = await this.$http.post('Usuario/Login',login);
-        console.log(res.data);
         return res.data;
     }
 }

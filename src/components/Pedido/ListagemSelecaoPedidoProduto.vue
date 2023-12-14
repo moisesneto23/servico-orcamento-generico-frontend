@@ -9,16 +9,16 @@
 
             <v-row justify="center">
 
-                <v-col cols="6" md="4"  sm="2">
+                <v-col cols="6" md="4"  sm="2" v-if="produto.possuiLargura">
               <v-text-field type="number" v-model="pedidoProduto.largura" label="Largura"
               ></v-text-field>
             </v-col>
 
-            <v-col cols="6" md="4"  sm="2">
+            <v-col cols="6" md="4"  sm="2" v-if="produto.possuiAltura">
                 <v-text-field type="number" v-model="pedidoProduto.altura" label="Altura"
                ></v-text-field>
             </v-col>
-            <v-col cols="6" md="4"  sm="2">
+            <v-col cols="6" md="4"  sm="2" v-if="produto.possuiComprimento">
                 <v-text-field type="number"  v-model="pedidoProduto.comprimento" label="Comprimento"
                 ></v-text-field>
             </v-col>
@@ -110,7 +110,6 @@ public  get produtoss(){
    public pedidoProduto = new PedidoProdutoDto();
 
   public async  selecionarProduto(produto: ProdutoDto) {
-    debugger
    this.pedidoProduto.pedidoId = this.pedidoSolicitacao.id;
    this.pedidoProduto.produtoId = produto.id;
     this.adicionarPedidoProduto(this.pedidoProduto);

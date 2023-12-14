@@ -32,6 +32,10 @@ export enum PedidoMutationTypes {
     [PedidoMutationTypes.SET_PEDIDO_SOLICITACAO](state: PedidoState, pedidoSolicitacao: PedidoDto) {
       state.pedidoSolicitacao = pedidoSolicitacao;
     },
+
+    [PedidoMutationTypes.SET_REMOVE_PEDIDO_PRODUTO](state: PedidoState, id: number) {
+      state.pedidoProdutos = state.pedidoProdutos?.filter(x=>x.id !== id);
+    },
     
   };
   

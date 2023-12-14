@@ -10,16 +10,16 @@
 
             <v-row justify="center">
 
-                <v-col cols="6" md="4"  sm="2">
+                <v-col cols="6" md="4"  sm="2" v-if="produto.possuiLargura">
               <v-text-field type="number" v-model="produto.largura" label="Largura"
               ></v-text-field>
             </v-col>
 
-            <v-col cols="6" md="4"  sm="2">
+            <v-col cols="6" md="4"  sm="2" v-if="produto.possuiAltura">
                 <v-text-field type="number" v-model="produto.altura" label="Altura"
                ></v-text-field>
             </v-col>
-            <v-col cols="6" md="4"  sm="2">
+            <v-col cols="6" md="4"  sm="2" v-if="produto.possuiComprimento">
                 <v-text-field type="number"  v-model="produto.comprimento" label="Comprimento"
                 ></v-text-field>
             </v-col>
@@ -41,7 +41,7 @@
             depressed
             color="amber"
             min-width="300"
-            @click="removeProduto(produto)"
+            @click="removerProdutoPedido(produto)"
           >
           <h2>Excluir produto</h2>
             
@@ -77,7 +77,7 @@ import { PedidoActionTypes } from "@/store/Pedido/actions";
     
 
 
-   
+    
       
     @pedido.State
     public pedidoProdutos!: PedidoProdutoDto[];
@@ -85,21 +85,19 @@ import { PedidoActionTypes } from "@/store/Pedido/actions";
     @produto.State
     public produtos!: ProdutoDto[];
 
-    @pedido.Action(PedidoActionTypes.ATUALIZAR_PEDIDO_PRODUTO_STORE)
-    private atualizarPedidoProduto !:(PedProd: PedidoProdutoDto[]) => Promise<any>;
+      @pedido.Action(PedidoActionTypes.REMOVER_PEDIDO_PRODUTO)
+    private removePedidoProduto !:(id: number) => Promise<any>;
 
 
    public dialog = true;
 
 
       public obterNomeProduto(id: number) : string{
-        debugger
         let prod = this.produtos.find(x=>x.id === id);
-        console.log(prod)
         return prod?.nome || '';
       }
-  public async  removeProduto(produto: PedidoProdutoDto) {
-
+  public async  removerProdutoPedido(pedidoProduto: PedidoProdutoDto) {
+    this.removePedidoProduto(pedidoProduto.id)
     
   }
 

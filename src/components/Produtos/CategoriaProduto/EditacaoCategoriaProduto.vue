@@ -70,9 +70,7 @@ export default class EdicaoCategoriaProduto extends Vue {
   public get exibeCategoriaProduto(){
     return this.categoriaProduto;
   }
-  mounted(){
-    console.log(this.categoriaProduto)
-  }
+  
   public processarEdicao(categoriaProduto: CategoriaProdutoDto){
     this.AtivarCarregamento();
     this.editarCategoriaProduto(categoriaProduto).then(()=>{

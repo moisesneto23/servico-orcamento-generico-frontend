@@ -40,7 +40,7 @@ private pegaIdEmpresa(): number{
         return result.data;
     }
 
-    public async delete(id: any) : Promise<any>{
+    public async delete(id: number) : Promise<any>{
         const url =`empresas/${this.idEmpresa}/pedido-produtos/${id}`;
         await this.$http.delete(url);
         store.dispatch('DESATIVAR_CARREGAMENTO');

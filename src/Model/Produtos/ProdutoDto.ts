@@ -10,4 +10,7 @@ export default class ProdutoDto {
   public categoriaProduto!: CategoriaProdutoDto;
   public categoriaProdutoId!: number;
   public ProdutosItensDimencao: ProdutoItemDimencaoDto[] = [];
+  public possuiLargura: boolean = false ;
+  public possuiComprimento: boolean = false ;
+  public possuiAltura: boolean = false ;
 }

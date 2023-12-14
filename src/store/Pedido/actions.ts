@@ -23,6 +23,7 @@ export enum PedidoActionTypes {
     REMOVER_CLIENTE = 'REMOVER_CLIENTE',
     ATUALIZAR_PEDIDO_PRODUTO_STORE = 'ATUALIZAR_PEDIDO_PRODUTO_STORE',
     SALVAR_PEDIDO_PRODUTO = 'SALVAR_PEDIDO_PRODUTO',
+    REMOVER_PEDIDO_PRODUTO = 'REMOVER_PEDIDO_PRODUTO',
   }
   
   
@@ -36,7 +37,6 @@ export enum PedidoActionTypes {
     },
   
     async [PedidoActionTypes.SALVAR_PEDIDO]({ commit }, PEDIDO: PedidoDto) {
-      debugger
       const service = (Container.get(PedidoService) as PedidoService);
       const obj = await service.salvarPedido(PEDIDO);
       commit(PedidoMutationTypes.SET_PEDIDO_SOLICITACAO, obj);
@@ -92,6 +92,14 @@ export enum PedidoActionTypes {
       const service = (Container.get(PedidoProdutoService) as PedidoProdutoService);
       const data = await service.salvarPedidoProduto(pedidoProduto);
       commit(PedidoMutationTypes.SET_PEDIDO_PRODUTOS, data);
+    },
+
+    async [PedidoActionTypes.REMOVER_PEDIDO_PRODUTO]({ commit }, id: number) {
+      const service = (Container.get(PedidoProdutoService) as PedidoProdutoService);
+      service.delete(id).then(()=>{
+        commit(PedidoMutationTypes.SET_REMOVE_PEDIDO_PRODUTO, id);
+      });
+      
     },
 
   };
