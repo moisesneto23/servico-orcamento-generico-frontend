@@ -3,6 +3,7 @@
 import ProdutoDto from '@/Model/Produtos/ProdutoDto';
 import { AppHttpAxios } from '@/axios/AppHttpAxios';
 import { Inject } from 'typescript-ioc';
+import store from '@/store/index';
 
 export default class ProdutoService {
     @Inject
@@ -12,7 +13,15 @@ private pegaIdEmpresa(): number{
     let id = localStorage.getItem('businessId') || '0';
     return parseInt(id);
 }
-  
+
+
+    public async obterProdutosComItensCadastrados(): Promise<ProdutoDto[]> {
+        store.dispatch('ATIVAR_CARREGAMENTO');
+        const result = await this.$http.get(`Produto/${this.idEmpresa}/itens-cadastrados`);
+        store.dispatch('DESATIVAR_CARREGAMENTO');
+        return result.data; 
+    }
+
     public async obterTodosProdutos(): Promise<ProdutoDto[]> {
         const result = await this.$http.get(`Produto/${this.idEmpresa}`);
         return result.data;

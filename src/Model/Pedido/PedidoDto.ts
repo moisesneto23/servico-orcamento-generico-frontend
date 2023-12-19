@@ -9,5 +9,6 @@ export default class PedidoDto {
     public cliente?: ClienteDto;
     public clienteId?: number;
     public pedidoProdutos?: PedidoProdutoDto[];
-
+    public IndicaFinaliado ?: boolean; 
+    public IndicaVenda ?: boolean; 
 }

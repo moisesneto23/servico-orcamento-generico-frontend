@@ -33,6 +33,7 @@ export enum ProdutosActionTypes {
   REMOVER_PRODUTO = 'REMOVER_PRODUTO',
   REMOVER_PRODUTO_STORE = 'REMOVER_PRODUTO_STORE',
   OBTER_PRODUTOS_POR_CATEGORIA = 'OBTER_PRODUTOS_POR_CATEGORIA',
+  OBTER_PRODUTOS_COM_ITENS_CADASTRADOS ='OBTER_PRODUTOS_COM_ITENS_CADASTRADOS',
 }
 
 
@@ -143,6 +144,12 @@ const actions: ActionTree<ProdutoState, RootState> = {
 
   [ProdutosActionTypes.REMOVER_PRODUTO_STORE]({ commit }, id: number) {
     commit(ProdutosMutationTypes.SET_REMOVE_PRODUTO, id);
+  },
+
+  async [ProdutosActionTypes.OBTER_PRODUTOS_COM_ITENS_CADASTRADOS]({ commit }) {
+    const service = (Container.get(ProdutoService) as ProdutoService);
+    const PEDIDOS = await service.obterProdutosComItensCadastrados();
+    commit(ProdutosMutationTypes.SET_PRODUTOS_COM_ITENS_CADASTRADOS, PEDIDOS);
   },
 };
 

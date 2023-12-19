@@ -5,9 +5,11 @@
 
   <div class="d-flex align-center">
     <v-row align="center" justify="center" class="fill-height">
-      <v-col>
+      <v-btn class="ml-8" @click="recaregar();" text>
+        <v-col>
         {{ nomePagina }}
       </v-col>
+      </v-btn>
     </v-row>
   </div>
 <v-spacer></v-spacer>
@@ -112,6 +114,10 @@ export default class Cabecalho extends Vue {
   public sair(){
     localStorage.removeItem('ocirenegotnemacro');
     this.$router.push(Rotas.Visitante.Login);
+  }
+
+  public recaregar(){
+    location.reload();
   }
 
   public get nomePagina() {

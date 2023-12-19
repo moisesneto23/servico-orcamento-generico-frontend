@@ -5,6 +5,7 @@ import PedidoProdutoDto from "@/Model/Pedido/PedidoProdutoDto";
 export class PedidoState {
     public pedidos?: PedidoDto[];
     public pedidoProdutos?: PedidoProdutoDto[] ;
+    public pedidosComItensCadastrados?:  PedidoProdutoDto[] ;
     public clientes?: ClienteDto[];
     public pedidoSolicitacao ?:PedidoDto;
   
@@ -14,4 +15,5 @@ export class PedidoState {
     pedidos: [],
     pedidoProdutos: [],
     clientes: [],
+    pedidosComItensCadastrados: [],
   };

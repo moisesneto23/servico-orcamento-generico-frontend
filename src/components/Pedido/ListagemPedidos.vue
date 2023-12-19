@@ -1,29 +1,30 @@
 <template>
   <v-expansion-panels focusable v-if="dialog">
-    <v-expansion-panel v-for="(produto, i) in pedidos" :key="produto.id" class="mb-2">
-      <v-expansion-panel-header> <h3>  {{ produto.descricao }}</h3> 
+    <v-expansion-panel v-for="(pedido, i) in pedidos" :key="pedido.id" class="mb-2">
+      <v-expansion-panel-header> <h3>  {{ pedido.descricao }}</h3> 
         <v-divider vertical class="mx-2"></v-divider> 
-         <h4>Cliente: <h5>{{ produto.cliente?.nome}}</h5>  </h4> </v-expansion-panel-header> 
+         <h4>Cliente: <h5>{{ pedido.cliente?.nome}}</h5>  </h4> </v-expansion-panel-header> 
       <v-expansion-panel-content class="mt-10">
  
 
-        
-            
+        <v-col cols="5" v-if="!pedido.IndicaVenda">
+                <v-btn
+                  text
+                  @click="excluirPedido(pedido.id)"
+                  ><v-icon>mdi-trash-can-outline</v-icon>
+                </v-btn>
+                <h3 class="text-center">Escluir</h3>
+              </v-col>
           <v-btn
          
           class="mt-9 mx-auto d-block text-none blue--text text--darken-3"
           depressed
           color="amber"
           min-width="300"
-          @click="selecionarPedido(produto)"
+          @click="editarPedido(pedido)"
         >
-        <h2>Inserir produto</h2>
-          
+        <h2>{{pedido.IndicaFinaliado ? 'Editar pedido' : 'Finalize o pedido'}}</h2>
         </v-btn>
-       
-  
-   
-      
       </v-expansion-panel-content>
     </v-expansion-panel>
   </v-expansion-panels>
@@ -53,17 +54,15 @@ export default class ListagemPedidos extends Vue {
   @pedido.Action(PedidoActionTypes.OBTER_PEDIDOS)
   private obterPedidos!:() => Promise<any>;
 
- 
+    @pedido.Action(PedidoActionTypes.REMOVER_PEDIDO)
+  private excluiPedido!:(id: number) => Promise<any>;
     
   @pedido.State
   public pedidos!: PedidoDto[];
 
 
-  @pedido.Action(PedidoActionTypes.ATUALIZAR_PEDIDO_PRODUTO_STORE)
-  private adicionarPedidoProduto !:(PedProd: PedidoProdutoDto) => Promise<any>;
-
-    @produto.Action(ProdutosActionTypes.REMOVER_PRODUTO_STORE)
-  private removerProduto !:(id: number) => Promise<any>;
+  @pedido.Action(PedidoActionTypes.SET_PEDIDO_STORE)
+  private selecionaPedido !:(PedProd: PedidoDto) => Promise<any>;
 
  public dialog = true;
 
@@ -73,13 +72,14 @@ export default class ListagemPedidos extends Vue {
   
  }
 
-
+excluirPedido(id: number) {
+  this.excluiPedido(id)
+}
  public pedidoProduto = new PedidoProdutoDto();
 
-public async  selecionarPedido(produto: PedidoDto) {
-this.pedidoProduto.produtoId = produto.id;
-this.adicionarPedidoProduto(this.pedidoProduto);
-this.removerProduto( produto.id);
+public async  editarPedido(pedido: PedidoDto) {
+  this.selecionaPedido(pedido);
+  this.$emit('pedido-selecionado');
 }
 
 

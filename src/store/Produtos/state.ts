@@ -7,10 +7,12 @@ export class ProdutoState {
   public itensProdutoDimencao?: ItemProdutoDimencaoDto[];
   public categoriasProduto?: CategoriaProdutoDto[] ;
   public produtos?: ProdutoModel[];
+  public produtosComItensCadastrados?: ProdutoModel[];
 }
 
 export const state: ProdutoState = {
   itensProdutoDimencao: [],
   categoriasProduto: [],
   produtos: [],
+  produtosComItensCadastrados: [],
 };

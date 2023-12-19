@@ -1,11 +1,10 @@
 <template>
     <div id="etapasCadastroPedido">
      <InserirPedido @inserindo-pedido="preencheDescricaoPedido($event)" v-if="tab ===1"></InserirPedido>
-    
-  <InserirProdutoPedido  v-else-if="tab === 2"
+     <ListagemCliente v-if="tab === 2" @selecionou-cliente="clienteSelecionado($event)"/>
+  <InserirProdutoPedido  v-else-if="tab === 3"
   :pedido="pedido"
-  @cliente-selecionado="clienteSelecionado($event)"
-  @solicitar-pedido="solicitarPedido()"
+  @solicitar-finaliacao-pedido="finalizacaoPedido()"
   >
 </InserirProdutoPedido>
 
@@ -21,10 +20,13 @@
 import { StoreNamespaces } from "@/store/namespaces";
 import { namespace } from "vuex-class";
 import PedidoProdutoDto from "@/Model/Pedido/PedidoProdutoDto";
+import ListagemCliente from "../Clientes/ListagemCliente.vue";
+import ClienteDto from "@/Model/ClienteDto";
 
   const pedido = namespace(StoreNamespaces.PEDIDO);
   @Component({
     components: {
+        ListagemCliente,
         InserirPedido,
         InserirProdutoPedido,
     },
@@ -38,19 +40,34 @@ import PedidoProdutoDto from "@/Model/Pedido/PedidoProdutoDto";
       this.tab = 2
     }
     
+    @pedido.State
+    private pedidoSolicitacao!: PedidoDto;
+
     @pedido.Action(PedidoActionTypes.SALVAR_PEDIDO)
   public salvarPedido!:(pedido : PedidoDto) => Promise<PedidoDto>;
 
+    @pedido.Action(PedidoActionTypes.PEDIDO_FINALIACAO)
+  public finalizaPedido!:(id : number) => Promise<PedidoDto>;
+
     public selecinouPedido(pedido: PedidoProdutoDto[]){
-      this.pedido.pedidoProdutos = pedido;
-      
-    }
-    public  clienteSelecionado(pedido: PedidoDto){
-       this.salvarPedido(pedido).then(()=> {this.tab = 2}).catch(()=>{alert('Não é possivel adicionar o pedido' + pedido.descricao)});
+      this.pedido.pedidoProdutos = pedido;  
     }
 
-    public solicitarPedido(){
-    this.salvarPedido(this.pedido);
+    mounted(){
+      if(this.pedidoSolicitacao){
+        this.tab = 3
+      }
     }
+
+    public finalizacaoPedido() {
+      this.finalizaPedido(this.pedidoSolicitacao.id);
+    }
+
+    public  clienteSelecionado(cliente: ClienteDto){
+      this.pedido.clienteId = cliente.id;
+       this.salvarPedido(this.pedido).then(()=> {this.tab = 2}).catch(()=>{alert('Não é possivel adicionar o pedido' + this.pedido.descricao)});
+       this.tab = 3;
+    }
+
   }
   </script>

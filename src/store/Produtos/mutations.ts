@@ -13,6 +13,7 @@ export enum ProdutosMutationTypes {
   SET_ITENS_PRODUTO = 'SET_ITENS_PRODUTO',
   SET_PRODUTOS = 'SET_PRODUTOS',
   SET_REMOVE_PRODUTO = 'SET_REMOVE_PRODUTO',
+  SET_PRODUTOS_COM_ITENS_CADASTRADOS = 'SET_PRODUTOS_COM_ITENS_CADASTRADOS'
 }
 
 const mutations: MutationTree<ProdutoState> = {
@@ -29,6 +30,10 @@ const mutations: MutationTree<ProdutoState> = {
 
   [ProdutosMutationTypes.SET_REMOVE_PRODUTO](state: ProdutoState, id: number) {
     state.produtos = state.produtos?.filter(x=> x.id !==id);
+  },
+
+  [ProdutosMutationTypes.SET_PRODUTOS_COM_ITENS_CADASTRADOS](state: ProdutoState, produtos: ProdutoModel[]) {
+    state.produtosComItensCadastrados = produtos;
   },
 };
 

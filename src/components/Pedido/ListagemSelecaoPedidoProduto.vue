@@ -1,6 +1,6 @@
 <template>
     <v-expansion-panels focusable v-if="dialog">
-      <v-expansion-panel v-for="(produto, i) in produtos" :key="produto.id" class="mb-2">
+      <v-expansion-panel v-for="(produto, i) in produtosComItensCadastrados" :key="produto.id" class="mb-2">
         <v-expansion-panel-header> <h3>  {{ produto.nome }}</h3> 
           <v-divider vertical class="mx-2"></v-divider> 
           <h4>Categoria Produto: <h5>{{ produto.categoriaProduto.descricao}}</h5>  </h4> </v-expansion-panel-header>
@@ -75,8 +75,8 @@ import PedidoDto from "@/Model/Pedido/PedidoDto";
   })
   export default class ListagemSelecaoPedidoProduto extends Vue {
     
-    @produto.Action(ProdutosActionTypes.OBTER_PRODUTOS)
-    private obterProduto!:() => Promise<any>;
+    @produto.Action(ProdutosActionTypes.OBTER_PRODUTOS_COM_ITENS_CADASTRADOS)
+    private obterProdutosComItensCadastrados!:() => Promise<any>;
 
        
       @pedido.State
@@ -84,29 +84,23 @@ import PedidoDto from "@/Model/Pedido/PedidoDto";
       
     
     @produto.State
-    public produtos!: ProdutoDto[];
+    public produtosComItensCadastrados!: ProdutoDto[];
   
 
     @pedido.Action(PedidoActionTypes.SALVAR_PEDIDO_PRODUTO)
     private adicionarPedidoProduto !:(PedProd: PedidoProdutoDto) => Promise<any>;
 
-      @produto.Action(ProdutosActionTypes.REMOVER_PRODUTO_STORE)
-    private removerProduto !:(id: number) => Promise<any>;
+    //   @produto.Action(ProdutosActionTypes.REMOVER_PRODUTO_STORE)
+    // private removerProduto !:(id: number) => Promise<any>;
 
    public dialog = true;
 
 
    private async mounted(){
-    await this.obterProduto();
+    await this.obterProdutosComItensCadastrados();
     
    }
 
-public  get produtoss(){
-  return this.produtos;
-}
-
-
-  private lista : PedidoProdutoDto[] = [];
    public pedidoProduto = new PedidoProdutoDto();
 
   public async  selecionarProduto(produto: ProdutoDto) {

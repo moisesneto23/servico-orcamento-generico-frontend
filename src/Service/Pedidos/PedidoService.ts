@@ -41,14 +41,22 @@ private pegaIdEmpresa(): number{
     }
 
     public async delete(id: any) : Promise<any>{
+        store.dispatch('ATIVAR_CARREGAMENTO');
         const url =`empresas/${this.idEmpresa}/pedidos/${id}`;
         await this.$http.delete(url);
         store.dispatch('DESATIVAR_CARREGAMENTO');
     }
 
     public async obterTodosPedidosPorCategoria(idCategoria: number) {
+        store.dispatch('ATIVAR_CARREGAMENTO');
         const result = await this.$http.get(`empresas/${this.idEmpresa}/pedidos/${idCategoria}`);
         store.dispatch('DESATIVAR_CARREGAMENTO');
         return result.data;
+      }
+
+      public async comporInformacoesPedio(idPedido: number): Promise<any>{
+        store.dispatch('ATIVAR_CARREGAMENTO');
+        const result = await this.$http.put(`empresas/${this.idEmpresa}/pedidos/${idPedido}`, );
+        store.dispatch('DESATIVAR_CARREGAMENTO');
       }
 };

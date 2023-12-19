@@ -16,6 +16,8 @@ export enum PedidoActionTypes {
     SALVAR_PEDIDO = 'SALVAR_PEDIDO',
     EDITAR_PEDIDO = 'EDITAR_PEDIDO',
     REMOVER_PEDIDO = 'REMOVER_PEDIDO',
+    SET_PEDIDO_STORE = 'SET_PEDIDO_STORE',
+    PEDIDO_FINALIACAO= 'PEDIDO_FINALIACAO',
 
     OBTER_CLIENTES = 'OBTER_CLIENTES',
     SALVAR_CLIENTE = 'SALVAR_CLIENTE',
@@ -43,6 +45,17 @@ export enum PedidoActionTypes {
       return obj;
     },
   
+    async [PedidoActionTypes.SET_PEDIDO_STORE]({ commit }, pedido: PedidoDto) {
+      commit(PedidoMutationTypes.SET_PEDIDO_SOLICITACAO, pedido);
+    },
+
+    async [PedidoActionTypes.PEDIDO_FINALIACAO]({ commit }, idPedido: number) {
+      const service = (Container.get(PedidoService) as PedidoService);
+      await service.comporInformacoesPedio(idPedido);
+      const PedidoS = await service.obterTodosPedidos();
+      commit(PedidoMutationTypes.SET_PEDIDOS, PedidoS);
+    },
+    
     async [PedidoActionTypes.EDITAR_PEDIDO]({ commit }, Pedido: PedidoDto) {
       const service = (Container.get(PedidoService) as PedidoService);
       await service.editarPedido(Pedido);
