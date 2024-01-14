@@ -1,14 +1,12 @@
 <template>
     <div id="etapasCadastroPedido">
-     <InserirPedido @inserindo-pedido="preencheDescricaoPedido($event)" v-if="tab ===1"></InserirPedido>
-     <ListagemCliente v-if="tab === 2" @selecionou-cliente="clienteSelecionado($event)"/>
-  <InserirProdutoPedido  v-else-if="tab === 3"
-  :pedido="pedido"
-  @solicitar-finaliacao-pedido="finalizacaoPedido()"
-  >
-</InserirProdutoPedido>
-
-  <!-- <v-btn rounded color="primary">Proxima Etapa</v-btn> -->
+     <InserirPedido @inserindo-pedido="preencheDescricaoPedido($event)" v-if="etapasPedido ===  enumEtapas.DescricaoPedido"></InserirPedido>
+     <ListagemCliente v-if="etapasPedido === enumEtapas.SelecaoOuCriacaoCliente" @selecionou-cliente="clienteSelecionado($event)"/>
+     <InserirProdutoPedido  v-if="etapasPedido ===  enumEtapas.InsercaoProdutoAoPedido"
+        :pedido="pedido"
+        @solicitar-finaliacao-pedido="finalizacaoPedido()"
+      >
+      </InserirProdutoPedido>
     </div>
   </template>
   <script lang="ts">
@@ -22,6 +20,7 @@ import { namespace } from "vuex-class";
 import PedidoProdutoDto from "@/Model/Pedido/PedidoProdutoDto";
 import ListagemCliente from "../Clientes/ListagemCliente.vue";
 import ClienteDto from "@/Model/ClienteDto";
+import {EtapasPedidoEnum} from '@/Model/Enum/EtapasPedidoEnum';
 
   const pedido = namespace(StoreNamespaces.PEDIDO);
   @Component({
@@ -32,12 +31,13 @@ import ClienteDto from "@/Model/ClienteDto";
     },
   })
   export default class EtapasCadastroPedido extends Vue {
-    public tab = 1;
+    public etapasPedido = 1;
     public pedido = new PedidoDto();
+    public enumEtapas = EtapasPedidoEnum;
 
     public preencheDescricaoPedido(descricao: string){
       this.pedido.descricao = descricao;
-      this.tab = 2
+      this.etapasPedido = 2
     }
     
     @pedido.State
@@ -55,7 +55,7 @@ import ClienteDto from "@/Model/ClienteDto";
 
     mounted(){
       if(this.pedidoSolicitacao){
-        this.tab = 3
+        this.etapasPedido = this.enumEtapas.InsercaoProdutoAoPedido
       }
     }
 
@@ -64,9 +64,11 @@ import ClienteDto from "@/Model/ClienteDto";
     }
 
     public  clienteSelecionado(cliente: ClienteDto){
+      debugger;
+      console.log(this.etapasPedido);
       this.pedido.clienteId = cliente.id;
-       this.salvarPedido(this.pedido).then(()=> {this.tab = 2}).catch(()=>{alert('Não é possivel adicionar o pedido' + this.pedido.descricao)});
-       this.tab = 3;
+       this.salvarPedido(this.pedido).then(()=> {this.etapasPedido = this.enumEtapas.InsercaoProdutoAoPedido}).catch(()=>{alert('Não é possivel adicionar o pedido' + this.pedido.descricao)});
+       //this.etapasPedido = this.enumEtapas.InsercaoProdutoAoPedido;
     }
 
   }

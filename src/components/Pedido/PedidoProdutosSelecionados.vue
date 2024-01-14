@@ -1,8 +1,8 @@
 <template>
     <v-expansion-panels focusable v-if="dialog">
       <v-expansion-panel v-for="(produto, i) in pedidoProdutos" :key="i" class="mb-2">
-        <v-expansion-panel-header @click="obterNomeProduto(produto.id)"> 
-            <h3>  {{ obterNomeProduto(produto.produtoId) }}</h3> 
+        <v-expansion-panel-header > 
+            <h3>  {{ produto.nomeProduto }}</h3> 
          
            </v-expansion-panel-header>
         <v-expansion-panel-content class="mt-10">
@@ -65,6 +65,7 @@
   import { GlobalActionTypes } from "@/store/actions";
 import PedidoProdutoDto from "@/Model/Pedido/PedidoProdutoDto";
 import { PedidoActionTypes } from "@/store/Pedido/actions";
+import PedidoDto from "@/Model/Pedido/PedidoDto";
   
   const produto = namespace(StoreNamespaces.PRODUTO);
   const pedido = namespace(StoreNamespaces.PEDIDO);
@@ -76,7 +77,8 @@ import { PedidoActionTypes } from "@/store/Pedido/actions";
   export default class PedidoProdutosSelecionados extends Vue {
     
 
-
+    @pedido.Action(PedidoActionTypes.OBTER_PEDIDO_PRODUTOS)
+  public obterProdutosDoPedido!:(pedidoId: number) => Promise<any>;
     
       
     @pedido.State
@@ -87,15 +89,16 @@ import { PedidoActionTypes } from "@/store/Pedido/actions";
 
       @pedido.Action(PedidoActionTypes.REMOVER_PEDIDO_PRODUTO)
     private removePedidoProduto !:(id: number) => Promise<any>;
+      
+      @pedido.State
+    private pedidoSolicitacao!: PedidoDto;
 
-
+async mounted() {
+ await this.obterProdutosDoPedido(this.pedidoSolicitacao.id);
+}
    public dialog = true;
 
 
-      public obterNomeProduto(id: number) : string{
-        let prod = this.produtos.find(x=>x.id === id);
-        return prod?.nome || '';
-      }
   public async  removerProdutoPedido(pedidoProduto: PedidoProdutoDto) {
     this.removePedidoProduto(pedidoProduto.id)
     

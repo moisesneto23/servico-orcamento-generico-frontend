@@ -56,7 +56,7 @@ private pegaIdEmpresa(): number{
 
       public async comporInformacoesPedio(idPedido: number): Promise<any>{
         store.dispatch('ATIVAR_CARREGAMENTO');
-        const result = await this.$http.put(`empresas/${this.idEmpresa}/pedidos/${idPedido}`, );
+        const result = await this.$http.patch(`empresas/${this.idEmpresa}/pedidos/${idPedido}`);
         store.dispatch('DESATIVAR_CARREGAMENTO');
       }
 };

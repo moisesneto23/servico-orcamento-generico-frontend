@@ -26,6 +26,7 @@ export enum PedidoActionTypes {
     ATUALIZAR_PEDIDO_PRODUTO_STORE = 'ATUALIZAR_PEDIDO_PRODUTO_STORE',
     SALVAR_PEDIDO_PRODUTO = 'SALVAR_PEDIDO_PRODUTO',
     REMOVER_PEDIDO_PRODUTO = 'REMOVER_PEDIDO_PRODUTO',
+    OBTER_PEDIDO_PRODUTOS = 'OBTER_PEDIDO_PRODUTOS',
   }
   
   
@@ -112,6 +113,14 @@ export enum PedidoActionTypes {
       service.delete(id).then(()=>{
         commit(PedidoMutationTypes.SET_REMOVE_PEDIDO_PRODUTO, id);
       });
+      
+    },
+
+    async [PedidoActionTypes.OBTER_PEDIDO_PRODUTOS]({ commit }, id: number) {
+      const service = (Container.get(PedidoProdutoService) as PedidoProdutoService);
+      const data = await service.obterPedidoProdutosPorProdutoId(id);
+        commit(PedidoMutationTypes.SET_PEDIDO_PRODUTOS, data);
+     
       
     },
 
