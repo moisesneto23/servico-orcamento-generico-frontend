@@ -16,5 +16,5 @@ jobs:
 
     - name: Build and Deploy
       run: |
-        sudo cp -r /var/www/frontend_ic/* https://github.com/moisesneto23/servico-orcamento-generico-frontend/dist
+        sudo cp -r /var/www/frontend_ic/* https://github.com/moisesneto23/servico-orcamento-generico-frontend/
 
