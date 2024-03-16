@@ -22,5 +22,5 @@ jobs:
         SOURCE: "./dist"
         REMOTE_HOST: "52.86.163.175"
         REMOTE_USER: "ubuntu"
-        TARGET: "home/ubuntu/var/www/frontend_ic"
+        TARGET: "home/ubuntu"
 
