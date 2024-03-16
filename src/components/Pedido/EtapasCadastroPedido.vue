@@ -60,7 +60,9 @@ import {EtapasPedidoEnum} from '@/Model/Enum/EtapasPedidoEnum';
     }
 
     public finalizacaoPedido() {
-      this.finalizaPedido(this.pedidoSolicitacao.id);
+      this.finalizaPedido(this.pedidoSolicitacao.id).then(() =>{
+        this.$emit('etapa-selecao-pedido')
+      });
     }
 
     public  clienteSelecionado(cliente: ClienteDto){

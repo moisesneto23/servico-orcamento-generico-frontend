@@ -3,7 +3,7 @@
      
       <ListagemPedido v-if="etapa === 0" @pedido-selecionado="etapa = 1"/>
       <v-btn v-if="etapa === 0" color="primary" rounded @click="etapa = 1"> <h6>Cadastrar pedido</h6></v-btn>
-  <EtapasCadastroPedido v-if="etapa === 1"></EtapasCadastroPedido>
+  <EtapasCadastroPedido v-if="etapa === 1" @etapa-selecao-pedido="etapa = 0 "></EtapasCadastroPedido>
   
 
   

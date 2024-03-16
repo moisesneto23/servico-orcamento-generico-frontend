@@ -11,6 +11,7 @@ export class AppHttpAxios {
     this.axiosInstance = Axios.create({
       baseURL : //'https://servico-orcamento-generico.azurewebsites.net/api/'
       //'http://localhost:5068/api'
+      //'http://192.168.0.104:7068/api/'
       'http://192.168.3.10:7068/api/'
     });
     this.axiosInstance.interceptors.request.use(Request);

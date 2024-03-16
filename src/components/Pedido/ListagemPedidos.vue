@@ -6,8 +6,12 @@
          <h4>Cliente: <h5>{{ pedido.cliente?.nome}}</h5>  </h4> </v-expansion-panel-header> 
       <v-expansion-panel-content class="mt-10">
  
-
-        <v-col cols="5" v-if="!pedido.IndicaVenda">
+<v-btn color="orange" v-if="pedido.indicaFinaliado && !pedido.indicaVenda">
+  <v-icon color="success"
+  size="x-large">mdi-cash-sync</v-icon>
+  Realizar venda
+</v-btn>
+        <v-col cols="5" v-if="!pedido.indicaVenda">
                 <v-btn
                   text
                   @click="excluirPedido(pedido.id)"
@@ -23,8 +27,11 @@
           min-width="300"
           @click="editarPedido(pedido)"
         >
-        <h2>{{pedido.IndicaFinaliado ? 'Editar pedido' : 'Finalize o pedido'}}</h2>
+        <h2>{{pedido.indicaFinaliado ? 'Editar pedido' : 'Finalize o pedido'}}</h2>
         </v-btn>
+        <div v-if="pedido.indicaFinaliado">
+          <h3>R$ {{ pedido.valorTotal }}</h3>
+        </div>
       </v-expansion-panel-content>
     </v-expansion-panel>
   </v-expansion-panels>
@@ -41,6 +48,7 @@ import { GlobalActionTypes } from "@/store/actions";
 import PedidoProdutoDto from "@/Model/Pedido/PedidoProdutoDto";
 import { PedidoActionTypes } from "@/store/Pedido/actions";
 import PedidoDto from "@/Model/Pedido/PedidoDto";
+import Pedido from "@/store/Pedido";
 
 const produto = namespace(StoreNamespaces.PRODUTO);
 const pedido = namespace(StoreNamespaces.PEDIDO);
