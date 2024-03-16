@@ -1,0 +1,19 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Build and Deploy
+      run: |
+        sudo cp -r /var/www/frontend_ic/* /var/www/frontend_ic/
+
