@@ -6,22 +6,21 @@ on:
     - primeiroMvp
 
 jobs:
-  continuos-integration:
+  deploy:
+    name: deploy na ec2
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Using Node.Js
-      uses: actions/setup-node@v2
-      with:
-        node-version: 18.
-    - name: run instal, build
-      run: |
-        npm install
-        npm run build
+    - name: troca arquivos
+      uses: actions/checkout@v2
 
-
-    #- name: Build and Deploy
-     # run: |
-      #  sudo cp -r /var/www/servico-orcamento-generico-frontend/* https://github.com/moisesneto23/servico-orcamento-generico-frontend/
+    - name: copia arquivos com ssh
+      uses: easingthemes/ssh-deploy@main
+      env:
+        SSH_PRIVATE_KEY: ${{secrets.SECRET_EC2}}
+        ARGS: "-rltgoDzvO --delete"
+        SOURCE: "./dist"
+        REMOTE_HOST: "52.86.163.175"
+        REMOTE_USER: "ubuntu"
+        TARGET: "home/ubuntu/var/www/frontend_ic"
 
