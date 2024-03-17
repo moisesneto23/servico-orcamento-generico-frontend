@@ -20,7 +20,7 @@ jobs:
         SSH_PRIVATE_KEY: ${{secrets.SECRET_EC2}}
         ARGS: "-rltgoDzvO --delete"
         SOURCE: "./dist"
-        REMOTE_HOST: "52.86.163.175"
+        REMOTE_HOST: "3.208.18.49"
         REMOTE_USER: "ubuntu"
         TARGET: "/var/www"
 
