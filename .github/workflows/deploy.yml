@@ -24,13 +24,3 @@ jobs:
         REMOTE_USER: "ubuntu"
         TARGET: "/var/www"
 
-    - name: recarrega nginx
-      uses: appleboy/ssh-action@master
-      with:
-        host: "52.86.163.175"  # Adicionado 'host' com o mesmo valor
-        username: "ubuntu"  # Adicionado 'username' com o mesmo valor
-        key: ${{ secrets.SECRET_EC2 }}  # Adicionado 'key' com o mesmo valor
-        script: |
-          sudo systemctl reload nginx
-
-
