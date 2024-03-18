@@ -12,7 +12,7 @@ export class AppHttpAxios {
       baseURL : //'https://servico-orcamento-generico.azurewebsites.net/api/'
       //'http://localhost:5068/api'
       //'http://192.168.0.104:7068/api/'
-      'http://api.orcamentodeobra.com.br/'
+      'https://api.orcamentodeobra.com.br/'
     });
     this.axiosInstance.interceptors.request.use(Request);
     this.axiosInstance.defaults.headers.common['Authorization'] = localStorage.getItem('ocirenegotnemacro') || '';
