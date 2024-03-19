@@ -1,7 +1,7 @@
 <template>
   <v-expansion-panels focusable>
     <v-expansion-panel v-for="(item, i) in obterItensUnitarios" :key="i" class="mb-2">
-      <v-expansion-panel-header class="my-n1">
+      <v-expansion-panel-header class="my-n1" >
         <v-row>
          <v-col class="mt-1">
           <h3>  {{ item.nome }}</h3>
@@ -13,11 +13,11 @@
          </v-expansion-panel-header>
       <v-expansion-panel-content>
         <v-row>
-          <v-col cols="6" class="mt-2">
+          <v-col cols="6" class="mt-2" style="color: #8E24AA;">
             <edicao-item :itemEdicao="item" ></edicao-item>
             <h3 class="text-center">Editar</h3></v-col>
           <v-col cols="6">
-            <v-btn text><v-icon x-large @click="excluirItem(item.id)">mdi-trash-can-outline</v-icon> </v-btn>
+            <v-btn color="error" text><v-icon x-large @click="excluirItem(item.id)">mdi-trash-can-outline</v-icon> </v-btn>
             <h3 class="text-center">Escluir</h3>
           </v-col>
         </v-row>

@@ -1,6 +1,6 @@
 <template>
   <div id="cadastroOrcamento">
-    <v-tabs v-model="tab" grow icons-and-text background-color="#9FA8" color="#4A148C">
+    <v-tabs v-model="tab" grow icons-and-text background-color="#CE93D8" color="#311B92">
       <v-tabs-slider></v-tabs-slider>
 
       <v-tab href="#tab-1">

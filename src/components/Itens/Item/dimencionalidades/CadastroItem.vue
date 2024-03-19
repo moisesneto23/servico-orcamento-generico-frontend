@@ -3,7 +3,7 @@
     <v-dialog v-model="dialogItem" persistent max-width="800px">
       <v-card>
         <v-card-title>
-          <span class="text-h5">Criar Item de Área</span>
+          <span class="text-h5">Criar Item</span>
         </v-card-title>
         <v-card-text>
           <v-container>
@@ -40,17 +40,17 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn dark @click="selecuinaIdSelect(), salvarItem()">
+          <v-btn color="success" @click="selecuinaIdSelect(), salvarItem()">
             Salvar
           </v-btn>
-          <v-btn color="blue" text @click="dialogItem = false">
-            Cancelar
+          <v-btn  color="grey" @click="dialogItem = false">
+            <b>Cancelar</b> 
           </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
 
-    <v-btn @click="dialogItem = true" color="primary" :rounded="true">
+    <v-btn @click="dialogItem = true" color="purple" :rounded="true">
       <v-icon>mdi-shape-square-plus</v-icon>
       Criar Item
     </v-btn>

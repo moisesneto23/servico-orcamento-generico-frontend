@@ -29,6 +29,7 @@
 
               <v-col cols="5">
                 <v-btn
+                color="red"
                   text
                   @click="excluirCategoriaProduto(cliente.id)"
                   ><v-icon>mdi-trash-can-outline</v-icon>
@@ -41,7 +42,7 @@
       </v-expansion-panels>
     </div>
     <div v-if="!selecao">
-      <v-btn color="primary" rounded @click="selecao = true">
+      <v-btn color="purple" rounded @click="selecao = true">
         selecionar cliente</v-btn
       >
       

@@ -2,7 +2,7 @@
 <template>
   <v-expansion-panels focusable>
     <v-expansion-panel v-for="(item, i) in itensAdicionados" :key="i" class="mb-1">
-      <v-expansion-panel-header color="red">
+      <v-expansion-panel-header color="#C8E6C9">
         <v-row class="my-n5">
           <v-col>
             <h3 class="mt-2"> {{ item.nome }}</h3>
@@ -16,7 +16,7 @@
         </v-row>
   
       </v-expansion-panel-header>
-      <v-expansion-panel-content color="red lighten-5">
+      <v-expansion-panel-content color="#E8F5E9">
 
 
         <div class="item-linear" v-if="item.dimencaoId > 1 && item.dimencaoId < 5">

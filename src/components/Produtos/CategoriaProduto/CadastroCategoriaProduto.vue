@@ -24,18 +24,18 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn dark  @click="adicionarCategoriaProduto" >
+            <v-btn color="success"  @click="adicionarCategoriaProduto" >
               Salvar
             </v-btn>
-            <v-btn color="blue" text @click="dialog = false">
-              Cancelar
+            <v-btn color="grey" @click="dialog = false">
+              <b>Cancelar</b> 
             </v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
-      <v-btn @click="dialog=true" color="primary" :rounded="true">
+      <v-btn @click="dialog=true" color="purple" :rounded="true">
         <v-icon>mdi-format-list-group-plus</v-icon>
-        Cadastrar Categoria
+        <b>Cadastrar Categoria</b> 
       </v-btn>
     </div>
    

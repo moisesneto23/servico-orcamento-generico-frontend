@@ -34,16 +34,16 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn dark  @click="selecionaIdSelect(), salvarproduto()">
+            <v-btn color="success"  @click="selecionaIdSelect(), salvarproduto()">
               Salvar
             </v-btn>
-            <v-btn color="blue" text @click="dialogproduto = false">
-              Cancelar
+            <v-btn color="grey"  @click="dialogproduto = false">
+              <b>Cancelar</b> 
             </v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
-      <v-btn @click="dialogproduto=true"  color="primary" :rounded="true">
+      <v-btn @click="dialogproduto=true"  color="purple" :rounded="true">
         <v-icon>mdi-shape-square-plus</v-icon>
         Criar Produto
       </v-btn>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>login</h1>
+    <!-- <h1> componente de login</h1> -->
 
     <v-container>
       <v-col>
@@ -24,10 +24,10 @@
             @click:append="show1 = !show1"
           ></v-text-field>
 
-          <v-btn  color="secondary" style="background-color: blue"  large class="mr-4" @click="fazerLogin()"> Fazer Login </v-btn>
+          <v-btn  color="#ff9800" large @click="fazerLogin()"> <b>Fazer Login</b> </v-btn>
       </v-col>
     </v-container>
-    <h3><v-btn text color="">Esqueci a Senha</v-btn></h3>
+    <h3><v-btn  dark color="#37474F">Esqueci a Senha</v-btn></h3>
   </div>
 </template>
 

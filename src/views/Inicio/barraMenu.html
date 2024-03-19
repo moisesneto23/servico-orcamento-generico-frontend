@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exemplo de Cabeçalho</title>
+<link href="https://cdn.jsdelivr.net/npm/@mdi/font/css/materialdesignicons.min.css" rel="stylesheet"> <!-- Ícones do Material Design -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/vuetify/2.5.10/vuetify.min.css" rel="stylesheet"> <!-- Estilos do Vuetify -->
+<style>
+  .toolbar {
+    background-color: #007bff; /* Cor de fundo da barra de menu */
+    color: #fff; /* Cor do texto */
+    height: 64px; /* Altura da barra de menu */
+    display: flex;
+    align-items: center;
+    padding: 0 16px; /* Espaçamento interno */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Sombra suave */
+  }
+
+  .menu-button {
+    margin-right: 16px; /* Espaçamento à direita do botão de menu */
+  }
+
+  .menu-button .mdi {
+    font-size: 32px; /* Tamanho do ícone do botão de menu */
+  }
+
+  .menu-button:hover {
+    cursor: pointer; /* Altera o cursor ao passar o mouse sobre o botão */
+  }
+
+  .title {
+    font-size: 24px; /* Tamanho do texto do título */
+    margin-right: auto; /* Alinha o título à esquerda */
+  }
+
+  .logout-button {
+    background-color: #dc3545; /* Cor de fundo do botão de logout */
+    color: #fff; /* Cor do texto do botão de logout */
+    border-radius: 5px; /* Borda arredondada */
+    padding: 8px 16px; /* Espaçamento interno */
+    margin-left: 16px; /* Espaçamento à esquerda do botão de logout */
+  }
+
+  .logout-button:hover {
+    background-color: #c82333; /* Cor de fundo do botão de logout ao passar o mouse */
+    cursor: pointer; /* Altera o cursor ao passar o mouse sobre o botão */
+  }
+</style>
+</head>
+<body>
+<div class="toolbar">
+  <div class="menu-button">
+    <i class="mdi mdi-menu"></i> <!-- Ícone do menu -->
+  </div>
+  <div class="title">
+    Início <!-- Título da página -->
+  </div>
+  <div class="logout-button">
+    Sair <!-- Botão de logout -->
+  </div>
+</div>
+</body>
+</html>

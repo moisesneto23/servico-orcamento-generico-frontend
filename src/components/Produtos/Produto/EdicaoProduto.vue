@@ -23,12 +23,12 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn dark  @click="processarEdicao(exibeProduto)">
+            <v-btn color="success" class="mx-4" @click="processarEdicao(exibeProduto)">
               Salvar Edição
             </v-btn>
             
-            <v-btn color="blue" text @click="dialog = false">
-              Cancelar
+            <v-btn color="grey" @click="dialog = false">
+              <b>Cancelar</b> 
             </v-btn>
           </v-card-actions>
         </v-card>

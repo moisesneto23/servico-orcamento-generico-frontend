@@ -10,7 +10,7 @@
             <h3 class="text-center">Editar</h3></v-col>
             
           <v-col cols="6">
-            <v-btn text @click="excluirCategoriaProduto(categoriaProduto.id)"><v-icon>mdi-trash-can-outline</v-icon> </v-btn>
+            <v-btn color="error" text @click="excluirCategoriaProduto(categoriaProduto.id)"><v-icon>mdi-trash-can-outline</v-icon> </v-btn>
             <h3 class="text-center">Escluir</h3>
           </v-col>
         </v-row>

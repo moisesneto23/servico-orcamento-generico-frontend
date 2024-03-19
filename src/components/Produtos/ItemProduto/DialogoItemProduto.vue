@@ -8,18 +8,18 @@
         <listagem-itens-produto :produtoId="produtoId" @fecha-dialogo="dialog = false"></listagem-itens-produto>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="primary" @click="adicionarItens">
-            Adicicionar itens
+          <v-btn color="success"  class="mx-4" @click="adicionarItens">
+            Adicionar itens
           </v-btn>
-          <v-btn color="red" text @click="dialog = false">
-            Cancelar
+          <v-btn color="grey" @click="dialog = false">
+            <b>Cancelar</b> 
           </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
     <v-btn @click="dialog = true" color="primary" class="mb-4">
       <v-icon>mdi-format-list-group-plus</v-icon>
-      Adicionar Itens ao produto
+      <b>Adicionar Itens ao produto</b>
     </v-btn>
   </div>
 </template>

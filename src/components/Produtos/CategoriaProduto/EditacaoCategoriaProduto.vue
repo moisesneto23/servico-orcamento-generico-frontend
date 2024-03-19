@@ -23,17 +23,17 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn dark  @click="processarEdicao(exibeCategoriaProduto)">
+            <v-btn color="success"  @click="processarEdicao(exibeCategoriaProduto)">
               Salvar
             </v-btn>
             
-            <v-btn color="blue" text @click="dialog = false">
-              Cancelar
+            <v-btn color="grey" text @click="dialog = false">
+              <b>Cancelar</b> 
             </v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
-       <v-btn text @click="dialog=true">
+       <v-btn text color="#8E24AA" @click="dialog=true">
               <v-icon>mdi-circle-edit-outline</v-icon> 
               </v-btn>
     </div>
