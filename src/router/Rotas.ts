@@ -3,7 +3,8 @@ export default class Rotas {
       Login: "/login",
       CadastroEmpresa: "/cadastro-empresa",
       Sobre: "/sobre",
-      RecuperarSenha: "/sobre",
+      RecuperarSenha: "/recupera-senha",
+
    };
    public static Inicio = '/';
    public static Cadastros = {

@@ -5,6 +5,7 @@ import VueRouter, { RouteConfig } from "vue-router";
 import CadastroEmpresa from "@/views/visitante/CadastroEmpresa.vue";
 import Sobre from "@/views/visitante/Sobre.vue";
 import Login from "@/views/visitante/Login.vue";
+import RecuperaSenha from "@/views/visitante/RecuperaSenha.vue";
 
 Vue.use(VueRouter);
 
@@ -29,6 +30,11 @@ const routes: Array<RouteConfig> = [
         path: "/sobre",
         name: "Sobre",
         component: Sobre,
+      },
+      {
+        path: "/recupera-senha",
+        name: "Sobre",
+        component: RecuperaSenha,
       },
     ],
   },

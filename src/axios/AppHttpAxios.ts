@@ -10,9 +10,9 @@ export class AppHttpAxios {
   constructor() {
     this.axiosInstance = Axios.create({
       baseURL : //'https://servico-orcamento-generico.azurewebsites.net/api/'
-      //'http://localhost:5068/api'
+      'http://localhost:5187/'
       //'http://192.168.0.104:7068/api/'
-      'https://api.orcamentodeobra.com.br/'
+      //'https://api.orcamentodeobra.com.br/'
     });
     this.axiosInstance.interceptors.request.use(Request);
     this.axiosInstance.defaults.headers.common['Authorization'] = localStorage.getItem('ocirenegotnemacro') || '';

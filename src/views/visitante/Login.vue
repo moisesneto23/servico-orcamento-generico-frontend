@@ -27,7 +27,7 @@
           <v-btn  color="#ff9800" large @click="fazerLogin()"> <b>Fazer Login</b> </v-btn>
       </v-col>
     </v-container>
-    <h3><v-btn  dark color="#37474F">Esqueci a Senha</v-btn></h3>
+    <h3><v-btn  dark color="#37474F" @click="irParaRecuperarSenha()" >Esqueci a Senha</v-btn></h3>
   </div>
 </template>
 
@@ -61,7 +61,9 @@ export default class Loginin extends Vue {
 
 @Action(GlobalActionTypes.FAZER_LOGIN)
 private fazLogin!: (login:Login)=> Promise<void>;
-
+public irParaRecuperarSenha() {
+  this.$router.push(Rotas.Visitante.RecuperarSenha);
+}
 public fazerLogin(){
 
       this.AtivarCarregamento();
