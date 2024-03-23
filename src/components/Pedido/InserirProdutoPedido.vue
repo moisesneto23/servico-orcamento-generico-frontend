@@ -1,8 +1,8 @@
 <template>
     <div id="InserirProdutoPedido">
-      <v-btn class="my-6" color="primary" rounded @click="finalizarPedido()" :disabled="!pedidoProdutos.length"> <h6>Finalizar o pedido</h6></v-btn>
+      <v-btn class="my-6" color="success" rounded @click="finalizarPedido()" :disabled="!pedidoProdutos.length"> <h6>Finalizar o pedido</h6></v-btn>
       <PedidoProdutosSelecionados />
-      <v-btn  @click="tab = 1">selecionar outro cliente</v-btn>
+      <v-btn color="purple" disabled @click="tab = 1">selecionar outro cliente</v-btn>
       <ListagemSelecaoPedidoProduto 
       />
       

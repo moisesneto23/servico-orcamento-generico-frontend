@@ -66,7 +66,6 @@ import {EtapasPedidoEnum} from '@/Model/Enum/EtapasPedidoEnum';
     }
 
     public  clienteSelecionado(cliente: ClienteDto){
-      debugger;
       console.log(this.etapasPedido);
       this.pedido.clienteId = cliente.id;
        this.salvarPedido(this.pedido).then(()=> {this.etapasPedido = this.enumEtapas.InsercaoProdutoAoPedido}).catch(()=>{alert('Não é possivel adicionar o pedido' + this.pedido.descricao)});

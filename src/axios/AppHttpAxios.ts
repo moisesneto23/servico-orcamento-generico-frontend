@@ -10,9 +10,9 @@ export class AppHttpAxios {
   constructor() {
     this.axiosInstance = Axios.create({
       baseURL : //'https://servico-orcamento-generico.azurewebsites.net/api/'
-      'http://localhost:5187/'
+      //'https://localhost:7187/'
       //'http://192.168.0.104:7068/api/'
-      //'https://api.orcamentodeobra.com.br/'
+      'https://api.orcamentodeobra.com.br/'
     });
     this.axiosInstance.interceptors.request.use(Request);
     this.axiosInstance.defaults.headers.common['Authorization'] = localStorage.getItem('ocirenegotnemacro') || '';
@@ -24,7 +24,7 @@ export class AppHttpAxios {
         router.push(Rotas.Visitante.Login);
       }
       if(error.response.status === 400 ){
-        alert(error.response.data.detail);
+        alert(error.response.data.Detail);
       }
       return Promise.reject(error);
     });

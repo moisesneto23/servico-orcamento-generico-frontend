@@ -116,9 +116,9 @@ export default class CadastroItem extends Vue {
     this.tipoUnidadeMedida.push({ id: 3, nome: 'Metro' });
     this.tipoUnidadeMedida.push({ id: 4, nome: 'Área/m2' });
     this.tipoUnidadeMedida.push({ id: 5, nome: 'Volume/m3' });
-    this.tipoUnidadeMedida.push({ id: 7, nome: 'Chapa em m2' });
-    this.tipoUnidadeMedida.push({ id: 8, nome: 'Barra em metros'});
-    this.tipoUnidadeMedida.push({ id: 6, nome: 'Hora'});
+    this.tipoUnidadeMedida.push({ id: 6, nome: 'Chapa em m2' });
+    this.tipoUnidadeMedida.push({ id: 7, nome: 'Barra em metros'});
+    this.tipoUnidadeMedida.push({ id: 8, nome: 'Hora'});
   }
   public verificaId(){
     if(this.tipoUnidadeMedida){

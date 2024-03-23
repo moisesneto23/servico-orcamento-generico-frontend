@@ -42,7 +42,7 @@
             min-width="300"
             @click="selecionarProduto(produto)"
           >
-          <h2>Inserir produto</h2>
+          <h2>Adicionar produto</h2>
             
           </v-btn>
           </v-row>

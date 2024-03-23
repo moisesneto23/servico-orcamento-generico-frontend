@@ -1,11 +1,11 @@
 <template>
     <v-expansion-panels focusable v-if="dialog">
       <v-expansion-panel v-for="(produto, i) in pedidoProdutos" :key="i" class="mb-2">
-        <v-expansion-panel-header > 
+        <v-expansion-panel-header color="#C8E6C9"> 
             <h3>  {{ produto.nomeProduto }}</h3> 
          
            </v-expansion-panel-header>
-        <v-expansion-panel-content class="mt-10">
+        <v-expansion-panel-content color="#E8F5E9">
    
 
             <v-row justify="center">
@@ -43,7 +43,7 @@
             min-width="300"
             @click="removerProdutoPedido(produto)"
           >
-          <h2>Excluir produto</h2>
+          <h2>Remover produto do pedido</h2>
             
           </v-btn>
           </v-row>
