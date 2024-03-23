@@ -1,6 +1,6 @@
 
 import  { AppHttpAxios }  from '@/axios/AppHttpAxios';
-import CategoriaModel from '@/Model/Itens/CategoriaModel';
+import CategoriaModel from '@/Model/Itens/CategoriaDto';
 import { Inject } from 'typescript-ioc';
 import store from '@/store';
 export class CategoriaRepository {

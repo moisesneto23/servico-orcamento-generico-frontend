@@ -1,41 +1,41 @@
 <template>
   <div justify="center">
-    <v-dialog v-model="dialog" persistent max-width="800px">
-      <v-card min-height="800px">
+    <v-dialog v-model="dialog" persistent max-width="1000px" >
+      <v-card min-height="">
         <v-card-title>
-          <span class="text-h5">Adicionar Itens ao Produto</span>
+          <span class="text-h5">Adicionar, editar ou excluir Itens ao Produto</span>
         </v-card-title>
-        <listagem-itens-produto :produtoId="produtoId"></listagem-itens-produto>
+        <listagem-itens-produto :produtoId="produtoId" @fecha-dialogo="dialog = false"></listagem-itens-produto>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="primary" @click="adicionarItens">
-            Adicicionar itens
+          <v-btn color="success"  class="mx-4" @click="adicionarItens">
+            Adicionar itens
           </v-btn>
-          <v-btn color="red" text @click="dialog = false">
-            Cancelar
+          <v-btn color="grey" @click="dialog = false">
+            <b>Cancelar</b> 
           </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
     <v-btn @click="dialog = true" color="primary" class="mb-4">
       <v-icon>mdi-format-list-group-plus</v-icon>
-      Adicionar Itens ao produto
+      <b>Adicionar Itens ao produto</b>
     </v-btn>
   </div>
 </template>
 
 
 <script lang="ts">
-import CategoriaModel from "@/Model/Itens/CategoriaModel";
 import { Vue, Component, Prop } from "vue-property-decorator";
 import { StoreNamespaces } from '@/store';
-import { namespace } from 'vuex-class';
+import { Action, namespace } from 'vuex-class';
 import ListagemItensProduto from './ListagemItensProduto.vue'
-import ItemModel from "@/Model/Itens/ItemModel";
-import { ProdutosActionTypes } from "@/store/Produtos/actions";
-import ItemProdutoModel from "@/Model/Produtos/ItemProdutoModel";
+import ItemDto from "@/Model/Itens/ItemDto";
+import { ItensActionTypes } from "@/store/Item/actions";
+import { GlobalActionTypes } from "@/store/actions";
 
-const produto = namespace(StoreNamespaces.PRODUTO);
+const item =namespace(StoreNamespaces.ITEM);
+
 @Component({
   components: {
     ListagemItensProduto,
@@ -46,17 +46,44 @@ export default class DialogoItemProduto extends Vue {
   @Prop()
   public produtoId!: number;
 
-  @produto.Action(ProdutosActionTypes.SALVAR_ITEM_PRODUTO)
-  public salvaItensProduto!: (categoria: CategoriaModel) => Promise<any>;
+  @item.Action(ItensActionTypes.OBTER_ITENS)
+  public obterTodosItens!:() => Promise<any>;
+
+    @Action(GlobalActionTypes.ATIVAR_CARREGAMENTO)
+    private AtivarCarregamento!:() => Promise<void>
+
+    @Action(GlobalActionTypes.DESATIVAR_CARREGAMENTO)
+    private DesativarCarregamento!:() => Promise<void>
 
   public dialog = false;
 
-  public itensSelecionados!: ItemModel[];
+  public itensSelecionados!: ItemDto[];
   public adicionarItens() {
     return this.itensSelecionados;
   }
   public async salvarItensProduto() {
     this.$emit('produto-adicao-concluido')
   }
+
+  mounted(){
+    this.AtivarCarregamento();
+    this.obterTodosItens().then(()=>{
+        this.DesativarCarregamento();
+      }).catch(()=>this.DesativarCarregamento());
+  }
+
 }
 </script>
+<style>
+.fullscreen-dialog {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+</style>

@@ -4,7 +4,7 @@
       <v-dialog v-model="dialog" persistent max-width="600px">
         <v-card>
           <v-card-title>
-            <span class="text-h5">Criar Categoria</span>
+            <span class="text-h5">Editar Item</span>
           </v-card-title>
           <v-card-text>
             <v-container>
@@ -22,6 +22,7 @@
                     label="Valor de compra"
                     hint="custo de compra do item"
                      v-model="itemEdicao.valorCompra"
+                     type="number"
                   ></v-text-field>
                 </v-col>
 
@@ -30,6 +31,7 @@
                     label="Valor de venda"
                     hint="pretenção de venda do item"
                      v-model="itemEdicao.valorVenda"
+                     type="number"
                   ></v-text-field>
                 </v-col>
                
@@ -39,17 +41,18 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn dark  @click="editarItem(itemEdicao)" class="mt-8">
+
+            <v-btn color="#0288D1"  @click="editarItem(itemEdicao)" class="mx-8">
               Salvar Edição
             </v-btn>
             
-            <v-btn color="blue" text @click="dialog = false">
-              Cancelar
+            <v-btn color="grey" @click="dialog = false">
+              <b>Cancelar</b> 
             </v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
-             <v-btn text  @click="dialog=true"><v-icon x-large>mdi-circle-edit-outline</v-icon> </v-btn>
+             <v-btn text color="#8E24AA" @click="dialog=true"><v-icon x-large>mdi-circle-edit-outline</v-icon> </v-btn>
        
     </div>
    
@@ -59,11 +62,11 @@
 
 <script lang="ts">
 import { Vue, Component,Prop } from "vue-property-decorator";
-import TipoModel from "@/Model/Itens/TipoModel";
 import { StoreNamespaces } from "@/store";
-import { namespace } from "vuex-class";
+import { Action, namespace } from "vuex-class";
 import { ItensActionTypes } from "@/store/Item/actions";
-import ItemModel from "@/Model/Itens/ItemModel";
+import ItemDto from "@/Model/Itens/ItemDto";
+import { GlobalActionTypes } from "@/store/actions";
 
 const item = namespace(StoreNamespaces.ITEM);
 
@@ -72,16 +75,19 @@ export default class EdicaoItem extends Vue {
   public dialog = false;
 
  @item.Action(ItensActionTypes.EDITAR_ITEM)
-  public editaItem!:(item: ItemModel) => Promise<any>;
+  public editaItem!:(item: ItemDto) => Promise<any>;
+
 
   @Prop()
-  public itemEdicao!: ItemModel;
+  public itemEdicao!: ItemDto;
   
 
-  private async editarItem(item: ItemModel): Promise<any>{
+  public async editarItem(item: ItemDto): Promise<any>{
        await this.editaItem(item).then(()=>{
-           this.dialog = false;
-        });
+      this.dialog = false;
+    }).catch(()=>{
+      alert("Algo deu errado nesta operação")
+    });
   }
 }
 </script>

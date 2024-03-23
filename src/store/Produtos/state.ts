@@ -1,19 +1,18 @@
-import ItemProdutoModel from '@/Model/Produtos/ItemProdutoModel';
-import TipoProdutoModel from '@/Model/Produtos/TipoProdutoModel';
-import CategoriaProdutoModel from '@/Model/Produtos/CategoriaProdutoModel';
-import ProdutoModel from '@/Model/Produtos/ProdutoModel';
+import ItemProdutoDimencaoDto from '@/Model/Produtos/ItemProdutoDimencaoDto';
+import {CategoriaProdutoDto} from '@/Model/Produtos/CategoriaProdutoDto';
+import ProdutoModel from '@/Model/Produtos/ProdutoDto';
 
 
 export class ProdutoState {
-  public itensProduto?: ItemProdutoModel[];
-  public tiposProduto?: TipoProdutoModel[] ;
-  public categoriasProduto?: CategoriaProdutoModel[] ;
+  public itensProdutoDimencao?: ItemProdutoDimencaoDto[];
+  public categoriasProduto?: CategoriaProdutoDto[] ;
   public produtos?: ProdutoModel[];
+  public produtosComItensCadastrados?: ProdutoModel[];
 }
 
 export const state: ProdutoState = {
-  itensProduto: [],
-  tiposProduto: [],
+  itensProdutoDimencao: [],
   categoriasProduto: [],
   produtos: [],
+  produtosComItensCadastrados: [],
 };

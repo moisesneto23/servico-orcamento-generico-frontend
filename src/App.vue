@@ -18,7 +18,7 @@ export default class App extends Vue {
 background: #F2F2F2;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   text-align: center;
-  height:100vh ;
+  font-size: 12px;
 }
 
 </style>

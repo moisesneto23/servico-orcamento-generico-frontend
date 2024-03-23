@@ -3,7 +3,8 @@ export default class Rotas {
       Login: "/login",
       CadastroEmpresa: "/cadastro-empresa",
       Sobre: "/sobre",
-      RecuperarSenha: "/sobre",
+      RecuperarSenha: "/recupera-senha",
+
    };
    public static Inicio = '/';
    public static Cadastros = {
@@ -11,6 +12,7 @@ export default class Rotas {
       CadastroItens: '/cadastro/itens',
       CadastroProdutos: "/cadastro/produtos",
       RealizaOrcamento: '/cadastro/orcamento',
+      Pedidos: '/Pedidos'
    };
    public static Ajuda = '/ajuda';
 }

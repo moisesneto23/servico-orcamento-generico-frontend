@@ -1,4 +1,4 @@
-import  CategoriaModel  from '@/Model/Itens/CategoriaModel';
+import  CategoriaModel  from '@/Model/Itens/CategoriaDto';
 export default class TipoModel{
 public id!: number;
 public descricao!: string;

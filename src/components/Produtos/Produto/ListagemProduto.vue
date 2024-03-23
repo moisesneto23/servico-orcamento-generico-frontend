@@ -3,7 +3,7 @@
       <v-expansion-panel v-for="produto in produtos" :key="produto.id" class="mb-2">
         <v-expansion-panel-header> <h3>  {{ produto.nome }}</h3> 
           <v-divider vertical class="mx-2"></v-divider> 
-          <h4>Tipo Produto: <h5>{{ produto.tipoItem.descricao}}</h5>  </h4> </v-expansion-panel-header>
+          <h4>Categoria Produto: <h5>{{ produto.categoriaProduto.descricao}}</h5>  </h4> </v-expansion-panel-header>
         <v-expansion-panel-content class="mt-10">
             <dialogo-item-produto :produtoId="produto.id" 
             @produto-adicao-concluido="buscaItensProduto"/>
@@ -34,11 +34,11 @@
   import { Vue, Component } from "vue-property-decorator";
   import EdicaoProduto from './EdicaoProduto.vue'
   import { StoreNamespaces } from "@/store";
-  import { namespace } from "vuex-class";
+  import { Action, namespace } from "vuex-class";
   import { ProdutosActionTypes } from "@/store/Produtos/actions";
-  import ProdutoModel from "@/Model/Produtos/ProdutoModel";
-  import DialogoItemProduto from "../ItemProduto/DialogoItemProduto.vue"
-import ItemProdutoModel from "@/Model/Produtos/ItemProdutoModel";
+  import ProdutoDto from "@/Model/Produtos/ProdutoDto";
+  import DialogoItemProduto from "../ItemProduto/DialogoItemProduto.vue";
+  import { GlobalActionTypes } from "@/store/actions";
   
   const produto = namespace(StoreNamespaces.PRODUTO);
   @Component({
@@ -47,31 +47,45 @@ import ItemProdutoModel from "@/Model/Produtos/ItemProdutoModel";
       DialogoItemProduto
     }
   })
-  export default class ListagemTipoProduto extends Vue {
+  export default class ListagemProduto extends Vue {
     
-    @produto.Action(ProdutosActionTypes.OBTER_PRODUTOS)
-    public obterTodosProdutos!:() => Promise<any>;
+  
   
     @produto.Action(ProdutosActionTypes.REMOVER_PRODUTO)
     public removerProduto!:(id: number) => Promise<any>;
     
-    @produto.Action(ProdutosActionTypes.OBTER_ITEMS_PRODUTO)
+    @produto.Action(ProdutosActionTypes.OBTER_ITEMS_PRODUTO_DIMENCAO)
     public obterItensProduto!:() => Promise<any>;
 
+      @Action(GlobalActionTypes.ATIVAR_CARREGAMENTO)
+    private AtivarCarregamento!:() => Promise<void>
+
+    @Action(GlobalActionTypes.DESATIVAR_CARREGAMENTO)
+    private DesativarCarregamento!:() => Promise<void>
+      
     @produto.State
-    public produtos!: ProdutoModel[];
+    public produtos!: ProdutoDto[];
   
-    public async mounted(){
-      await this.obterTodosProdutos();
-    }
+    
    public async excluirProduto(id: number){
-      await this.removerProduto(id);
+    this.AtivarCarregamento();
+      await this.removerProduto(id).then(()=>{
+        this.DesativarCarregamento();
+      }).catch(()=>{
+        alert("Algo deu errado nesta operação")
+        this.DesativarCarregamento()});;
    }
 
    public dialog = true;
 
    public async buscaItensProduto(){
-    await this.obterItensProduto()
+    this.AtivarCarregamento();
+    await this.obterItensProduto().then(() => {
+      this.DesativarCarregamento();
+    }).catch(()=>{
+      this.DesativarCarregamento();
+      alert("Algo deu errado nesta operação")
+    });
    }
     
   }

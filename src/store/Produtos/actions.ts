@@ -1,14 +1,14 @@
-import CategoriaModel  from '@/Model/Itens/CategoriaModel';
+import CategoriaModel  from '@/Model/Itens/CategoriaDto';
 import { ActionTree } from 'vuex';
 import { ProdutoState } from './state';
 import { RootState } from '@/store';
 import  {ProdutosMutationTypes}  from './mutations';
 import { Container, Inject } from 'typescript-ioc';
-import ItemProdutoService from '@/Service/Produtos/ItemProdutoService';
-import  ItemProdutoModel  from '@/Model/Produtos/ItemProdutoModel';
+import ItemProdutoDimencaoService from '@/Service/Produtos/ItemProdutoDimencaoService';
+import  ItemProdutoDimencaoDto  from '@/Model/Produtos/ItemProdutoDimencaoDto';
 import ProdutoService from '@/Service/Produtos/ProdutoService';
-import  ProdutoModel  from '@/Model/Produtos/ProdutoModel';
-import  CategoriaProdutoModel  from '@/Model/Produtos/CategoriaProdutoModel';
+import  ProdutoModel  from '@/Model/Produtos/ProdutoDto';
+import  {CategoriaProdutoDto}  from '@/Model/Produtos/CategoriaProdutoDto';
 import CategoriaProdutoService from '@/Service/Produtos/CategoriaProdutoService';
 import TipoProdutoService from '@/Service/Produtos/TipoProdutoService';
 import TipoProdutoModel  from '@/Model/Produtos/TipoProdutoModel';
@@ -21,20 +21,19 @@ export enum ProdutosActionTypes {
   EDITAR_CATEGORIA_PRODUTO = 'EDITAR_CATEGORIA_PRODUTO',
   REMOVER_CATEGORIA_PRODUTO = 'REMOVER_CATEGORIA_PRODUTO',
 
-  OBTER_TIPOS_PRODUTO = 'OBTER_TIPOS_PRODUTO',
-  SALVAR_TIPO_PRODUTO = 'SALVAR_TIPO_PRODUTO',
-  EDITAR_TIPO_PRODUTO = 'EDITAR_TIPO_PRODUTO',
-  REMOVER_TIPO_PRODUTO = 'REMOVER_TIPO_PRODUTO',
-
-  OBTER_ITEMS_PRODUTO = 'OBTER_ITEMS_PRODUTO',
-  SALVAR_ITEM_PRODUTO = 'SALVAR_ITEM_PRODUTO',
-  EDITAR_ITEM_PRODUTO = 'EDITAR_ITEM_PRODUTO',
-  REMOVER_ITEM_PRODUTO = 'REMOVER_ITEM_PRODUTO',
+  OBTER_ITEMS_PRODUTO_DIMENCAO = 'OBTER_ITEMS_PRODUTO_DIMENCAO',
+  SALVAR_ITEM_PRODUTO_DIMENCAO = 'SALVAR_ITEM_PRODUTO_DIMENCAO',
+  EDITAR_ITEM_PRODUTO_DIMENCAO = 'EDITAR_ITEM_PRODUTO_DIMENCAO',
+  REMOVER_ITEM_PRODUTO_DIMENCAO = 'REMOVER_ITEM_PRODUTO_DIMENCAO',
+  OBTER_ITENS_PRODUTO_POR_PRODUTO = 'OBTER_ITENS_PRODUTO_POR_PRODUTO',
 
   OBTER_PRODUTOS = 'OBTER_PRODUTOS',
   SALVAR_PRODUTO = 'SALVAR_PRODUTO',
   EDITAR_PRODUTO = 'EDITAR_PRODUTO',
   REMOVER_PRODUTO = 'REMOVER_PRODUTO',
+  REMOVER_PRODUTO_STORE = 'REMOVER_PRODUTO_STORE',
+  OBTER_PRODUTOS_POR_CATEGORIA = 'OBTER_PRODUTOS_POR_CATEGORIA',
+  OBTER_PRODUTOS_COM_ITENS_CADASTRADOS ='OBTER_PRODUTOS_COM_ITENS_CADASTRADOS',
 }
 
 
@@ -46,14 +45,14 @@ const actions: ActionTree<ProdutoState, RootState> = {
     commit(ProdutosMutationTypes.SET_CATEGORIAS_PRODUTO, categoriasProduto);
   },
 
-  async [ProdutosActionTypes.SALVAR_CATEGORIA_PRODUTO]({ commit }, categoria: CategoriaProdutoModel ) {
+  async [ProdutosActionTypes.SALVAR_CATEGORIA_PRODUTO]({ commit }, categoria: CategoriaProdutoDto ) {
     const service = (Container.get(CategoriaProdutoService) as CategoriaProdutoService);
     await service.salvarCategoriaProduto(categoria);
     const categoriasProduto = await service.obterTodasCategoriasProduto();
     commit(ProdutosMutationTypes.SET_CATEGORIAS_PRODUTO, categoriasProduto);
   },
 
-  async [ProdutosActionTypes.EDITAR_CATEGORIA_PRODUTO]({ commit }, categoria: CategoriaProdutoModel ) {
+  async [ProdutosActionTypes.EDITAR_CATEGORIA_PRODUTO]({ commit }, categoria: CategoriaProdutoDto ) {
     const service = (Container.get(CategoriaProdutoService) as CategoriaProdutoService);
     await service.editarCategoriaProduto(categoria);
     const categoriasProduto = await service.obterTodasCategoriasProduto();
@@ -67,64 +66,44 @@ const actions: ActionTree<ProdutoState, RootState> = {
     commit(ProdutosMutationTypes.SET_CATEGORIAS_PRODUTO, categoriasProduto);
   },
 
-  async [ProdutosActionTypes.OBTER_TIPOS_PRODUTO]({ commit }) {
-    const service = (Container.get(TipoProdutoService) as TipoProdutoService);
-    const tiposProduto = await service.obterTodosTiposProduto();
-    commit(ProdutosMutationTypes.SET_TIPO_PRODUTO, tiposProduto);
-  },
-
-  async [ProdutosActionTypes.SALVAR_TIPO_PRODUTO]({ commit }, tipo: TipoProdutoModel) {
-    const service = (Container.get(TipoProdutoService) as TipoProdutoService);
-     await service.salvarTipoProduto(tipo);
-     const tiposProduto = await service.obterTodosTiposProduto();
-    commit(ProdutosMutationTypes.SET_TIPO_PRODUTO, tiposProduto);
-  },
-
-  async [ProdutosActionTypes.EDITAR_TIPO_PRODUTO]({ commit }, tipo: TipoProdutoModel ) {
-    const service = (Container.get(TipoProdutoService) as TipoProdutoService);
-    await service.editarProduto(tipo);
-    const tiposProduto = await service.obterTodosTiposProduto();
-    commit(ProdutosMutationTypes.SET_TIPO_PRODUTO, tiposProduto);
-  },
-
-  async [ProdutosActionTypes.REMOVER_TIPO_PRODUTO]({ commit }, id: number) {
-    const service = (Container.get(TipoProdutoService) as TipoProdutoService);
-     await service.delete(id);
-     const tiposProduto = await service.obterTodosTiposProduto();
-    commit(ProdutosMutationTypes.SET_TIPO_PRODUTO, tiposProduto);
-  },
 
 
 
 
-
-  async [ProdutosActionTypes.OBTER_ITEMS_PRODUTO]({ commit }) {
-    const service = (Container.get(ItemProdutoService) as ItemProdutoService);
+  async [ProdutosActionTypes.OBTER_ITEMS_PRODUTO_DIMENCAO]({ commit }) {
+    const service = (Container.get(ItemProdutoDimencaoService) as ItemProdutoDimencaoService);
     const itensProduto = await service.obterTodosItensProduto();
     commit(ProdutosMutationTypes.SET_ITENS_PRODUTO, itensProduto);
   },
 
-  async [ProdutosActionTypes.SALVAR_ITEM_PRODUTO]({ commit }, produto: ItemProdutoModel) {
-    const service = (Container.get(ItemProdutoService) as ItemProdutoService);
+
+
+  async [ProdutosActionTypes.SALVAR_ITEM_PRODUTO_DIMENCAO]({ commit }, produto: ItemProdutoDimencaoDto) {
+    const service = (Container.get(ItemProdutoDimencaoService) as ItemProdutoDimencaoService);
     await service.salvarItemProduto(produto);
-    const itensProduto = await service.obterTodosItensProduto();
+    const itensProduto = await service.obterItensCadastradoPorProduto(produto.produtoId);
     commit(ProdutosMutationTypes.SET_ITENS_PRODUTO, itensProduto);
   },
 
-  async [ProdutosActionTypes.EDITAR_ITEM_PRODUTO]({ commit }, produto: ItemProdutoModel) {
-    const service = (Container.get(ItemProdutoService) as ItemProdutoService);
+  async [ProdutosActionTypes.EDITAR_ITEM_PRODUTO_DIMENCAO]({ commit }, produto: ItemProdutoDimencaoDto) {
+    const service = (Container.get(ItemProdutoDimencaoService) as ItemProdutoDimencaoService);
     await service.editarItemProduto(produto);
-    const itensProduto = await service.obterTodosItensProduto();
+    const itensProduto = await service.obterItensCadastradoPorProduto(produto.produtoId);
     commit(ProdutosMutationTypes.SET_ITENS_PRODUTO, itensProduto);
   },
 
-  async [ProdutosActionTypes.REMOVER_ITEM_PRODUTO]({ commit }, id: number) {
-    const service = (Container.get(ItemProdutoService) as ItemProdutoService);
+  async [ProdutosActionTypes.REMOVER_ITEM_PRODUTO_DIMENCAO]({ commit }, id: number) {
+    const service = (Container.get(ItemProdutoDimencaoService) as ItemProdutoDimencaoService);
     await service.delete(id);
     const itensProduto = await service.obterTodosItensProduto();
     commit(ProdutosMutationTypes.SET_ITENS_PRODUTO, itensProduto);
   },
 
+  async [ProdutosActionTypes.OBTER_ITENS_PRODUTO_POR_PRODUTO]({ commit }, produtoId: number) {
+    const service = (Container.get(ItemProdutoDimencaoService) as ItemProdutoDimencaoService);
+    const itensProduto = await service.obterItensCadastradoPorProduto(produtoId);
+    commit(ProdutosMutationTypes.SET_ITENS_PRODUTO, itensProduto);
+  },
 
 
 
@@ -133,6 +112,12 @@ const actions: ActionTree<ProdutoState, RootState> = {
   async [ProdutosActionTypes.OBTER_PRODUTOS]({ commit }) {
     const service = (Container.get(ProdutoService) as ProdutoService);
     const produtos = await service.obterTodosProdutos();
+    commit(ProdutosMutationTypes.SET_PRODUTOS, produtos);
+  },
+
+  async [ProdutosActionTypes.OBTER_PRODUTOS_POR_CATEGORIA]({ commit }, idCategoria: number) {
+    const service = (Container.get(ProdutoService) as ProdutoService);
+    const produtos = await service.obterTodosProdutosPorCategoria(idCategoria);
     commit(ProdutosMutationTypes.SET_PRODUTOS, produtos);
   },
 
@@ -155,6 +140,16 @@ const actions: ActionTree<ProdutoState, RootState> = {
     await service.delete(id);
     const produtos = await service.obterTodosProdutos();
     commit(ProdutosMutationTypes.SET_PRODUTOS, produtos);
+  },
+
+  [ProdutosActionTypes.REMOVER_PRODUTO_STORE]({ commit }, id: number) {
+    commit(ProdutosMutationTypes.SET_REMOVE_PRODUTO, id);
+  },
+
+  async [ProdutosActionTypes.OBTER_PRODUTOS_COM_ITENS_CADASTRADOS]({ commit }) {
+    const service = (Container.get(ProdutoService) as ProdutoService);
+    const PEDIDOS = await service.obterProdutosComItensCadastrados();
+    commit(ProdutosMutationTypes.SET_PRODUTOS_COM_ITENS_CADASTRADOS, PEDIDOS);
   },
 };
 

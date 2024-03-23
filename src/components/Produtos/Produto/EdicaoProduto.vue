@@ -23,12 +23,12 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn dark  @click="processarEdicao(exibeProduto)">
+            <v-btn color="success" class="mx-4" @click="processarEdicao(exibeProduto)">
               Salvar Edição
             </v-btn>
             
-            <v-btn color="blue" text @click="dialog = false">
-              Cancelar
+            <v-btn color="grey" @click="dialog = false">
+              <b>Cancelar</b> 
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -45,9 +45,10 @@
 <script lang="ts">
 import { Vue, Component,Prop } from "vue-property-decorator";
 import { StoreNamespaces } from "@/store";
-import { namespace } from "vuex-class";
+import { Action, namespace } from "vuex-class";
 import { ProdutosActionTypes } from "@/store/Produtos/actions";
-import ProdutoModel from "@/Model/Produtos/ProdutoModel";
+import ProdutoDto from "@/Model/Produtos/ProdutoDto";
+import { GlobalActionTypes } from "@/store/actions";
 
 const produto = namespace(StoreNamespaces.PRODUTO);
 
@@ -55,21 +56,32 @@ const produto = namespace(StoreNamespaces.PRODUTO);
 export default class EdicaoTipoProduto extends Vue {
   public dialog = false;
  @produto.Action(ProdutosActionTypes.EDITAR_PRODUTO)
-  public editaProduto!:(produto: ProdutoModel) => Promise<any>;
+  public editaProduto!:(produto: ProdutoDto) => Promise<any>;
+
+    @Action(GlobalActionTypes.ATIVAR_CARREGAMENTO)
+    private AtivarCarregamento!:() => Promise<void>
+
+    @Action(GlobalActionTypes.DESATIVAR_CARREGAMENTO)
+    private DesativarCarregamento!:() => Promise<void>
   @Prop()
-  public produto!: ProdutoModel;
+  public produto!: ProdutoDto;
   public get exibeProduto(){
     return this.produto;
   }
   
-  public processarEdicao(produto: ProdutoModel){
+  public processarEdicao(produto: ProdutoDto){
     this.editarProduto(produto);
   }
 
-  private async editarProduto(produto: ProdutoModel): Promise<any>{
+  private async editarProduto(produto: ProdutoDto): Promise<any>{
+    this.AtivarCarregamento();
        await this.editaProduto(produto).then(()=>{
+        this.DesativarCarregamento();
         this.dialog = false;
-        });
+        }).catch(()=>{
+      this.DesativarCarregamento();
+      alert("Algo deu errado nesta operação")
+    });
   }
 }
 </script>

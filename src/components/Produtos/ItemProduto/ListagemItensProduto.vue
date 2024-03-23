@@ -1,6 +1,6 @@
 <template>
   <div id="cadastroOrcamento">
-    <v-tabs v-model="tab" grow icons-and-text background-color="#9FA8" color="#4A148C">
+    <v-tabs v-model="tab" grow icons-and-text background-color="#CE93D8" color="#311B92">
       <v-tabs-slider></v-tabs-slider>
 
       <v-tab href="#tab-1">
@@ -9,17 +9,17 @@
       </v-tab>
 
       <v-tab href="#tab-2">
-        Comprimento
+        Linear
         <v-icon>mdi-arrow-right-thin</v-icon>
       </v-tab>
 
       <v-tab href="#tab-3">
-        Perimetro
+        Perímetro
         <v-icon>mdi-network-strength-outline</v-icon>
       </v-tab>
 
       <v-tab href="#tab-4">
-        Area
+        Área
         <v-icon>mdi-square-outline</v-icon>
       </v-tab>
 
@@ -34,8 +34,10 @@
       <v-tab-item value="tab-1">
         <div>
           <v-card-text>
-            <itens-unidade-selecao :itensNaoAdicionados="itensNaoAdicionados"
-              :produtoId="produtoId"></itens-unidade-selecao>
+            <itens-unidade-selecao 
+              :itensNaoAdicionados="itensNaoAdicionados"
+              :produtoId="produtoId"
+              @fechar-dialogo="fechaDialogo" ></itens-unidade-selecao>
           </v-card-text>
         </div>
       </v-tab-item>
@@ -82,23 +84,42 @@
       <v-card>
 
         itens selecionados
-        <v-card>
-          <v-expansion-panel v-for="(item, i) in itensAdicionados" :key="i" class="mb-1" expand-icon="mdi-plus">
-
+        
+  <listagem-item-produto-edicao :produtoId="produtoId"></listagem-item-produto-edicao>
+          <!-- <v-expansion-panel v-for="(item, i) in itensAdicionados" :key="i" class="mb-1" expand-icon="mdi-plus">
             <v-expansion-panel-header @click="removerItem(item)" expand-icon="mdi-minus"
               style="background-color: #f2f2f2;">
               <h3> {{ item.nome }}</h3>
               <v-divider vertical class="mx-2"></v-divider>
-              <h4>Tipo:<h5> {{ item.tipoItem.descricao }} </h5>
+              <h4>Tipo:<h5> {{ }} </h5>
               </h4>
             </v-expansion-panel-header>
+          </v-expansion-panel> -->
 
-          </v-expansion-panel>
 
-        </v-card>
       </v-card>
     </v-tabs-items>
 
+
+
+    <!-- <v-item-group
+        class="mt-8 mx-4"
+        :value="itensAdicionados"
+      >
+        <v-item v-for="item in itensAdicionados" :key="item.id" :value="item.id">
+          <v-sheet
+            :min-height="40"
+            elevation="4"
+            @click="removerItem(item)"
+            class="pa-4 d-flex align-center justify-center"
+            style="border-radius: 8px; cursor: pointer"
+          >
+            <span class="primary--text text-body-1 font-weight-bold text-center">
+              {{ item.nome }}
+            </span>
+          </v-sheet>
+        </v-item>
+      </v-item-group> -->
 
   </div>
 </template>
@@ -109,11 +130,12 @@ import ItensLinearSelecao from './itensSelecao/ItensLinearSelecao.vue';
 import ItensAreaSelecao from './itensSelecao/ItensAreaSelecao.vue';
 import ItensVolumeSelecao from './itensSelecao/ItensVolumeSelecao.vue';
 import ItensPerimetroSelecao from './itensSelecao/ItensPerimetroSelecao.vue';
-import ItemModel from "@/Model/Itens/ItemModel";
+import ItemDto from "@/Model/Itens/ItemDto";
 import { ProdutosActionTypes } from "@/store/Produtos/actions";
 import { StoreNamespaces } from "@/store/namespaces";
 import { namespace } from "vuex-class";
-import ItemProdutoModel from "@/Model/Produtos/ItemProdutoModel";
+import ItemProdutoDimencaoDto from "@/Model/Produtos/ItemProdutoDimencaoDto";
+import ListagemItemProdutoEdicao from '@/components/Produtos/ItemProduto/ListagemItemProdutoEdicao.vue';
 
 const produto = namespace(StoreNamespaces.PRODUTO);
 const item = namespace(StoreNamespaces.ITEM);
@@ -125,49 +147,46 @@ const item = namespace(StoreNamespaces.ITEM);
     ItensAreaSelecao,
     ItensVolumeSelecao,
     ItensPerimetroSelecao,
+    ListagemItemProdutoEdicao,
   },
 })
 export default class ListagemItensProduto extends Vue {
   @Prop()
   public produtoId!: number;
 
-  @produto.Action(ProdutosActionTypes.REMOVER_ITEM_PRODUTO)
-  private removeItemProduto!: (id: number) => Promise<void>;
+  
+
+    @produto.Action(ProdutosActionTypes.OBTER_ITENS_PRODUTO_POR_PRODUTO)
+  private ObterItensPorProduto!: (id: number) => Promise<void>;
 
   @produto.State
-  private itensProduto!: ItemProdutoModel[];
+  private itensProdutoDimencao!: ItemProdutoDimencaoDto[];
 
   @item.State
-  public itens!: ItemModel[];
+  public itens!: ItemDto[];
 
   public tab = null;
   public dialogoItemProduto = false;
-  public itensSelecionados: ItemModel[] = [];
+  public itensSelecionados: ItemDto[] = [];
 
+  mounted(){
+    this.ObterItensPorProduto(this.produtoId);
+  }
 
   public adicionaItemProdutoSelecao() {
     this.dialogoItemProduto = false;
   }
-  public obterItensSelecionados(item: ItemModel) {
+  public obterItensSelecionados(item: ItemDto) {
     this.itensSelecionados.push(item);
   }
 
-  public get itensAdicionados(): ItemModel[] {
-    let itensRetorno: ItemModel[] = [];
-    this.itensProduto.forEach(itensProduto => {
-      this.itens.forEach(item => {
-        if (item.id === itensProduto.itemId &&
-          itensProduto.produtoId === this.produtoId)
-          itensRetorno.push(item);
-      })
-    });
-    return itensRetorno;
+  public fechaDialogo() {
+    this.$emit('fecha-dialogo');
   }
-
-  public get itensNaoAdicionados(): ItemModel[] {
-    let itensRetorno: ItemModel[] = [];
+  public get itensNaoAdicionados(): ItemDto[] {
+    let itensRetorno: ItemDto[] = [];
     for (const item of this.itens) {
-    if (!this.itensProduto.some(itemProduto => itemProduto.itemId === item.id && this.produtoId === itemProduto.produtoId)) {
+    if (!this.itensProdutoDimencao.some(itemProduto => itemProduto.itemId === item.id && this.produtoId === itemProduto.produtoId)) {
       itensRetorno.push(item);
     }
   }
@@ -176,18 +195,13 @@ export default class ListagemItensProduto extends Vue {
     return this.itens;
   }
 
-  verificaItemPertenceAoProduto(item: ItemModel, itemProduto: ItemProdutoModel): boolean {
+  verificaItemPertenceAoProduto(item: ItemDto, itemProduto: ItemProdutoDimencaoDto): boolean {
     if (this.produtoId ===itemProduto.produtoId && item.id === itemProduto.itemId)
       return true;
     return false;
   }
 
-  public async removerItem(item: ItemModel) {
-    const itemProduto = this.itensProduto.find(x => x.itemId === item.id && x.produtoId === this.produtoId);
-    if (itemProduto !== undefined) {
-      await this.removeItemProduto(itemProduto.id).then();
-    }
-  }
+ 
 }
 </script>
 <style scoped>#cadastroOrcamento {

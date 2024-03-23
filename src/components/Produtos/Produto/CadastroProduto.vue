@@ -20,8 +20,8 @@
                
                 <v-col cols="12" sm="6">
                   <v-select
-                    :items="descricaoTipos"
-                    label="Selecione o tipo do produto*"
+                    :items="descricaoCategorias"
+                    label="Selecione a Categoria do produto*"
                     required
                     v-model="select"
                   ></v-select>
@@ -34,16 +34,16 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn dark  @click="selecuinaIdSelect(), salvarproduto()">
+            <v-btn color="success"  @click="selecionaIdSelect(), salvarproduto()">
               Salvar
             </v-btn>
-            <v-btn color="blue" text @click="dialogproduto = false">
-              Cancelar
+            <v-btn color="grey"  @click="dialogproduto = false">
+              <b>Cancelar</b> 
             </v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
-      <v-btn @click="dialogproduto=true"  color="primary" :rounded="true">
+      <v-btn @click="dialogproduto=true"  color="purple" :rounded="true">
         <v-icon>mdi-shape-square-plus</v-icon>
         Criar Produto
       </v-btn>
@@ -54,39 +54,54 @@
 
 
 <script lang="ts">
-import ProdutoModel from "@/Model/Produtos/ProdutoModel";
+import ProdutoDto from "@/Model/Produtos/ProdutoDto";
 import { StoreNamespaces } from "@/store";
 import { Vue, Component } from "vue-property-decorator";
-import { namespace } from "vuex-class";
+import { Action, namespace } from "vuex-class";
 import { ProdutosActionTypes } from "@/store/Produtos/actions";
-import TipoProdutoModel from "@/Model/Produtos/TipoProdutoModel";
+import {CategoriaProdutoDto} from "@/Model/Produtos/CategoriaProdutoDto";
+import { GlobalActionTypes } from "@/store/actions";
 const produto = namespace(StoreNamespaces.PRODUTO);
 
 @Component({})
 export default class CadastroProduto extends Vue {
   @produto.Action(ProdutosActionTypes.SALVAR_PRODUTO)
-  public salvaproduto!:(produto: ProdutoModel) => Promise<any>;
+  public salvaproduto!:(produto: ProdutoDto) => Promise<any>;
 
-  @produto.State
-  private tiposProduto!: TipoProdutoModel[];
+ @produto.State
+  private categoriasProduto!: CategoriaProdutoDto[];
 
-  public produto = new ProdutoModel();
-  public selecuinaIdSelect(){
-  this.idSelect = this.tiposProduto.find(x=>x.descricao == this.select)?.id;
-  }
+  @Action(GlobalActionTypes.ATIVAR_CARREGAMENTO)
+    private AtivarCarregamento!:() => Promise<void>
+
+    @Action(GlobalActionTypes.DESATIVAR_CARREGAMENTO)
+    private DesativarCarregamento!:() => Promise<void>
+
+  public produto = new ProdutoDto();
   public idSelect?: number;
   public select = '';
   public async salvarproduto(){
-    this.produto.tipoProdutoId = this.idSelect || 0;
+    this.AtivarCarregamento();
+    this.produto.categoriaProdutoId = this.idSelect || 0;
     await this.salvaproduto(this.produto).then(()=>{
-        this.descricaoTipos;
       this.dialogproduto = false;
-    })
+      this.DesativarCarregamento();
+    }).catch(()=>{
+      this.DesativarCarregamento();
+      alert("Algo deu errado nesta operação")
+    });
   }
+  public selecionaIdSelect(){
+  this.idSelect = this.categoriasProduto.find(x=>x.descricao == this.select)?.id;
+}
 
-  public get descricaoTipos(){
-    return this.tiposProduto.map(c=>c.descricao);
-  }
   public dialogproduto = false;
+
+  
+  public get descricaoCategorias(){
+    return this.categoriasProduto.map((c)=>c.descricao);
+  }
+ 
+
 }
 </script>

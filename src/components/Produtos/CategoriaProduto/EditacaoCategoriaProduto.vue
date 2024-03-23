@@ -23,17 +23,17 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn dark  @click="processarEdicao(exibeCategoriaProduto)">
+            <v-btn color="success"  @click="processarEdicao(exibeCategoriaProduto)">
               Salvar
             </v-btn>
             
-            <v-btn color="blue" text @click="dialog = false">
-              Cancelar
+            <v-btn color="grey" text @click="dialog = false">
+              <b>Cancelar</b> 
             </v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
-       <v-btn text @click="dialog=true">
+       <v-btn text color="#8E24AA" @click="dialog=true">
               <v-icon>mdi-circle-edit-outline</v-icon> 
               </v-btn>
     </div>
@@ -44,31 +44,42 @@
 
 <script lang="ts">
 import { Vue, Component,Prop } from "vue-property-decorator";
-import { namespace } from "vuex-class";
+import { Action, namespace } from "vuex-class";
 import { StoreNamespaces } from "@/store";
-import CategoriaProdutoModel from "@/Model/Produtos/CategoriaProdutoModel";
+import {CategoriaProdutoDto} from "@/Model/Produtos/CategoriaProdutoDto";
 import { ProdutosActionTypes } from "@/store/Produtos/actions";
+import { GlobalActionTypes } from "@/store/actions";
 
 const produto = namespace(StoreNamespaces.PRODUTO);
 @Component({})
 export default class EdicaoCategoriaProduto extends Vue {
 
   @produto.Action(ProdutosActionTypes.EDITAR_CATEGORIA_PRODUTO)
-  public editarCategoriaProduto!:(categoriaProduto: CategoriaProdutoModel) => Promise<any>;
+  public editarCategoriaProduto!:(categoriaProduto: CategoriaProdutoDto) => Promise<any>;
   public dialog = false;
 
+  @Action(GlobalActionTypes.ATIVAR_CARREGAMENTO)
+    private AtivarCarregamento!:() => Promise<void>
+
+    @Action(GlobalActionTypes.DESATIVAR_CARREGAMENTO)
+    private DesativarCarregamento!:() => Promise<void>
+
+
   @Prop()
-  private categoriaProduto!: CategoriaProdutoModel;
+  private categoriaProduto!: CategoriaProdutoDto;
   public get exibeCategoriaProduto(){
     return this.categoriaProduto;
   }
-  mounted(){
-    console.log(this.categoriaProduto)
-  }
-  public processarEdicao(categoriaProduto: CategoriaProdutoModel){
+  
+  public processarEdicao(categoriaProduto: CategoriaProdutoDto){
+    this.AtivarCarregamento();
     this.editarCategoriaProduto(categoriaProduto).then(()=>{
+      this.DesativarCarregamento();
       this.dialog = false; 
       this.$emit('categoriaAlterada',this.categoriaProduto);
+    }).catch(()=>{
+      this.DesativarCarregamento();
+      alert("Algo deu errado nesta operação")
     });
   }
 

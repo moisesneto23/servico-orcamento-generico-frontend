@@ -1,4 +1,4 @@
-import CategoriaProdutoModel from '@/Model/Produtos/CategoriaProdutoModel';
+import CategoriaProdutoModel from '@/Model/Produtos/CategoriaProdutoDto';
 export default class TipoProdutoModel {
     id!: number;
     descricao!: string;

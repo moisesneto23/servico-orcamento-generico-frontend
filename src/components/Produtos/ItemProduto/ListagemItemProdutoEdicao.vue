@@ -1,0 +1,220 @@
+
+<template>
+  <v-expansion-panels focusable>
+    <v-expansion-panel v-for="(item, i) in itensAdicionados" :key="i" class="mb-1">
+      <v-expansion-panel-header color="#C8E6C9">
+        <v-row class="my-n5">
+          <v-col>
+            <h3 class="mt-2"> {{ item.nome }}</h3>
+          </v-col>
+          <v-col>
+            <h4>Orientação de calculo:<h5 class="mt-1"> {{ obterNomeDimencao(item.dimencaoId) }} </h5> </h4>
+          </v-col>
+          <v-col>
+            <h4>Medida de unidade:<h5 class="mt-1"> {{ item.nomeUnidadeMedida }} </h5> </h4>
+          </v-col>
+        </v-row>
+  
+      </v-expansion-panel-header>
+      <v-expansion-panel-content color="#E8F5E9">
+
+
+        <div class="item-linear" v-if="item.dimencaoId > 1 && item.dimencaoId < 5">
+          <v-row>
+
+            <v-col cols="12" sm="6">
+              <v-select color="teal" v-model="select" :items="direcoesCauculoLinear" item-text="descricao" item-value="id"
+                label="Direção de calculo" persistent-hint return-object single-line></v-select>
+            </v-col>
+
+          </v-row>
+          <v-row>
+            <v-col cols="4" sm="4" md="4">
+              <v-text-field color="teal" type="number" v-model="item.somatorioLargura" label="Somatorio Largura"
+                v-if="obterIdDirecaoCauculo === 2"></v-text-field>
+              <v-text-field color="teal" type="number" v-model="item.somatorioALtura" label="Somatorio Altura"
+                v-else-if="obterIdDirecaoCauculo === 3"></v-text-field>
+              <v-text-field color="teal" type="number" v-model="item.somatorioComprimento" label="Sommatorio Comprimento"
+                v-else-if="obterIdDirecaoCauculo === 4"></v-text-field>
+            </v-col>
+          </v-row>
+        </div>
+
+        <div class="item-perimetro" v-if="item.dimencaoId > 4 && item.dimencaoId < 8">
+          <v-row>
+
+            <v-col cols="12" sm="6">
+              <v-select color="teal" v-model="select" :items="direcoesCauculoPerimetro" item-text="descricao" item-value="id"
+                label="Direção de calculo" persistent-hint return-object single-line></v-select>
+            </v-col>
+
+          </v-row>
+          <v-row>
+
+            <v-col cols="4" sm="4" md="4">
+              <v-text-field color="teal" type="number" v-model="item.somatorioLargura" label="Somatorio Largura"
+                v-if="obterIdDirecaoCauculo === 5 || obterIdDirecaoCauculo === 7"></v-text-field>
+              <v-text-field color="teal" type="number" v-model="item.somatorioALtura" label="Somatorio Altura"
+                v-if="obterIdDirecaoCauculo === 5 || obterIdDirecaoCauculo === 6"></v-text-field>
+              <v-text-field color="teal" type="number" v-model="item.somatorioComprimento" label="Sommatorio Comprimento"
+                v-if="obterIdDirecaoCauculo === 6 || obterIdDirecaoCauculo === 7"></v-text-field>
+            </v-col>
+
+            <v-col cols="4" sm="4" md="4">
+              <v-text-field color="teal" type="number" v-model="item.coeficienteLargura" label="Coeficiente Largura"
+                v-if="obterIdDirecaoCauculo === 5 || obterIdDirecaoCauculo === 7"></v-text-field>
+              <v-text-field color="teal" type="number" v-model="item.coeficienteAltura" label="Coeficiente Altura"
+                v-if="obterIdDirecaoCauculo === 5 || obterIdDirecaoCauculo === 6"></v-text-field>
+              <v-text-field color="teal" type="number" v-model="item.coeficienteComprimento" label="Coeficiente Comprimento"
+                v-if="obterIdDirecaoCauculo === 6 || obterIdDirecaoCauculo === 7"></v-text-field>
+            </v-col>
+          </v-row>
+        </div>
+
+        <div class="item-area" v-if="item.dimencaoId > 7 && item.dimencaoId < 11">
+          <v-row>
+
+            <v-col cols="12" sm="6">
+              <v-select color="teal" v-model="select" :items="direcoesCauculoArea" item-text="descricao" item-value="id"
+                label="Direção de calculo" persistent-hint return-object single-line></v-select>
+            </v-col>
+
+          </v-row>
+          <v-row>
+
+            <v-col cols="4" sm="4" md="4">
+              <v-text-field color="teal" type="number" v-model="item.somatorioLargura" label="Somatorio Largura"
+                v-if="obterIdDirecaoCauculo === 8 || obterIdDirecaoCauculo === 10"></v-text-field>
+              <v-text-field color="teal" type="number" v-model="item.somatorioALtura" label="Somatorio Altura"
+                v-if="obterIdDirecaoCauculo === 8 || obterIdDirecaoCauculo === 9"></v-text-field>
+              <v-text-field color="teal" type="number" v-model="item.somatorioComprimento" label="Sommatorio Comprimento"
+                v-if="obterIdDirecaoCauculo === 9 || obterIdDirecaoCauculo === 10"></v-text-field>
+            </v-col>
+
+            <v-col cols="4" sm="4" md="4">
+              <v-text-field color="teal" type="number" v-model="item.coeficienteLargura" label="Coeficiente Largura"
+                v-if="obterIdDirecaoCauculo === 8 || obterIdDirecaoCauculo === 10"></v-text-field>
+              <v-text-field color="teal" type="number" v-model="item.coeficienteAltura" label="Coeficiente Altura"
+                v-if="obterIdDirecaoCauculo === 8 || obterIdDirecaoCauculo === 9"></v-text-field>
+              <v-text-field color="teal" type="number" v-model="item.coeficienteComprimento" label="Coeficiente Comprimento"
+                v-if="obterIdDirecaoCauculo === 9 || obterIdDirecaoCauculo === 10"></v-text-field>
+            </v-col>
+          </v-row>
+        </div>
+
+        <v-row>
+          <v-col cols="4" sm="4" md="4">
+            <v-text-field type="number" v-model="item.quantidade" label="Quantidade de itens*" color="teal" required></v-text-field>
+          </v-col>
+
+          <v-col cols="4" sm="6" md="4">
+            <v-text-field type="number" v-model="item.valorAdicional" label="Valor adicional" step="0.01" locale="pt-BR" color="teal"
+              prefix="R$" required></v-text-field>
+          </v-col>
+          <v-col>
+            <v-btn color="primary" class="mt-5" @click="editarItemProduto(item)"
+              :disabled="!item.quantidade || item.quantidade < 1">
+              Editar
+            </v-btn>
+            <v-col>
+              <v-btn text @click="excluirItemProduto(item.id)"><v-icon>mdi-trash-can-outline</v-icon> </v-btn>
+              <h3 class="text-center">Excluir</h3>
+            </v-col>
+          </v-col>
+        </v-row>
+      </v-expansion-panel-content>
+    </v-expansion-panel>
+  </v-expansion-panels>
+</template>
+
+<script lang="ts">
+import { DimencaoDto } from "@/Model/Itens/DimencaoDto";
+import ItemProdutoDimencaoDto from "@/Model/Produtos/ItemProdutoDimencaoDto";
+import { ProdutosActionTypes } from "@/store/Produtos/actions";
+import { GlobalActionTypes } from "@/store/actions";
+import { StoreNamespaces } from "@/store/namespaces";
+import { Vue, Component, Prop } from "vue-property-decorator";
+import { Action, namespace } from "vuex-class";
+
+const produto = namespace(StoreNamespaces.PRODUTO);
+const item = namespace(StoreNamespaces.ITEM);
+
+@Component({
+  components: {
+  }
+})
+export default class ListagemItemProdutoEdicao extends Vue {
+
+  @Prop()
+  public produtoId!: number;
+
+  public get itensAdicionados(): ItemProdutoDimencaoDto[] {
+    return this.itensProdutoDimencao.filter(a=>a.produtoId = this.produtoId);
+  }
+
+  @item.State
+  private dimencoes!: DimencaoDto[]; 
+
+  @produto.State
+  private itensProdutoDimencao!: ItemProdutoDimencaoDto[];
+
+  @produto.Action(ProdutosActionTypes.REMOVER_ITEM_PRODUTO_DIMENCAO)
+  private removeItemProduto!: (id: number) => Promise<void>;
+
+  @produto.Action(ProdutosActionTypes.EDITAR_ITEM_PRODUTO_DIMENCAO)
+  private editarItemProdutoDimencao!: (itemProduto: ItemProdutoDimencaoDto) => Promise<void>;
+
+    @Action(GlobalActionTypes.ATIVAR_CARREGAMENTO)
+    private AtivarCarregamento!:() => Promise<void>
+
+    @Action(GlobalActionTypes.DESATIVAR_CARREGAMENTO)
+    private DesativarCarregamento!:() => Promise<void>
+
+  public editarItemProduto(itemProduto: ItemProdutoDimencaoDto) {
+    this.AtivarCarregamento();
+    this.editarItemProdutoDimencao(itemProduto).then(()=>{
+      this.DesativarCarregamento();
+    });
+  }
+  public async excluirItemProduto(id: number) {
+    this.AtivarCarregamento();
+    await this.removeItemProduto(id).then(()=>{
+      this.DesativarCarregamento();
+    }).catch(()=>{
+      this.DesativarCarregamento();
+    })
+  }
+
+  public obterNomeDimencao(dimencaoId: number) {
+    const dimencao = this.dimencoes.find(x => x.id === dimencaoId);
+    return dimencao?.nome + ' ' + dimencao?.descricao;
+  }
+  public direcoesCauculoLinear: DimencaoDto[] = [];
+  public direcoesCauculoPerimetro: DimencaoDto[] = [];
+  public direcoesCauculoArea: DimencaoDto[] = [];
+  public select = new DimencaoDto();
+  mounted() {
+
+    this.direcoesCauculoLinear  = this.dimencoes.filter(x=>x.nome == 'Linear');
+    //.push( { id: 2, nome: 'Linear', descricao: 'Largura', direcaoCalculoId: 2 });
+    // this.direcoesCauculoLinear.push({ id: 3, nome: 'Linear', descricao: 'Altura', direcaoCalculoId: 3 });
+    // this.direcoesCauculoLinear.push({ id: 4, nome: 'Linear', descricao: 'Comprimento', direcaoCalculoId: 4 });
+
+     this.direcoesCauculoPerimetro  = this.dimencoes.filter(x=>x.nome == 'Perimetro');
+    //.push({ id: 5, nome: 'Perimetro', descricao: 'LarguraAltura', direcaoCalculoId: 5 });
+    // this.direcoesCauculoPerimetro.push({ id: 6, nome: 'Perimetro', descricao: 'AlturaComprimento', direcaoCalculoId: 6 });
+    // this.direcoesCauculoPerimetro.push({ id: 7, nome: 'Perimetro', descricao: 'ComprimentoLargura', direcaoCalculoId: 7 });
+
+     this.direcoesCauculoArea  = this.dimencoes.filter(x=>x.nome == 'Area');
+     //.push({ id: 8, nome: 'Area', descricao: 'LarguraAltura', direcaoCalculoId: 5 });
+    // this.direcoesCauculoArea.push({ id: 9, nome: 'Area', descricao: 'AlturaComprimento', direcaoCalculoId: 6 });
+    // this.direcoesCauculoArea.push({ id: 10, nome: 'Area', descricao: 'ComprimentoLargura', direcaoCalculoId: 7 });
+
+    this.select.id = 0;
+  }
+  public get obterIdDirecaoCauculo(): number {
+    return this.select.id;
+  }
+}
+</script>
+

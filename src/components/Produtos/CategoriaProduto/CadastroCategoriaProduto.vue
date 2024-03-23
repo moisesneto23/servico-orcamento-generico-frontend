@@ -24,18 +24,18 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn dark  @click="adicionarCategoriaProduto" >
+            <v-btn color="success"  @click="adicionarCategoriaProduto" >
               Salvar
             </v-btn>
-            <v-btn color="blue" text @click="dialog = false">
-              Cancelar
+            <v-btn color="grey" @click="dialog = false">
+              <b>Cancelar</b> 
             </v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
-      <v-btn @click="dialog=true" color="primary" :rounded="true">
+      <v-btn @click="dialog=true" color="purple" :rounded="true">
         <v-icon>mdi-format-list-group-plus</v-icon>
-        Cadastrar Categoria
+        <b>Cadastrar Categoria</b> 
       </v-btn>
     </div>
    
@@ -48,24 +48,32 @@
 import { Vue, Component } from "vue-property-decorator";
 
 import { StoreNamespaces } from '@/store';
-import { namespace } from 'vuex-class';
+import { Action, namespace } from 'vuex-class';
 import { ProdutosActionTypes } from "@/store/Produtos/actions";
-import CategoriaProdutoModel from "@/Model/Produtos/CategoriaProdutoModel";
+import {CategoriaProdutoDto} from "@/Model/Produtos/CategoriaProdutoDto";
+import { GlobalActionTypes } from "@/store/actions";
 
 const produto = namespace(StoreNamespaces.PRODUTO);
 @Component({})
 export default class CadastroCategoria extends Vue {
 
+  @Action(GlobalActionTypes.ATIVAR_CARREGAMENTO)
+    private AtivarCarregamento!:() => Promise<void>
+
+    @Action(GlobalActionTypes.DESATIVAR_CARREGAMENTO)
+    private DesativarCarregamento!:() => Promise<void>
+
     @produto.Action(ProdutosActionTypes.SALVAR_CATEGORIA_PRODUTO)
-  public salvarCategoriaProduto!:(categoria : CategoriaProdutoModel) => Promise<any>;
+  public salvarCategoriaProduto!:(categoria : CategoriaProdutoDto) => Promise<any>;
 
   public dialog = false;
  
-  public CategoriaProduto = new CategoriaProdutoModel();
+  public CategoriaProduto = new CategoriaProdutoDto();
 
   public async adicionarCategoriaProduto(){
-
+    this.AtivarCarregamento();
     await this.salvarCategoriaProduto(this.CategoriaProduto).then(()=>{
+      this.DesativarCarregamento();
     });
     this.dialog = false;
   }

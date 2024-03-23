@@ -1,0 +1,26 @@
+#name: Build and Deploy
+
+on:
+  push:
+    branches:
+    - primeiroMvp
+
+jobs:
+  deploy:
+    name: deploy na ec2
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: troca arquivos
+      uses: actions/checkout@v2
+
+    - name: copia arquivos com ssh
+      uses: easingthemes/ssh-deploy@main
+      env:
+        SSH_PRIVATE_KEY: ${{secrets.SECRET_EC2}}
+        ARGS: "-rltgoDzvO --delete"
+        SOURCE: "./dist"
+        REMOTE_HOST: "52.86.163.175"
+        REMOTE_USER: "ubuntu"
+        TARGET: "/var/www"
+
